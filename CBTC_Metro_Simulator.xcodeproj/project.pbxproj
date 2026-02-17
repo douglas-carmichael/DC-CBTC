@@ -1,0 +1,447 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		06429A7B5BBCA2778990C4B3 /* TrainDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DB686B4F26C8AA18CA9328 /* TrainDataService.swift */; };
+		12EAB72A4EF4F723035F8949 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E454A8C0AA808F189D0F000F /* ContentView.swift */; };
+		1AB8C31C000F1A03084C541C /* TrainTelecommandsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C6C28157A9DA8CEF9E91A7 /* TrainTelecommandsView.swift */; };
+		38D2445A907A0EDC74675202 /* CBTC_Metro_SimulatorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5905157C3B60FDE590492C /* CBTC_Metro_SimulatorApp.swift */; };
+		40A8CEA546E6AC85FAD537DF /* FontLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3704A5BEA455804DAE17B86 /* FontLoader.swift */; };
+		4EC3DD1F65FE22A0B8C7E095 /* PCCDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF939458249BFFF5F2323080 /* PCCDashboardView.swift */; };
+		55755A969F38F497EAB93679 /* TrainTractionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390AD2E2DB6F2F28DEADD733 /* TrainTractionView.swift */; };
+		5EBBE6A8399FC1D452FC55C1 /* FailureControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9E3C22C317016CE85CF793 /* FailureControlView.swift */; };
+		62A2A62D2272F65156FEACDC /* TrainSecurityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E09CAB32F5C32B31B3B2A1 /* TrainSecurityView.swift */; };
+		6624301ABD395F91CBE95E02 /* Station.swift in Sources */ = {isa = PBXBuildFile; fileRef = E85DC035F956C7920DEFA39C /* Station.swift */; };
+		6690FF27DF309D7F2DF3782E /* TrainHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708320D371D7C3E9F2975788 /* TrainHistoryView.swift */; };
+		6ACA944F613E8D8A54D4C5E0 /* NetworkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D28255C260A9D052EFE93FF /* NetworkView.swift */; };
+		759D4D8E0799A7A6BEA9379A /* VT323-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7246162B8EC6475F6B11F419 /* VT323-Regular.ttf */; };
+		7A1B1EA337DEF494741C3FD9 /* TrainSignalingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DF53A6188BDE08FFA75B64 /* TrainSignalingView.swift */; };
+		7FC318D9E295A622A9806071 /* ManualControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D750F98F3F9BEB1D946262 /* ManualControlView.swift */; };
+		82127057EEA653E5EB237C68 /* TrackSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215BEE2FE24D1551E176C26E /* TrackSegment.swift */; };
+		873B9AAA612FD2D036BBD6B1 /* TrainAuxiliaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0236CA413C4BADDAB97DF37D /* TrainAuxiliaryView.swift */; };
+		B36F9F570D4A12BFC05544FC /* TrainAlarmsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15790ADDAE944C7EBF7089C7 /* TrainAlarmsView.swift */; };
+		B65DFC1E3877D7A409A5464D /* SynopticView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2804B168041D48B89C5272C /* SynopticView.swift */; };
+		B80157C29D3A4D1A67CBF3CD /* Train.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C070F4087DAAF3C99E3990 /* Train.swift */; };
+		BAA6E798097B59DAB825AC8C /* ClockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64A6879BD0F90A9DE17B4A6D /* ClockView.swift */; };
+		BF024AC427F0ACC4366CB1D6 /* SimulationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500C662242FEC295DEADC7D9 /* SimulationController.swift */; };
+		C595389B34470988AE376E05 /* TrainDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71196550873812D90931A8A /* TrainDetailView.swift */; };
+		D8762F2DD23BD627768E7967 /* TrainDCAView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C13889D7A5E885D3790703 /* TrainDCAView.swift */; };
+		ED9FDC0674620BFC9D87957D /* TrainPneumaticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23EA826230BF198813B2224 /* TrainPneumaticsView.swift */; };
+		FD006AFCB52DE424BD29977C /* TrainOperationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BECF2867B19A697295DEEF88 /* TrainOperationsView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0236CA413C4BADDAB97DF37D /* TrainAuxiliaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainAuxiliaryView.swift; sourceTree = "<group>"; };
+		07D750F98F3F9BEB1D946262 /* ManualControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualControlView.swift; sourceTree = "<group>"; };
+		15790ADDAE944C7EBF7089C7 /* TrainAlarmsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainAlarmsView.swift; sourceTree = "<group>"; };
+		20DB686B4F26C8AA18CA9328 /* TrainDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainDataService.swift; sourceTree = "<group>"; };
+		215BEE2FE24D1551E176C26E /* TrackSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackSegment.swift; sourceTree = "<group>"; };
+		390AD2E2DB6F2F28DEADD733 /* TrainTractionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainTractionView.swift; sourceTree = "<group>"; };
+		500C662242FEC295DEADC7D9 /* SimulationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulationController.swift; sourceTree = "<group>"; };
+		6262D142A99ECA7F7D4235B7 /* CBTC_Metro_Simulator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CBTC_Metro_Simulator.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		64A6879BD0F90A9DE17B4A6D /* ClockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockView.swift; sourceTree = "<group>"; };
+		69C6C28157A9DA8CEF9E91A7 /* TrainTelecommandsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainTelecommandsView.swift; sourceTree = "<group>"; };
+		708320D371D7C3E9F2975788 /* TrainHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainHistoryView.swift; sourceTree = "<group>"; };
+		7246162B8EC6475F6B11F419 /* VT323-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "VT323-Regular.ttf"; sourceTree = "<group>"; };
+		8D28255C260A9D052EFE93FF /* NetworkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkView.swift; sourceTree = "<group>"; };
+		92DF53A6188BDE08FFA75B64 /* TrainSignalingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainSignalingView.swift; sourceTree = "<group>"; };
+		A71196550873812D90931A8A /* TrainDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainDetailView.swift; sourceTree = "<group>"; };
+		AE9E3C22C317016CE85CF793 /* FailureControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailureControlView.swift; sourceTree = "<group>"; };
+		B4E09CAB32F5C32B31B3B2A1 /* TrainSecurityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainSecurityView.swift; sourceTree = "<group>"; };
+		BECF2867B19A697295DEEF88 /* TrainOperationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainOperationsView.swift; sourceTree = "<group>"; };
+		BF939458249BFFF5F2323080 /* PCCDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCCDashboardView.swift; sourceTree = "<group>"; };
+		C1C13889D7A5E885D3790703 /* TrainDCAView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainDCAView.swift; sourceTree = "<group>"; };
+		D2804B168041D48B89C5272C /* SynopticView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynopticView.swift; sourceTree = "<group>"; };
+		E3704A5BEA455804DAE17B86 /* FontLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontLoader.swift; sourceTree = "<group>"; };
+		E454A8C0AA808F189D0F000F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		E85DC035F956C7920DEFA39C /* Station.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Station.swift; sourceTree = "<group>"; };
+		EB5905157C3B60FDE590492C /* CBTC_Metro_SimulatorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CBTC_Metro_SimulatorApp.swift; sourceTree = "<group>"; };
+		F0C070F4087DAAF3C99E3990 /* Train.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Train.swift; sourceTree = "<group>"; };
+		F23EA826230BF198813B2224 /* TrainPneumaticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainPneumaticsView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		08F53DAE4AFEDF997E8D6009 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				20DB686B4F26C8AA18CA9328 /* TrainDataService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		11733C29AD35E9C46EEC2CFF /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				E3704A5BEA455804DAE17B86 /* FontLoader.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		13A651C0C83017C65E296196 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E85DC035F956C7920DEFA39C /* Station.swift */,
+				215BEE2FE24D1551E176C26E /* TrackSegment.swift */,
+				F0C070F4087DAAF3C99E3990 /* Train.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		1C26B85AFE5AC70D0DD9D304 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6262D142A99ECA7F7D4235B7 /* CBTC_Metro_Simulator.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3FBFFC92B9BFA7C34B013628 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				64A6879BD0F90A9DE17B4A6D /* ClockView.swift */,
+				E454A8C0AA808F189D0F000F /* ContentView.swift */,
+				AE9E3C22C317016CE85CF793 /* FailureControlView.swift */,
+				07D750F98F3F9BEB1D946262 /* ManualControlView.swift */,
+				8D28255C260A9D052EFE93FF /* NetworkView.swift */,
+				BF939458249BFFF5F2323080 /* PCCDashboardView.swift */,
+				D2804B168041D48B89C5272C /* SynopticView.swift */,
+				15790ADDAE944C7EBF7089C7 /* TrainAlarmsView.swift */,
+				0236CA413C4BADDAB97DF37D /* TrainAuxiliaryView.swift */,
+				C1C13889D7A5E885D3790703 /* TrainDCAView.swift */,
+				A71196550873812D90931A8A /* TrainDetailView.swift */,
+				708320D371D7C3E9F2975788 /* TrainHistoryView.swift */,
+				BECF2867B19A697295DEEF88 /* TrainOperationsView.swift */,
+				F23EA826230BF198813B2224 /* TrainPneumaticsView.swift */,
+				B4E09CAB32F5C32B31B3B2A1 /* TrainSecurityView.swift */,
+				92DF53A6188BDE08FFA75B64 /* TrainSignalingView.swift */,
+				69C6C28157A9DA8CEF9E91A7 /* TrainTelecommandsView.swift */,
+				390AD2E2DB6F2F28DEADD733 /* TrainTractionView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		43F448AC00781A402760E667 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8E42FC677040D1CCFA06AD4E /* Fonts */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		8E42FC677040D1CCFA06AD4E /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				7246162B8EC6475F6B11F419 /* VT323-Regular.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		95F31DF37738922176485A7B = {
+			isa = PBXGroup;
+			children = (
+				CD81305004CAD7891AAD5788 /* Sources */,
+				1C26B85AFE5AC70D0DD9D304 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B103A9863397C967D46E8D14 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				500C662242FEC295DEADC7D9 /* SimulationController.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		CD81305004CAD7891AAD5788 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				EB5905157C3B60FDE590492C /* CBTC_Metro_SimulatorApp.swift */,
+				13A651C0C83017C65E296196 /* Models */,
+				43F448AC00781A402760E667 /* Resources */,
+				08F53DAE4AFEDF997E8D6009 /* Services */,
+				11733C29AD35E9C46EEC2CFF /* Utilities */,
+				B103A9863397C967D46E8D14 /* ViewModels */,
+				3FBFFC92B9BFA7C34B013628 /* Views */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		28FF780A4D93533A18218331 /* CBTC_Metro_Simulator */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 199C397C2FC6521AB6934ECE /* Build configuration list for PBXNativeTarget "CBTC_Metro_Simulator" */;
+			buildPhases = (
+				3224680DCE3E2C506F787F45 /* Sources */,
+				C81F4E9066241C679B679618 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CBTC_Metro_Simulator;
+			packageProductDependencies = (
+			);
+			productName = CBTC_Metro_Simulator;
+			productReference = 6262D142A99ECA7F7D4235B7 /* CBTC_Metro_Simulator.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F4BF3DADA94476465C218D22 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+			};
+			buildConfigurationList = DEBB0D8402EF4AC7F1AF29A4 /* Build configuration list for PBXProject "CBTC_Metro_Simulator" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 95F31DF37738922176485A7B;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				28FF780A4D93533A18218331 /* CBTC_Metro_Simulator */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C81F4E9066241C679B679618 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				759D4D8E0799A7A6BEA9379A /* VT323-Regular.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3224680DCE3E2C506F787F45 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				38D2445A907A0EDC74675202 /* CBTC_Metro_SimulatorApp.swift in Sources */,
+				BAA6E798097B59DAB825AC8C /* ClockView.swift in Sources */,
+				12EAB72A4EF4F723035F8949 /* ContentView.swift in Sources */,
+				5EBBE6A8399FC1D452FC55C1 /* FailureControlView.swift in Sources */,
+				40A8CEA546E6AC85FAD537DF /* FontLoader.swift in Sources */,
+				7FC318D9E295A622A9806071 /* ManualControlView.swift in Sources */,
+				6ACA944F613E8D8A54D4C5E0 /* NetworkView.swift in Sources */,
+				4EC3DD1F65FE22A0B8C7E095 /* PCCDashboardView.swift in Sources */,
+				BF024AC427F0ACC4366CB1D6 /* SimulationController.swift in Sources */,
+				6624301ABD395F91CBE95E02 /* Station.swift in Sources */,
+				B65DFC1E3877D7A409A5464D /* SynopticView.swift in Sources */,
+				82127057EEA653E5EB237C68 /* TrackSegment.swift in Sources */,
+				B80157C29D3A4D1A67CBF3CD /* Train.swift in Sources */,
+				B36F9F570D4A12BFC05544FC /* TrainAlarmsView.swift in Sources */,
+				873B9AAA612FD2D036BBD6B1 /* TrainAuxiliaryView.swift in Sources */,
+				D8762F2DD23BD627768E7967 /* TrainDCAView.swift in Sources */,
+				06429A7B5BBCA2778990C4B3 /* TrainDataService.swift in Sources */,
+				C595389B34470988AE376E05 /* TrainDetailView.swift in Sources */,
+				6690FF27DF309D7F2DF3782E /* TrainHistoryView.swift in Sources */,
+				FD006AFCB52DE424BD29977C /* TrainOperationsView.swift in Sources */,
+				ED9FDC0674620BFC9D87957D /* TrainPneumaticsView.swift in Sources */,
+				62A2A62D2272F65156FEACDC /* TrainSecurityView.swift in Sources */,
+				7A1B1EA337DEF494741C3FD9 /* TrainSignalingView.swift in Sources */,
+				1AB8C31C000F1A03084C541C /* TrainTelecommandsView.swift in Sources */,
+				55755A969F38F497EAB93679 /* TrainTractionView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		84B0AE7ABF1DF9922E3822E0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		8D3461DDC40BB0512884C956 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.dcarmich.CBTC-Metro-Simulator";
+				PRODUCT_NAME = CBTC_Metro_Simulator;
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = macosx;
+			};
+			name = Debug;
+		};
+		A6FB7C2875D76F9F6422EBFD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.dcarmich.CBTC-Metro-Simulator";
+				PRODUCT_NAME = CBTC_Metro_Simulator;
+				SDKROOT = macosx;
+				SUPPORTED_PLATFORMS = macosx;
+			};
+			name = Release;
+		};
+		B93F975CF8A0361CDDF6E985 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		199C397C2FC6521AB6934ECE /* Build configuration list for PBXNativeTarget "CBTC_Metro_Simulator" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8D3461DDC40BB0512884C956 /* Debug */,
+				A6FB7C2875D76F9F6422EBFD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		DEBB0D8402EF4AC7F1AF29A4 /* Build configuration list for PBXProject "CBTC_Metro_Simulator" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				84B0AE7ABF1DF9922E3822E0 /* Debug */,
+				B93F975CF8A0361CDDF6E985 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F4BF3DADA94476465C218D22 /* Project object */;
+}
