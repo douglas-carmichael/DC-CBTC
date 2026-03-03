@@ -761,7 +761,7 @@ class SimulationController: ObservableObject {
                 }
                 
                 // Trigger Dwell if stopped at station
-                if dist < 0.5 && abs(train.speed) < 0.1 {
+                if dist <= 1.5 && abs(train.speed) < 0.1 {
                     // ARRIVED
                     train.isDwelling = true
                     let dwellTime = Double.random(in: 5.0...10.0)
