@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		06429A7B5BBCA2778990C4B3 /* TrainDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DB686B4F26C8AA18CA9328 /* TrainDataService.swift */; };
 		12EAB72A4EF4F723035F8949 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E454A8C0AA808F189D0F000F /* ContentView.swift */; };
+		18450CAEC9931A8ED9D26445 /* DemoModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652D824312C91BA72FF9B8FC /* DemoModeView.swift */; };
 		1AB8C31C000F1A03084C541C /* TrainTelecommandsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C6C28157A9DA8CEF9E91A7 /* TrainTelecommandsView.swift */; };
 		38D2445A907A0EDC74675202 /* CBTC_Metro_SimulatorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5905157C3B60FDE590492C /* CBTC_Metro_SimulatorApp.swift */; };
 		40A8CEA546E6AC85FAD537DF /* FontLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3704A5BEA455804DAE17B86 /* FontLoader.swift */; };
@@ -24,6 +25,7 @@
 		7FC318D9E295A622A9806071 /* ManualControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D750F98F3F9BEB1D946262 /* ManualControlView.swift */; };
 		82127057EEA653E5EB237C68 /* TrackSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215BEE2FE24D1551E176C26E /* TrackSegment.swift */; };
 		873B9AAA612FD2D036BBD6B1 /* TrainAuxiliaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0236CA413C4BADDAB97DF37D /* TrainAuxiliaryView.swift */; };
+		97A005A17EE5B1663CE349AF /* DemoModeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6177755ADD3B840F894383 /* DemoModeManager.swift */; };
 		B36F9F570D4A12BFC05544FC /* TrainAlarmsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15790ADDAE944C7EBF7089C7 /* TrainAlarmsView.swift */; };
 		B65DFC1E3877D7A409A5464D /* SynopticView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2804B168041D48B89C5272C /* SynopticView.swift */; };
 		B80157C29D3A4D1A67CBF3CD /* Train.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C070F4087DAAF3C99E3990 /* Train.swift */; };
@@ -42,9 +44,11 @@
 		20DB686B4F26C8AA18CA9328 /* TrainDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainDataService.swift; sourceTree = "<group>"; };
 		215BEE2FE24D1551E176C26E /* TrackSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackSegment.swift; sourceTree = "<group>"; };
 		390AD2E2DB6F2F28DEADD733 /* TrainTractionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainTractionView.swift; sourceTree = "<group>"; };
+		3A6177755ADD3B840F894383 /* DemoModeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoModeManager.swift; sourceTree = "<group>"; };
 		500C662242FEC295DEADC7D9 /* SimulationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulationController.swift; sourceTree = "<group>"; };
 		6262D142A99ECA7F7D4235B7 /* CBTC_Metro_Simulator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CBTC_Metro_Simulator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		64A6879BD0F90A9DE17B4A6D /* ClockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockView.swift; sourceTree = "<group>"; };
+		652D824312C91BA72FF9B8FC /* DemoModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoModeView.swift; sourceTree = "<group>"; };
 		69C6C28157A9DA8CEF9E91A7 /* TrainTelecommandsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainTelecommandsView.swift; sourceTree = "<group>"; };
 		708320D371D7C3E9F2975788 /* TrainHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainHistoryView.swift; sourceTree = "<group>"; };
 		7246162B8EC6475F6B11F419 /* VT323-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "VT323-Regular.ttf"; sourceTree = "<group>"; };
@@ -105,6 +109,7 @@
 			children = (
 				64A6879BD0F90A9DE17B4A6D /* ClockView.swift */,
 				E454A8C0AA808F189D0F000F /* ContentView.swift */,
+				652D824312C91BA72FF9B8FC /* DemoModeView.swift */,
 				AE9E3C22C317016CE85CF793 /* FailureControlView.swift */,
 				07D750F98F3F9BEB1D946262 /* ManualControlView.swift */,
 				8D28255C260A9D052EFE93FF /* NetworkView.swift */,
@@ -152,6 +157,7 @@
 		B103A9863397C967D46E8D14 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				3A6177755ADD3B840F894383 /* DemoModeManager.swift */,
 				500C662242FEC295DEADC7D9 /* SimulationController.swift */,
 			);
 			path = ViewModels;
@@ -239,6 +245,8 @@
 				38D2445A907A0EDC74675202 /* CBTC_Metro_SimulatorApp.swift in Sources */,
 				BAA6E798097B59DAB825AC8C /* ClockView.swift in Sources */,
 				12EAB72A4EF4F723035F8949 /* ContentView.swift in Sources */,
+				97A005A17EE5B1663CE349AF /* DemoModeManager.swift in Sources */,
+				18450CAEC9931A8ED9D26445 /* DemoModeView.swift in Sources */,
 				5EBBE6A8399FC1D452FC55C1 /* FailureControlView.swift in Sources */,
 				40A8CEA546E6AC85FAD537DF /* FontLoader.swift in Sources */,
 				7FC318D9E295A622A9806071 /* ManualControlView.swift in Sources */,

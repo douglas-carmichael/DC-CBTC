@@ -181,7 +181,11 @@ class SimulationController: ObservableObject {
             areDoorsOpen: false,
             isEmergencyBrakeApplied: false,
             startupState: .booting,
-            startupTime: 0.0
+            startupTime: 0.0,
+            consigneVitesse: 0.0,
+            speedError: 0.0,
+            desiredAcceleration: 0.0,
+            distanceToMA: 0.0
         )
         
         trains.append(newTrain)
@@ -801,33 +805,65 @@ class SimulationController: ObservableObject {
                 effectiveDistToMA = 0
             }
             
-            let safeBrakingDistance = (train.speed * train.speed) / (2 * maxBraking)
-            var desiredAcc: CGFloat = 0.0
+            // --- Asservissement (Control Loop) Logic ---
             
-            if effectiveDistToMA < safeBrakingDistance + 0.5 { // +0.5m buffer
-                // Safety Braking for MA or Station
-                desiredAcc = -maxBraking
-                if train.speed == 0 && effectiveDistToMA < 1.0 {
-                     train.status = .stopped
-                } else {
-                    train.status = .moving
-                }
-            } else if train.isEngineFault {
-                // Engine failure
-                desiredAcc = (train.speed > 0) ? -0.1 : 0.0
-                train.status = .moving
-            } else if train.speed < train.targetSpeed {
-                desiredAcc = maxAcceleration
-                train.status = .moving
-            } else if train.speed > train.targetSpeed {
-                desiredAcc = -maxBraking
-                train.status = .moving
+            let nominalBraking: CGFloat = 0.8 // m/s² for smooth stops
+            let emergencyBraking: CGFloat = 1.2 // m/s² for safety limits
+            
+            var consigneVitesse: CGFloat = 0.0
+            
+            // 1. Calculate Target Speed Profile (Braking Curve)
+            // v = sqrt(2 * a * d). We leave a 1.0m safety margin to ensure complete stop before MA limit.
+            let distanceMargin: CGFloat = 1.0
+            if effectiveDistToMA > distanceMargin {
+                let brakingProfileSpeed = sqrt(2 * nominalBraking * (effectiveDistToMA - distanceMargin))
+                // Target speed is bounded by the train's nominal target speed limit
+                consigneVitesse = min(train.targetSpeed, brakingProfileSpeed)
             } else {
-                desiredAcc = 0
-                if train.speed == 0 { train.status = .stopped }
+                consigneVitesse = 0.0
             }
             
+            // 2. Calculate Speed Error
+            let speedError = consigneVitesse - train.speed
             
+            // 3. Proportional Control
+            let Kp: CGFloat = 1.0 // Proportional gain
+            var desiredAcc = Kp * speedError
+            
+            // 4. Emergency Override
+            // If we are dangerously close to overrunning the MA at current speed, force emergency braking
+            let safeBrakingDistance = (train.speed * train.speed) / (2 * emergencyBraking)
+            if effectiveDistToMA <= safeBrakingDistance + 0.5 {
+                desiredAcc = -emergencyBraking
+            }
+            
+            // 5. Environmental/Fault Overrides & Clamping
+            if train.isEngineFault {
+                // Engine failure limits positive acceleration
+                desiredAcc = min(desiredAcc, (train.speed > 0) ? -0.1 : 0.0)
+            }
+            
+            // Clamp acceleration within physical bounds
+            if desiredAcc > maxAcceleration {
+                desiredAcc = maxAcceleration
+            } else if desiredAcc < -emergencyBraking {
+                desiredAcc = -emergencyBraking
+            }
+            
+            // Update Train Status
+            if abs(train.speed) < 0.05 && consigneVitesse < 0.1 {
+                train.status = .stopped
+                train.speed = 0 // Prevent micro-drifting
+                desiredAcc = 0
+            } else {
+                train.status = .moving
+            }
+            
+            // Save Telemetry
+            train.consigneVitesse = consigneVitesse
+            train.speedError = speedError
+            train.desiredAcceleration = desiredAcc
+            train.distanceToMA = effectiveDistToMA
             
             // Apply Adhesion Loss Logic
             var finalAcceleration = desiredAcc
@@ -1001,7 +1037,11 @@ class SimulationController: ObservableObject {
             targetSpeed: 15.0, // Set target speed
             movementAuthority: 0.0,
             currentSegmentId: trackSegments[0].id,
-            status: .stopped
+            status: .stopped,
+            consigneVitesse: 0.0,
+            speedError: 0.0,
+            desiredAcceleration: 0.0,
+            distanceToMA: 0.0
         )
         
         let train2 = Train(
@@ -1013,7 +1053,11 @@ class SimulationController: ObservableObject {
             targetSpeed: 15.0, // Set target speed
             movementAuthority: 0.0,
             currentSegmentId: trackSegments[3].id,
-            status: .stopped
+            status: .stopped,
+            consigneVitesse: 0.0,
+            speedError: 0.0,
+            desiredAcceleration: 0.0,
+            distanceToMA: 0.0
         )
         
         self.trains = [train1, train2]

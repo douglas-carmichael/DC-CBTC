@@ -3,6 +3,7 @@
 @main
 struct CBTC_Metro_SimulatorApp: App {
     @StateObject private var simulationController = SimulationController()
+    @StateObject private var demoManager = DemoModeManager()
 
     init() {
         FontLoader.registerFonts()
@@ -12,6 +13,7 @@ struct CBTC_Metro_SimulatorApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(simulationController)
+                .environmentObject(demoManager)
         }
         
         WindowGroup("Train Detail", id: "train-detail", for: UUID.self) { $trainID in

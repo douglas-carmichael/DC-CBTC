@@ -23,11 +23,14 @@ struct TrainDetailViewWrapper: View {
 struct TrainDetailView: View {
     let train: Train
     let onClose: () -> Void
+    var isDemoMode: Bool = false // Add optional parameter
     @EnvironmentObject var simulationController: SimulationController // Injected
     
     // Retro font simulation
     private let fontName = "VT323-Regular" // Or another monospaced font
-    private let baseFontSize: CGFloat = 12
+    private var baseFontSize: CGFloat {
+        return isDemoMode ? 18 : 12 // Scale up for demo mode
+    }
     
     enum DrillDownView: String, CaseIterable {
         case none
@@ -41,6 +44,7 @@ struct TrainDetailView: View {
         case security       // Dedicated Security Page
         case telecommands   // Dedicated Telecommands Page
         case history        // Dedicated History Page
+        case asservissement // Asservissement Telemetry Page
     }
     
     @State private var currentView: DrillDownView = .none
@@ -76,24 +80,26 @@ struct TrainDetailView: View {
                 TrainTelecommandsView(train: train, onBack: { currentView = .none })
             case .history:
                 TrainHistoryView(train: train, onClose: { currentView = .none })
+            case .asservissement:
+                TrainAsservissementView(train: train, onBack: { currentView = .none })
             case .none:
                 VStack(spacing: 0) {
             // Header
             HStack {
-                ClockView(fontName: fontName, size: 18, color: .white)
+                ClockView(fontName: fontName, size: baseFontSize * 1.5, color: .white)
                 Spacer()
                 Text("VEHICULE")
-                    .font(.custom(fontName, size: 32))
+                    .font(.custom(fontName, size: baseFontSize * 2.6)) // 32 -> ~32 or 46
                     .fontWeight(.bold)
                     .foregroundColor(.green)
                 Spacer()
                 Text(parseTrainID(train.name)) // e.g., "101"
-                    .font(.custom(fontName, size: 32))
+                    .font(.custom(fontName, size: baseFontSize * 2.6)) // 32 -> ~32 or 46
                     .fontWeight(.bold)
                     .foregroundColor(.green)
                 Spacer()
                 Text("SYNTH_VEH")
-                    .font(.custom(fontName, size: 18))
+                    .font(.custom(fontName, size: baseFontSize * 1.5))
                     .padding(4)
                     .background(Color.red)
                     .foregroundColor(.black)
@@ -150,7 +156,7 @@ struct TrainDetailView: View {
                              // Custom Header with Button
                              HStack {
                                  Text("AUXILIAIRES")
-                                     .font(.custom(fontName, size: 18))
+                                     .font(.custom(fontName, size: baseFontSize * 1.5))
                                      .fontWeight(.bold)
                                      .foregroundColor(.green)
                                  Spacer()
@@ -158,6 +164,7 @@ struct TrainDetailView: View {
                                  Button(action: { currentView = .auxiliary }) {
                                      Image(systemName: "chevron.right.circle.fill")
                                          .foregroundColor(.green)
+                                         .font(.system(size: baseFontSize + 2))
                                  }
                                  .buttonStyle(PlainButtonStyle())
                              }
@@ -239,9 +246,16 @@ struct TrainDetailView: View {
                     .frame(maxWidth: .infinity)
                     Divider().background(Color.green)
                     
-                    // Column 5 (Pneumatiques)
+                    // Column 5 (Pneumatiques & Asservissement)
                     VStack(spacing: 0) {
                         detailSection(title: "PNEUMATIQUES", items: tireStatusItems(), targetView: .pneumatics)
+                        Divider().background(Color.green)
+                        detailSection(title: "ASSERVISSEMENT", items: [
+                            ("CONSIGNE VIT.", .white, true, String(format: "%.1f m/s", train.consigneVitesse), nil),
+                            ("ERREUR VIT.", .white, true, String(format: "%.2f", train.speedError), nil),
+                            ("ACCEL. DEMANDEE", .white, true, String(format: "%.2f m/s²", train.desiredAcceleration), nil),
+                            ("DIST. CIBLE MA", .white, true, String(format: "%.1f m", train.distanceToMA), nil)
+                        ], targetView: .asservissement)
                     }
                     .frame(maxWidth: .infinity)
                 }
@@ -254,7 +268,7 @@ struct TrainDetailView: View {
                     
                     Button(action: { currentView = .telecommands }) {
                         Text("TELECOMMANDES")
-                            .font(.custom(fontName, size: 14))
+                            .font(.custom(fontName, size: baseFontSize + 2))
                             .fontWeight(.bold)
                             .padding(.horizontal, 8)
                             .padding(.vertical, 2)
@@ -268,7 +282,7 @@ struct TrainDetailView: View {
                     
                     Button(action: { currentView = .history }) {
                         Text("HISTORIQUE")
-                            .font(.custom(fontName, size: 14))
+                            .font(.custom(fontName, size: baseFontSize + 2))
                             .fontWeight(.bold)
                             .padding(.horizontal, 8)
                             .padding(.vertical, 2)
@@ -281,7 +295,7 @@ struct TrainDetailView: View {
                     Spacer()
                     Text("DIAGNOSTIC AUTOMATISMES: \(automatismesDiagnostic)")
                 }
-                .font(.custom(fontName, size: 14))
+                .font(.custom(fontName, size: baseFontSize + 2))
                 .foregroundColor(.green)
                 .padding(8)
                 .background(Color.black)
@@ -317,7 +331,7 @@ struct TrainDetailView: View {
         }) {
             HStack {
                 Text(label)
-                    .font(.custom(fontName, size: 14))
+                    .font(.custom(fontName, size: baseFontSize + 2)) // 14 -> 14 or 20
                     .foregroundColor(.green)
                 Spacer()
                 
@@ -349,7 +363,7 @@ struct TrainDetailView: View {
             }) {
                 HStack {
                     Text(title)
-                        .font(.custom(fontName, size: 18))
+                        .font(.custom(fontName, size: baseFontSize * 1.5))
                         .fontWeight(.bold)
                         .foregroundColor(.green)
                     
@@ -357,7 +371,7 @@ struct TrainDetailView: View {
                          Spacer()
                          Image(systemName: "chevron.right.circle.fill")
                              .foregroundColor(.green)
-                             .font(.system(size: 14))
+                             .font(.system(size: baseFontSize + 2))
                     } else {
                         Spacer()
                     }
@@ -377,12 +391,12 @@ struct TrainDetailView: View {
                         }) {
                             HStack {
                                 Text(item.label)
-                                    .font(.custom(fontName, size: 14))
+                                    .font(.custom(fontName, size: baseFontSize + 2))
                                     .fontWeight(.bold) // Bold if interactive
                                     .foregroundColor(item.active ? .red : .green) // Red if fault active
                                 
                                 Image(systemName: item.active ? "exclamationmark.triangle.fill" : "checkmark.circle")
-                                    .font(.system(size: 12))
+                                    .font(.system(size: baseFontSize))
                                     .foregroundColor(item.active ? .red : .gray)
                             }
                         }
@@ -390,14 +404,14 @@ struct TrainDetailView: View {
                     } else {
                         // Static text
                         Text(item.label)
-                            .font(.custom(fontName, size: 14))
+                            .font(.custom(fontName, size: baseFontSize + 2))
                             .foregroundColor(.green)
                     }
                     
                     Spacer()
                     if let value = item.value {
                         Text(value)
-                            .font(.custom(fontName, size: 14))
+                            .font(.custom(fontName, size: baseFontSize + 2))
                             .foregroundColor(item.color)
                             .padding(.horizontal, 4)
                             .background(item.active ? Color.clear : Color.clear)
@@ -442,7 +456,7 @@ struct TrainDetailView: View {
     var bootScreen: some View {
         VStack(alignment: .leading, spacing: 5) {
             Text("ALSTOM - SYSTEME DE CONTROLE TRAIN - V3.42")
-                .font(.custom(fontName, size: 18))
+                .font(.custom(fontName, size: baseFontSize * 1.5))
                 .foregroundColor(.green)
                 .padding(.bottom, 20)
             
@@ -460,7 +474,7 @@ struct TrainDetailView: View {
                    Text("CONNEXION ETABLIE.")
                 }
             }
-            .font(.custom(fontName, size: 14))
+            .font(.custom(fontName, size: baseFontSize + 2))
             .foregroundColor(.green)
             
             Spacer()
@@ -474,11 +488,118 @@ struct TrainDetailView: View {
                         .scaleEffect(0.5)
                 }
             }
-            .font(.custom(fontName, size: 14))
+            .font(.custom(fontName, size: baseFontSize + 2))
             .foregroundColor(.green)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.black)
         .padding()
+    }
+}
+
+// Append Asservissement View inline to avoid modifying .pbxproj manually
+struct TrainAsservissementView: View {
+    let train: Train
+    let onBack: () -> Void
+    @EnvironmentObject var simulationController: SimulationController
+    
+    // Retro font simulation
+    private let fontName = "VT323-Regular"
+    
+    var body: some View {
+        VStack(spacing: 0) {
+            // Header
+            HStack {
+                Button(action: onBack) {
+                    HStack {
+                        Image(systemName: "arrow.left")
+                        Text("RETOUR")
+                    }
+                    .font(.custom(fontName, size: 18))
+                    .foregroundColor(.black)
+                    .padding(4)
+                    .background(Color.green)
+                }
+                .buttonStyle(PlainButtonStyle())
+                
+                Spacer()
+                Text("ASSERVISSEMENT")
+                    .font(.custom(fontName, size: 32))
+                    .fontWeight(.bold)
+                    .foregroundColor(.green)
+                Spacer()
+                Text(parseTrainID(train.name))
+                    .font(.custom(fontName, size: 32))
+                    .fontWeight(.bold)
+                    .foregroundColor(.green)
+            }
+            .padding(8)
+            .background(Color.black)
+            .overlay(Rectangle().frame(height: 1).foregroundColor(.white), alignment: .bottom)
+            
+            // Content
+            VStack(spacing: 20) {
+                Text("BOUCLE DE CONTROLE DE VITESSE")
+                    .font(.custom(fontName, size: 24))
+                    .foregroundColor(.green)
+                    .padding(.top, 20)
+                
+                // Speed parameters
+                HStack(spacing: 40) {
+                    TelemetryBox(title: "VITESSE ACTUELLE", value: String(format: "%.1f", train.speed), unit: "m/s", color: .green)
+                    TelemetryBox(title: "CONSIGNE VITESSE", value: String(format: "%.1f", train.consigneVitesse), unit: "m/s", color: .cyan)
+                    TelemetryBox(title: "ERREUR VITESSE", value: String(format: "%+.2f", train.speedError), unit: "m/s", color: abs(train.speedError) > 0.5 ? .orange : .green)
+                }
+                
+                // Physical parameters
+                HStack(spacing: 40) {
+                    TelemetryBox(title: "ACCEL. DEMANDEE", value: String(format: "%+.2f", train.desiredAcceleration), unit: "m/s²", color: train.desiredAcceleration < 0 ? .red : .blue)
+                    TelemetryBox(title: "ACCEL. REELLE", value: String(format: "%+.2f", train.acceleration), unit: "m/s²", color: .green)
+                    TelemetryBox(title: "DIST. CIBLE MA", value: String(format: "%.1f", train.distanceToMA), unit: "m", color: train.distanceToMA < 20 ? .red : .yellow)
+                }
+                
+                Spacer()
+            }
+            .padding()
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color.black)
+            
+        }
+        .background(Color.black)
+        .overlay(Rectangle().stroke(Color.green, lineWidth: 2))
+    }
+    
+    private func parseTrainID(_ name: String) -> String {
+        return name.components(separatedBy: " ").last ?? "000"
+    }
+    
+    struct TelemetryBox: View {
+        let title: String
+        let value: String
+        let unit: String
+        let color: Color
+        private let fontName = "VT323-Regular"
+        
+        var body: some View {
+            VStack(spacing: 5) {
+                Text(title)
+                    .font(.custom(fontName, size: 18))
+                    .foregroundColor(color)
+                
+                HStack(alignment: .firstTextBaseline, spacing: 5) {
+                    Text(value)
+                        .font(.custom(fontName, size: 48))
+                        .fontWeight(.bold)
+                        .foregroundColor(color)
+                    Text(unit)
+                        .font(.custom(fontName, size: 18))
+                        .foregroundColor(color)
+                }
+            }
+            .padding()
+            .frame(width: 200)
+            .background(Color.black)
+            .overlay(RoundedRectangle(cornerRadius: 10).stroke(color.opacity(0.5), lineWidth: 2))
+        }
     }
 }

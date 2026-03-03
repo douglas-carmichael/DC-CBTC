@@ -2,6 +2,7 @@ import SwiftUI
 
 struct PCCDashboardView: View {
     @EnvironmentObject var simulationController: SimulationController
+    @EnvironmentObject var demoManager: DemoModeManager
     @Environment(\.openWindow) var openWindow
     
     var body: some View {
@@ -135,8 +136,8 @@ struct PCCDashboardView: View {
                     .buttonStyle(PlainButtonStyle())
                 }
                 
-                // Row 5: Synoptic View
-                HStack {
+                // Row 5: Synoptic View & Demo Mode
+                HStack(spacing: 20) {
                     Button(action: {
                         openWindow(id: "synoptic-view")
                     }) {
@@ -148,6 +149,24 @@ struct PCCDashboardView: View {
                         .frame(maxWidth: .infinity)
                         .padding()
                         .background(Color.blue.opacity(0.6))
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    
+                    Button(action: {
+                        withAnimation {
+                             demoManager.isEnabled.toggle()
+                        }
+                    }) {
+                        HStack {
+                            Image(systemName: "play.rectangle.fill")
+                            Text("MODE DEMO")
+                                .font(.custom("VT323-Regular", size: 18))
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(demoManager.isEnabled ? Color.red : Color.orange)
                         .foregroundColor(.white)
                         .cornerRadius(8)
                     }

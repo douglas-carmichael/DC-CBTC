@@ -124,6 +124,12 @@ struct Train: Identifiable, Equatable {
     var interiorTemperature: Double = 24.0 // Celsius
     var targetTemperature: Double = 22.0 // Celsius
     
+    // Asservissement Telemetry
+    var consigneVitesse: CGFloat = 0.0
+    var speedError: CGFloat = 0.0
+    var desiredAcceleration: CGFloat = 0.0
+    var distanceToMA: CGFloat = 0.0
+    
     // Command States
     var isLoadSheddingActive: Bool = false // DELESTAGE BT
     var isMultimediaResetting: Bool = false // RAZ MULTIMEDIA
