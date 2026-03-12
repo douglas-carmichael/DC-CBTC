@@ -806,122 +806,12 @@ class SimulationController: ObservableObject {
             }
             
             // --- Asservissement (Control Loop) Logic ---
-            
-            let nominalBraking: CGFloat = 0.8 // m/s² for smooth stops
-            let emergencyBraking: CGFloat = 1.2 // m/s² for safety limits
-            
-            var consigneVitesse: CGFloat = 0.0
-            
-            // 1. Calculate Target Speed Profile (Braking Curve)
-            // v = sqrt(2 * a * d). We leave a 1.0m safety margin to ensure complete stop before MA limit.
-            let distanceMargin: CGFloat = 1.0
-            if effectiveDistToMA > distanceMargin {
-                let brakingProfileSpeed = sqrt(2 * nominalBraking * (effectiveDistToMA - distanceMargin))
-                // Target speed is bounded by the train's nominal target speed limit
-                consigneVitesse = min(train.targetSpeed, brakingProfileSpeed)
-            } else {
-                consigneVitesse = 0.0
-            }
-            
-            // 2. Calculate Speed Error
-            let speedError = consigneVitesse - train.speed
-            
-            // 3. Proportional Control
-            let Kp: CGFloat = 1.0 // Proportional gain
-            var desiredAcc = Kp * speedError
-            
-            // 4. Emergency Override
-            // If we are dangerously close to overrunning the MA at current speed, force emergency braking
-            let safeBrakingDistance = (train.speed * train.speed) / (2 * emergencyBraking)
-            if effectiveDistToMA <= safeBrakingDistance + 0.5 {
-                desiredAcc = -emergencyBraking
-            }
-            
-            // 5. Environmental/Fault Overrides & Clamping
-            if train.isEngineFault {
-                // Engine failure limits positive acceleration
-                desiredAcc = min(desiredAcc, (train.speed > 0) ? -0.1 : 0.0)
-            }
-            
-            // Clamp acceleration within physical bounds
-            if desiredAcc > maxAcceleration {
-                desiredAcc = maxAcceleration
-            } else if desiredAcc < -emergencyBraking {
-                desiredAcc = -emergencyBraking
-            }
-            
-            // Update Train Status
-            if abs(train.speed) < 0.05 && consigneVitesse < 0.1 {
-                train.status = .stopped
-                train.speed = 0 // Prevent micro-drifting
-                desiredAcc = 0
-            } else {
-                train.status = .moving
-            }
-            
-            // Save Telemetry
-            train.consigneVitesse = consigneVitesse
-            train.speedError = speedError
-            train.desiredAcceleration = desiredAcc
-            train.distanceToMA = effectiveDistToMA
-            
-            // Apply Adhesion Loss Logic
-            var finalAcceleration = desiredAcc
-            
-            // Calculate Aggregate Tire Physics
-            var totalAdhesionFactor: CGFloat = 0.0
-            var totalDragDeceleration: CGFloat = 0.0
-            
-            for tire in train.tires {
-                switch tire.status {
-                case .ok:
-                    totalAdhesionFactor += 1.0
-                    totalDragDeceleration += 0.0
-                case .lowPressure:
-                    totalAdhesionFactor += 0.9
-                    totalDragDeceleration += 0.05 // increased rolling resistance
-                case .puncture:
-                    totalAdhesionFactor += 0.5
-                    totalDragDeceleration += 0.2 // significant drag
-                case .burst:
-                    totalAdhesionFactor += 0.1
-                    totalDragDeceleration += 0.5 // massive drag / grinding
-                }
-            }
-            
-            // Average Adhesion (0.0 - 1.0)
-            let avgAdhesion = totalAdhesionFactor / CGFloat(train.tires.count)
-            
-            // Apply traction limits
-            if finalAcceleration > 0 {
-                // Acceleration is limited by adhesion
-                finalAcceleration *= avgAdhesion
-            } else if finalAcceleration < 0 {
-                // Braking is also limited by adhesion (ABS limit)
-                finalAcceleration *= avgAdhesion
-            }
-            
-            // Apply Glissement/Enrayage Global Faults if active (multiplicative)
-            if train.isPatinage && finalAcceleration > 0 {
-                 finalAcceleration *= 0.2
-            }
-            if train.isEnrayage && finalAcceleration < 0 {
-                finalAcceleration *= 0.3
-            }
-            
-            // Apply Tire Drag (always decelerates)
-            // Only apply drag if moving
-            if train.speed > 0 {
-                finalAcceleration -= totalDragDeceleration
-            } else if train.speed == 0 && finalAcceleration < totalDragDeceleration {
-                // If stopped and trying to accelerate less than drag, we stay stopped
-                // But if acceleration > drag, we move.
-                if finalAcceleration < totalDragDeceleration {
-                     finalAcceleration = 0
-                } else {
-                     finalAcceleration -= totalDragDeceleration
-                }
-            }
+            let asservissement = AsservissementModule()
+            let finalAcceleration = asservissement.process(
+                train: &train,
+                effectiveDistToMA: effectiveDistToMA,
+                maxAcceleration: maxAcceleration
+            )
             
             applyPhysics(train: &train, acceleration: finalAcceleration, trackLength: trackLength)
         }
