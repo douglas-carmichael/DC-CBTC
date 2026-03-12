@@ -14,7 +14,7 @@ struct TrainBootScreenView: View {
                 .padding(.bottom, 20)
             
             Group {
-                Text("BIOS CHECK... OK")
+                Text("INITIALISATION BOOTLOADER... OK")
                 if train.startupState.rawValue >= Train.StartupState.memoryCheck.rawValue {
                    Text("VERIFICATION MEMOIRE... 64MB OK")
                 }

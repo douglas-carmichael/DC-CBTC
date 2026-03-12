@@ -12,7 +12,7 @@ struct TrainDetailViewWrapper: View {
                 // We can leave this empty or use proper window closing env if needed.
             })
         } else {
-            Text("Signal Lost: Train \(trainID.uuidString)")
+            Text("Signal Perdu : Rame \(trainID.uuidString)")
                 .foregroundColor(.red)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(Color.black)

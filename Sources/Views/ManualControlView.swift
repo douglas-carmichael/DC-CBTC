@@ -111,7 +111,7 @@ struct ManualControlView: View {
                     HStack {
                         VStack(alignment: .leading) {
                             Text("Vitesse Actuelle: \(String(format: "%.1f", train.speed)) m/s")
-                            Text("Status: \(train.status.rawValue)")
+                            Text("Statut : \(train.status.rawValue)")
                         }
                         Spacer()
                         if train.mode == .manual {

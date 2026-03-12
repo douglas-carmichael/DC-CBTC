@@ -95,7 +95,7 @@ struct FailureControlView: View {
                 .cornerRadius(10)
                 .padding()
                 
-                Text("État Actuel: \(train.status.rawValue)")
+                Text("État Actuel : \(train.status.rawValue)")
                     .font(.caption)
                     .foregroundColor(.secondary)
             } else {
