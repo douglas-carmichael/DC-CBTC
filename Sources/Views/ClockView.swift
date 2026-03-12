@@ -1,12 +1,9 @@
 import SwiftUI
 
 struct ClockView: View {
-    @State private var currentDate = Date()
     let fontName: String
     let size: CGFloat
     let color: Color
-    
-    private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
     // Static formatter for performance and consistency
     private static let formatter: DateFormatter = {
@@ -22,14 +19,10 @@ struct ClockView: View {
     }
     
     var body: some View {
-        Text(Self.formatter.string(from: currentDate))
-            .font(.custom(fontName, size: size))
-            .foregroundColor(color)
-            .onReceive(timer) { input in
-                currentDate = input
-            }
-            .onAppear {
-                currentDate = Date()
-            }
+        TimelineView(.periodic(from: .now, by: 1.0)) { context in
+            Text(Self.formatter.string(from: context.date))
+                .font(.custom(fontName, size: size))
+                .foregroundColor(color)
+        }
     }
 }
