@@ -12,6 +12,7 @@
 		18450CAEC9931A8ED9D26445 /* DemoModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652D824312C91BA72FF9B8FC /* DemoModeView.swift */; };
 		1AB8C31C000F1A03084C541C /* TrainTelecommandsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C6C28157A9DA8CEF9E91A7 /* TrainTelecommandsView.swift */; };
 		1B904962BFBDC74680592E8F /* AsservissementModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = B50D99FD533FC9F2B33ADDC9 /* AsservissementModule.swift */; };
+		31F714D5F65EBF86C3A90390 /* TrainMainDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE84CD6925E840F5248AB2D /* TrainMainDashboardView.swift */; };
 		38D2445A907A0EDC74675202 /* CBTC_Metro_SimulatorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5905157C3B60FDE590492C /* CBTC_Metro_SimulatorApp.swift */; };
 		40A8CEA546E6AC85FAD537DF /* FontLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3704A5BEA455804DAE17B86 /* FontLoader.swift */; };
 		4EC3DD1F65FE22A0B8C7E095 /* PCCDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF939458249BFFF5F2323080 /* PCCDashboardView.swift */; };
@@ -27,6 +28,7 @@
 		82127057EEA653E5EB237C68 /* TrackSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 215BEE2FE24D1551E176C26E /* TrackSegment.swift */; };
 		873B9AAA612FD2D036BBD6B1 /* TrainAuxiliaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0236CA413C4BADDAB97DF37D /* TrainAuxiliaryView.swift */; };
 		97A005A17EE5B1663CE349AF /* DemoModeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6177755ADD3B840F894383 /* DemoModeManager.swift */; };
+		B30C6E7AA742C227CE8BEDE4 /* TrainBootScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F48C85194DCEE97196B1F5 /* TrainBootScreenView.swift */; };
 		B36F9F570D4A12BFC05544FC /* TrainAlarmsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15790ADDAE944C7EBF7089C7 /* TrainAlarmsView.swift */; };
 		B65DFC1E3877D7A409A5464D /* SynopticView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2804B168041D48B89C5272C /* SynopticView.swift */; };
 		B80157C29D3A4D1A67CBF3CD /* Train.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0C070F4087DAAF3C99E3990 /* Train.swift */; };
@@ -34,13 +36,16 @@
 		BF024AC427F0ACC4366CB1D6 /* SimulationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500C662242FEC295DEADC7D9 /* SimulationController.swift */; };
 		C595389B34470988AE376E05 /* TrainDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71196550873812D90931A8A /* TrainDetailView.swift */; };
 		D8762F2DD23BD627768E7967 /* TrainDCAView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C13889D7A5E885D3790703 /* TrainDCAView.swift */; };
+		E69E340CA3415AB63A309E35 /* TrainAsservissementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B270F9508939CCC3F14FE7 /* TrainAsservissementView.swift */; };
 		ED9FDC0674620BFC9D87957D /* TrainPneumaticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F23EA826230BF198813B2224 /* TrainPneumaticsView.swift */; };
 		FD006AFCB52DE424BD29977C /* TrainOperationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BECF2867B19A697295DEEF88 /* TrainOperationsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		00B270F9508939CCC3F14FE7 /* TrainAsservissementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainAsservissementView.swift; sourceTree = "<group>"; };
 		0236CA413C4BADDAB97DF37D /* TrainAuxiliaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainAuxiliaryView.swift; sourceTree = "<group>"; };
 		07D750F98F3F9BEB1D946262 /* ManualControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualControlView.swift; sourceTree = "<group>"; };
+		14F48C85194DCEE97196B1F5 /* TrainBootScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainBootScreenView.swift; sourceTree = "<group>"; };
 		15790ADDAE944C7EBF7089C7 /* TrainAlarmsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainAlarmsView.swift; sourceTree = "<group>"; };
 		20DB686B4F26C8AA18CA9328 /* TrainDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainDataService.swift; sourceTree = "<group>"; };
 		215BEE2FE24D1551E176C26E /* TrackSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackSegment.swift; sourceTree = "<group>"; };
@@ -54,6 +59,7 @@
 		708320D371D7C3E9F2975788 /* TrainHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainHistoryView.swift; sourceTree = "<group>"; };
 		7246162B8EC6475F6B11F419 /* VT323-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "VT323-Regular.ttf"; sourceTree = "<group>"; };
 		8D28255C260A9D052EFE93FF /* NetworkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkView.swift; sourceTree = "<group>"; };
+		8DE84CD6925E840F5248AB2D /* TrainMainDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainMainDashboardView.swift; sourceTree = "<group>"; };
 		92DF53A6188BDE08FFA75B64 /* TrainSignalingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainSignalingView.swift; sourceTree = "<group>"; };
 		A71196550873812D90931A8A /* TrainDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainDetailView.swift; sourceTree = "<group>"; };
 		AE9E3C22C317016CE85CF793 /* FailureControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailureControlView.swift; sourceTree = "<group>"; };
@@ -118,10 +124,13 @@
 				BF939458249BFFF5F2323080 /* PCCDashboardView.swift */,
 				D2804B168041D48B89C5272C /* SynopticView.swift */,
 				15790ADDAE944C7EBF7089C7 /* TrainAlarmsView.swift */,
+				00B270F9508939CCC3F14FE7 /* TrainAsservissementView.swift */,
 				0236CA413C4BADDAB97DF37D /* TrainAuxiliaryView.swift */,
+				14F48C85194DCEE97196B1F5 /* TrainBootScreenView.swift */,
 				C1C13889D7A5E885D3790703 /* TrainDCAView.swift */,
 				A71196550873812D90931A8A /* TrainDetailView.swift */,
 				708320D371D7C3E9F2975788 /* TrainHistoryView.swift */,
+				8DE84CD6925E840F5248AB2D /* TrainMainDashboardView.swift */,
 				BECF2867B19A697295DEEF88 /* TrainOperationsView.swift */,
 				F23EA826230BF198813B2224 /* TrainPneumaticsView.swift */,
 				B4E09CAB32F5C32B31B3B2A1 /* TrainSecurityView.swift */,
@@ -262,11 +271,14 @@
 				82127057EEA653E5EB237C68 /* TrackSegment.swift in Sources */,
 				B80157C29D3A4D1A67CBF3CD /* Train.swift in Sources */,
 				B36F9F570D4A12BFC05544FC /* TrainAlarmsView.swift in Sources */,
+				E69E340CA3415AB63A309E35 /* TrainAsservissementView.swift in Sources */,
 				873B9AAA612FD2D036BBD6B1 /* TrainAuxiliaryView.swift in Sources */,
+				B30C6E7AA742C227CE8BEDE4 /* TrainBootScreenView.swift in Sources */,
 				D8762F2DD23BD627768E7967 /* TrainDCAView.swift in Sources */,
 				06429A7B5BBCA2778990C4B3 /* TrainDataService.swift in Sources */,
 				C595389B34470988AE376E05 /* TrainDetailView.swift in Sources */,
 				6690FF27DF309D7F2DF3782E /* TrainHistoryView.swift in Sources */,
+				31F714D5F65EBF86C3A90390 /* TrainMainDashboardView.swift in Sources */,
 				FD006AFCB52DE424BD29977C /* TrainOperationsView.swift in Sources */,
 				ED9FDC0674620BFC9D87957D /* TrainPneumaticsView.swift in Sources */,
 				62A2A62D2272F65156FEACDC /* TrainSecurityView.swift in Sources */,
