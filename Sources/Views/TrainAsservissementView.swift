@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct TrainAsservissementView: View {
+    @Environment(\.dynamicScale) var dynamicScale
+
     let train: Train
     let onBack: () -> Void
     @EnvironmentObject var simulationController: SimulationController
@@ -27,7 +29,7 @@ struct TrainAsservissementView: View {
                         Image(systemName: "arrow.left")
                         Text("RETOUR")
                     }
-                    .font(.custom(fontName, size: 18))
+                    .font(.custom(fontName, size: 18 * dynamicScale))
                     .foregroundColor(.black)
                     .padding(4)
                     .background(Color.green)
@@ -36,12 +38,12 @@ struct TrainAsservissementView: View {
                 
                 Spacer()
                 Text("ASSERVISSEMENT")
-                    .font(.custom(fontName, size: 32))
+                    .font(.custom(fontName, size: 32 * dynamicScale))
                     .fontWeight(.bold)
                     .foregroundColor(.green)
                 Spacer()
                 Text(parseTrainID(train.name))
-                    .font(.custom(fontName, size: 32))
+                    .font(.custom(fontName, size: 32 * dynamicScale))
                     .fontWeight(.bold)
                     .foregroundColor(.green)
             }
@@ -153,6 +155,8 @@ struct TrainAsservissementView: View {
 // Subcomponents
 
 struct AsservissementNodeView: View {
+    @Environment(\.dynamicScale) var dynamicScale
+
     let title: String
     let value: String
     let valueColor: Color
@@ -165,10 +169,10 @@ struct AsservissementNodeView: View {
         Button(action: action) {
             VStack(spacing: 4) {
                 Text(title)
-                    .font(.custom(fontName, size: 16))
+                    .font(.custom(fontName, size: 16 * dynamicScale))
                     .foregroundColor(isSelected ? .white : .green)
                 Text(value)
-                    .font(.custom(fontName, size: 14))
+                    .font(.custom(fontName, size: 14 * dynamicScale))
                     .foregroundColor(valueColor)
             }
             .padding(.horizontal, 16)
@@ -184,6 +188,8 @@ struct AsservissementNodeView: View {
 }
 
 struct AsservissementDetailPanel: View {
+    @Environment(\.dynamicScale) var dynamicScale
+
     let node: TrainAsservissementView.AsservissementNode
     let train: Train
     let onClose: () -> Void
@@ -195,14 +201,14 @@ struct AsservissementDetailPanel: View {
             // Header
             HStack {
                 Text("DETAIL: \(node.rawValue)")
-                    .font(.custom(fontName, size: 18))
+                    .font(.custom(fontName, size: 18 * dynamicScale))
                     .fontWeight(.bold)
                     .foregroundColor(.black)
                 Spacer()
                 Button(action: onClose) {
                     Image(systemName: "xmark.circle.fill")
                         .foregroundColor(.red)
-                        .font(.system(size: 20))
+                        .font(.system(size: 20 * dynamicScale))
                 }
                 .buttonStyle(PlainButtonStyle())
             }
@@ -248,11 +254,11 @@ struct AsservissementDetailPanel: View {
     private func detailRow(label: String, value: String) -> some View {
         HStack {
             Text(label)
-                .font(.custom(fontName, size: 14))
+                .font(.custom(fontName, size: 14 * dynamicScale))
                 .foregroundColor(.black)
             Spacer()
             Text(value)
-                .font(.custom(fontName, size: 14))
+                .font(.custom(fontName, size: 14 * dynamicScale))
                 .fontWeight(.bold)
                 .foregroundColor(.black)
         }

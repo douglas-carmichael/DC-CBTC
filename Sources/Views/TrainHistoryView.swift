@@ -2,6 +2,8 @@ import SwiftUI
 import Charts
 
 struct TrainHistoryView: View {
+    @Environment(\.dynamicScale) var dynamicScale
+
     let train: Train
     let onClose: () -> Void
     @State private var history: [TrainLogEntry] = []
@@ -12,7 +14,7 @@ struct TrainHistoryView: View {
             // Header
             HStack {
                 Text("HISTORIQUE: \(train.name)")
-                    .font(.custom("VT323-Regular", size: 24))
+                    .font(.custom("VT323-Regular", size: 24 * dynamicScale))
                     .foregroundColor(.green)
                 Spacer()
                 
@@ -21,7 +23,7 @@ struct TrainHistoryView: View {
                     loadData()
                 }) {
                     Text("EFFACER")
-                        .font(.custom("VT323-Regular", size: 14))
+                        .font(.custom("VT323-Regular", size: 14 * dynamicScale))
                         .fontWeight(.bold)
                         .padding(.horizontal, 8)
                         .padding(.vertical, 4)
@@ -48,7 +50,7 @@ struct TrainHistoryView: View {
                 VStack(spacing: 20) {
                     if history.isEmpty {
                         Text("AUCUNE DONNEE ENREGISTREE")
-                            .font(.custom("VT323-Regular", size: 20))
+                            .font(.custom("VT323-Regular", size: 20 * dynamicScale))
                             .foregroundColor(.gray)
                             .padding(.top, 50)
                     } else {
@@ -115,6 +117,7 @@ struct TrainHistoryView: View {
 }
 
 struct ChartCard<Content: View>: View {
+    @Environment(\.dynamicScale) var dynamicScale
     let title: String
     let content: Content
     
@@ -126,7 +129,7 @@ struct ChartCard<Content: View>: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text(title)
-                .font(.custom("VT323-Regular", size: 18))
+                .font(.custom("VT323-Regular", size: 18 * dynamicScale))
                 .foregroundColor(.green)
                 .padding(.bottom, 5)
             

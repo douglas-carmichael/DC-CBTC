@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct TrainDCAView: View {
+    @Environment(\.dynamicScale) var dynamicScale
+
     let train: Train
     @Binding var selectedSystem: String?
     let onBack: () -> Void
@@ -17,7 +19,7 @@ struct TrainDCAView: View {
                         Image(systemName: "arrow.left")
                         Text("RETOUR")
                     }
-                    .font(.custom(fontName, size: 18))
+                    .font(.custom(fontName, size: 18 * dynamicScale))
                     .foregroundColor(.black)
                     .padding(4)
                     .background(Color.green)
@@ -26,12 +28,12 @@ struct TrainDCAView: View {
                 
                 Spacer()
                 Text("ETAT DCA / AUTOMATISMES")
-                    .font(.custom(fontName, size: 32))
+                    .font(.custom(fontName, size: 32 * dynamicScale))
                     .fontWeight(.bold)
                     .foregroundColor(.green)
                 Spacer()
                 Text(parseTrainID(train.name))
-                    .font(.custom(fontName, size: 32))
+                    .font(.custom(fontName, size: 32 * dynamicScale))
                     .fontWeight(.bold)
                     .foregroundColor(.green)
             }
@@ -108,7 +110,7 @@ struct TrainDCAView: View {
                 VStack(alignment: .leading, spacing: 8) {
                     HStack {
                         Text("DETAIL: \(system)")
-                            .font(.custom(fontName, size: 24))
+                            .font(.custom(fontName, size: 24 * dynamicScale))
                             .fontWeight(.bold)
                             .foregroundColor(.black)
                         Spacer()
@@ -146,7 +148,7 @@ struct TrainDCAView: View {
                              detailRow(label: "VACMA", value: "INACTIF")
                         } else {
                              Text("Pas de donnees.")
-                                .font(.custom(fontName, size: 14))
+                                .font(.custom(fontName, size: 14 * dynamicScale))
                                 .foregroundColor(.black)
                         }
                     }
@@ -163,13 +165,15 @@ struct TrainDCAView: View {
     
     private func detailRow(label: String, value: String) -> some View {
         HStack {
-            Text(label).font(.custom(fontName, size: 16)).foregroundColor(.black)
+            Text(label).font(.custom(fontName, size: 16 * dynamicScale)).foregroundColor(.black)
             Spacer()
-            Text(value).font(.custom(fontName, size: 16)).fontWeight(.bold).foregroundColor(.black)
+            Text(value).font(.custom(fontName, size: 16 * dynamicScale)).fontWeight(.bold).foregroundColor(.black)
         }
     }
     
     struct SynopticBox: View {
+    @Environment(\.dynamicScale) var dynamicScale
+
         let label: String
         let status: String
         let color: Color
@@ -188,8 +192,8 @@ struct TrainDCAView: View {
                     .frame(width: width, height: height)
                 
                 VStack(spacing: 2) {
-                    Text(label).font(.custom("VT323-Regular", size: 14)).foregroundColor(.green)
-                    Text(status).font(.custom("VT323-Regular", size: 14)).foregroundColor(color)
+                    Text(label).font(.custom("VT323-Regular", size: 14 * dynamicScale)).foregroundColor(.green)
+                    Text(status).font(.custom("VT323-Regular", size: 14 * dynamicScale)).foregroundColor(color)
                 }
             }
             .position(x: geometry.size.width * x, y: geometry.size.height * y)

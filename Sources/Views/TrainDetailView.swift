@@ -11,6 +11,7 @@ struct TrainDetailViewWrapper: View {
                 // but standard macOS windows have a close button.
                 // We can leave this empty or use proper window closing env if needed.
             })
+            .frame(minWidth: 600, minHeight: 450)
         } else {
             Text("Signal Perdu : Rame \(trainID.uuidString)")
                 .foregroundColor(.red)
@@ -28,7 +29,7 @@ struct TrainDetailView: View {
     
     // Retro font simulation
     private let fontName = "VT323-Regular" // Or another monospaced font
-    private var baseFontSize: CGFloat {
+    private var defaultBaseFontSize: CGFloat {
         return isDemoMode ? 18 : 12 // Scale up for demo mode
     }
     
@@ -54,41 +55,62 @@ struct TrainDetailView: View {
     typealias StatusItem = (label: String, color: Color, active: Bool, value: String?, faultKey: WritableKeyPath<Train, Bool>?)
     
     var body: some View {
-        Group {
-            switch currentView {
-            case .traction:
-                TrainTractionView(train: train, selectedSystem: $selectedAuxiliary, onBack: { currentView = .none })
-            case .signaling:
-                TrainSignalingView(train: train, selectedSystem: $selectedAuxiliary, onBack: { currentView = .none })
-            case .dca:
-                TrainDCAView(train: train, selectedSystem: $selectedAuxiliary, onBack: { currentView = .none })
-            case .operations:
-                TrainOperationsView(train: train, selectedSystem: $selectedAuxiliary, onBack: { currentView = .none })
-            case .auxiliary:
-                TrainAuxiliaryView(train: train, selectedSystem: $selectedAuxiliary, onBack: { 
-                    currentView = .none
-                    selectedAuxiliary = nil
-                })
-            case .alarms:
-                TrainAlarmsView(train: train, onBack: { currentView = .none })
-            case .pneumatics:
-                TrainPneumaticsView(train: train, onBack: { currentView = .none })
-            case .security:
-                TrainSecurityView(train: train, onBack: { currentView = .none })
-            case .telecommands:
-                TrainTelecommandsView(train: train, onBack: { currentView = .none })
-            case .history:
-                TrainHistoryView(train: train, onClose: { currentView = .none })
-            case .asservissement:
-                TrainAsservissementView(train: train, onBack: { currentView = .none })
-            case .none:
-                TrainMainDashboardView(
-                    train: train,
-                    currentView: $currentView,
-                    selectedAuxiliary: $selectedAuxiliary,
-                    baseFontSize: baseFontSize
-                )
-            } // Close switch
-        } // Close Group
+        GeometryReader { geometry in
+            // 1000x700 is the estimated "standard" width/height for the 12pt layout
+            let scaleW = geometry.size.width / 1000.0
+            let scaleH = geometry.size.height / 700.0
+            let scale = max(0.5, min(scaleW, scaleH))
+            let dynamicFontSize = defaultBaseFontSize * scale
+            
+            Group {
+                switch currentView {
+                case .traction:
+                    TrainTractionView(train: train, selectedSystem: $selectedAuxiliary, onBack: { currentView = .none })
+                case .signaling:
+                    TrainSignalingView(train: train, selectedSystem: $selectedAuxiliary, onBack: { currentView = .none })
+                case .dca:
+                    TrainDCAView(train: train, selectedSystem: $selectedAuxiliary, onBack: { currentView = .none })
+                case .operations:
+                    TrainOperationsView(train: train, selectedSystem: $selectedAuxiliary, onBack: { currentView = .none })
+                case .auxiliary:
+                    TrainAuxiliaryView(train: train, selectedSystem: $selectedAuxiliary, onBack: { 
+                        currentView = .none
+                        selectedAuxiliary = nil
+                    })
+                case .alarms:
+                    TrainAlarmsView(train: train, onBack: { currentView = .none })
+                case .pneumatics:
+                    TrainPneumaticsView(train: train, onBack: { currentView = .none })
+                case .security:
+                    TrainSecurityView(train: train, onBack: { currentView = .none })
+                case .telecommands:
+                    TrainTelecommandsView(train: train, onBack: { currentView = .none })
+                case .history:
+                    TrainHistoryView(train: train, onClose: { currentView = .none })
+                case .asservissement:
+                    TrainAsservissementView(train: train, onBack: { currentView = .none })
+                case .none:
+                    TrainMainDashboardView(
+                        train: train,
+                        currentView: $currentView,
+                        selectedAuxiliary: $selectedAuxiliary,
+                        baseFontSize: dynamicFontSize
+                    )
+                } // Close switch
+            } // Close Group
+            .environment(\.dynamicScale, scale)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        } // Close GeometryReader
     } // Close body
+}
+
+struct DynamicScaleKey: EnvironmentKey {
+    static let defaultValue: CGFloat = 1.0
+}
+
+extension EnvironmentValues {
+    var dynamicScale: CGFloat {
+        get { self[DynamicScaleKey.self] }
+        set { self[DynamicScaleKey.self] = newValue }
+    }
 }

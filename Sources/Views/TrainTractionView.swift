@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct TrainTractionView: View {
+    @Environment(\.dynamicScale) var dynamicScale
+
     let train: Train
     @Binding var selectedSystem: String?
     let onBack: () -> Void
@@ -17,7 +19,7 @@ struct TrainTractionView: View {
                         Image(systemName: "arrow.left")
                         Text("RETOUR")
                     }
-                    .font(.custom(fontName, size: 18))
+                    .font(.custom(fontName, size: 18 * dynamicScale))
                     .foregroundColor(.black)
                     .padding(4)
                     .background(Color.green)
@@ -26,12 +28,12 @@ struct TrainTractionView: View {
                 
                 Spacer()
                 Text("TRACTION / FREINAGE")
-                    .font(.custom(fontName, size: 32))
+                    .font(.custom(fontName, size: 32 * dynamicScale))
                     .fontWeight(.bold)
                     .foregroundColor(.green)
                 Spacer()
                 Text(parseTrainID(train.name))
-                    .font(.custom(fontName, size: 32))
+                    .font(.custom(fontName, size: 32 * dynamicScale))
                     .fontWeight(.bold)
                     .foregroundColor(.green)
             }
@@ -108,7 +110,7 @@ struct TrainTractionView: View {
                         Text("VITESSE: \(String(format: "%.1f", train.speed * 3.6)) km/h")
                         Text("ACCEL: \(String(format: "%.2f", train.acceleration)) m/s²")
                     }
-                    .font(.custom(fontName, size: 24))
+                    .font(.custom(fontName, size: 24 * dynamicScale))
                     .foregroundColor(.green)
                     .position(x: geometry.size.width * 0.5, y: geometry.size.height * 0.2)
                     
@@ -138,7 +140,7 @@ struct TrainTractionView: View {
                 VStack(alignment: .leading, spacing: 8) {
                     HStack {
                         Text("DETAIL: \(system)")
-                            .font(.custom(fontName, size: 24))
+                            .font(.custom(fontName, size: 24 * dynamicScale))
                             .fontWeight(.bold)
                             .foregroundColor(.black)
                         Spacer()
@@ -172,7 +174,7 @@ struct TrainTractionView: View {
                              }
                         } else {
                              Text("Pas de donnees.")
-                                .font(.custom(fontName, size: 14))
+                                .font(.custom(fontName, size: 14 * dynamicScale))
                                 .foregroundColor(.black)
                         }
                     }
@@ -189,14 +191,16 @@ struct TrainTractionView: View {
     
     private func detailRow(label: String, value: String) -> some View {
         HStack {
-            Text(label).font(.custom(fontName, size: 16)).foregroundColor(.black)
+            Text(label).font(.custom(fontName, size: 16 * dynamicScale)).foregroundColor(.black)
             Spacer()
-            Text(value).font(.custom(fontName, size: 16)).fontWeight(.bold).foregroundColor(.black)
+            Text(value).font(.custom(fontName, size: 16 * dynamicScale)).fontWeight(.bold).foregroundColor(.black)
         }
     }
     
     // MARK: - Reused Sub-components (Ideally these should be shared)
     struct SynopticBox: View {
+    @Environment(\.dynamicScale) var dynamicScale
+
         let label: String
         let status: String
         let color: Color
@@ -215,8 +219,8 @@ struct TrainTractionView: View {
                     .frame(width: width, height: height)
                 
                 VStack(spacing: 2) {
-                    Text(label).font(.custom("VT323-Regular", size: 14)).foregroundColor(.green)
-                    Text(status).font(.custom("VT323-Regular", size: 14)).foregroundColor(color)
+                    Text(label).font(.custom("VT323-Regular", size: 14 * dynamicScale)).foregroundColor(.green)
+                    Text(status).font(.custom("VT323-Regular", size: 14 * dynamicScale)).foregroundColor(color)
                 }
             }
             .position(x: geometry.size.width * x, y: geometry.size.height * y)
@@ -224,6 +228,8 @@ struct TrainTractionView: View {
     }
     
     struct SynopticLoad: View {
+    @Environment(\.dynamicScale) var dynamicScale
+
         let label: String
         let active: Bool
         let x: CGFloat
@@ -240,7 +246,7 @@ struct TrainTractionView: View {
                 }
                 .frame(width: 20, height: 20)
                 Text(label)
-                    .font(.custom("VT323-Regular", size: 10))
+                    .font(.custom("VT323-Regular", size: 10 * dynamicScale))
                     .foregroundColor(.green)
                     .frame(width: 50)
                     .multilineTextAlignment(.center)
@@ -250,6 +256,8 @@ struct TrainTractionView: View {
     }
     
     struct SynopticTank: View {
+    @Environment(\.dynamicScale) var dynamicScale
+
         let label: String
         let value: String
         let x: CGFloat
@@ -261,8 +269,8 @@ struct TrainTractionView: View {
                 RoundedRectangle(cornerRadius: 4)
                     .stroke(Color.green, lineWidth: 1)
                     .frame(width: 40, height: 20)
-                    .overlay(Text(value).font(.custom("VT323-Regular", size: 12)).foregroundColor(.blue))
-                Text(label).font(.custom("VT323-Regular", size: 10)).foregroundColor(.green)
+                    .overlay(Text(value).font(.custom("VT323-Regular", size: 12 * dynamicScale)).foregroundColor(.blue))
+                Text(label).font(.custom("VT323-Regular", size: 10 * dynamicScale)).foregroundColor(.green)
             }
             .position(x: geometry.size.width * x, y: geometry.size.height * y)
         }

@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct TrainTelecommandsView: View {
+    @Environment(\.dynamicScale) var dynamicScale
+
     let train: Train
     let onBack: () -> Void
     
@@ -32,7 +34,7 @@ struct TrainTelecommandsView: View {
                         Image(systemName: "arrow.left")
                         Text("RETOUR")
                     }
-                    .font(.custom(fontName, size: 18))
+                    .font(.custom(fontName, size: 18 * dynamicScale))
                     .foregroundColor(.black)
                     .padding(4)
                     .background(Color.green)
@@ -41,12 +43,12 @@ struct TrainTelecommandsView: View {
                 
                 Spacer()
                 Text("TELECOMMANDES")
-                    .font(.custom(fontName, size: 32))
+                    .font(.custom(fontName, size: 32 * dynamicScale))
                     .fontWeight(.bold)
                     .foregroundColor(.green)
                 Spacer()
                 Text(parseTrainID(train.name))
-                    .font(.custom(fontName, size: 32))
+                    .font(.custom(fontName, size: 32 * dynamicScale))
                     .fontWeight(.bold)
                     .foregroundColor(.green)
             }
@@ -97,6 +99,8 @@ struct TrainTelecommandsView: View {
     }
     
     struct CommandButton: View {
+    @Environment(\.dynamicScale) var dynamicScale
+
         let label: String
         let status: String?
         let action: () -> Void
@@ -105,14 +109,14 @@ struct TrainTelecommandsView: View {
             Button(action: action) {
                 VStack {
                     Text(label)
-                        .font(.custom("VT323-Regular", size: 18))
+                        .font(.custom("VT323-Regular", size: 18 * dynamicScale))
                         .fontWeight(.bold)
                         .foregroundColor(.green)
                         .multilineTextAlignment(.center)
                     
                     if let status = status {
                         Text(status)
-                            .font(.custom("VT323-Regular", size: 14))
+                            .font(.custom("VT323-Regular", size: 14 * dynamicScale))
                             .foregroundColor(status == "OK" ? .blue : .yellow)
                             .transition(.opacity)
                     }

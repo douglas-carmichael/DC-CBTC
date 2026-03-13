@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct TrainAlarmsView: View {
+    @Environment(\.dynamicScale) var dynamicScale
+
     let train: Train
     let onBack: () -> Void
     
@@ -33,7 +35,7 @@ struct TrainAlarmsView: View {
                         Image(systemName: "arrow.left")
                         Text("RETOUR")
                     }
-                    .font(.custom(fontName, size: 18))
+                    .font(.custom(fontName, size: 18 * dynamicScale))
                     .foregroundColor(.black)
                     .padding(4)
                     .background(Color.green)
@@ -42,21 +44,21 @@ struct TrainAlarmsView: View {
                 
                 Spacer()
                 Text("LISTE DES ALARMES")
-                    .font(.custom(fontName, size: 32))
+                    .font(.custom(fontName, size: 32 * dynamicScale))
                     .fontWeight(.bold)
                     .foregroundColor(.red) // Red for Alarms
                 Spacer()
                 
                 // Active alarm count badge
                 Text("\(activeCount) ACTIVE\(activeCount != 1 ? "S" : "")")
-                    .font(.custom(fontName, size: 18))
+                    .font(.custom(fontName, size: 18 * dynamicScale))
                     .foregroundColor(.black)
                     .padding(.horizontal, 8)
                     .padding(.vertical, 2)
                     .background(activeCount > 0 ? Color.red : Color.green)
                 
                 Text(parseTrainID(train.name))
-                    .font(.custom(fontName, size: 32))
+                    .font(.custom(fontName, size: 32 * dynamicScale))
                     .fontWeight(.bold)
                     .foregroundColor(.green)
                     .padding(.leading, 8)
@@ -71,7 +73,7 @@ struct TrainAlarmsView: View {
                 Text("DESIGNATION").frame(maxWidth: .infinity, alignment: .leading)
                 Text("ETAT").frame(width: 100, alignment: .trailing)
             }
-            .font(.custom(fontName, size: 20))
+            .font(.custom(fontName, size: 20 * dynamicScale))
             .foregroundColor(.green)
             .padding()
             .background(Color.black)
@@ -82,7 +84,7 @@ struct TrainAlarmsView: View {
                 VStack(spacing: 0) {
                     if sortedAlarms.isEmpty {
                         Text("AUCUNE ALARME")
-                            .font(.custom(fontName, size: 24))
+                            .font(.custom(fontName, size: 24 * dynamicScale))
                             .foregroundColor(.gray)
                             .padding(.top, 50)
                     } else {
@@ -96,7 +98,7 @@ struct TrainAlarmsView: View {
                                     .frame(width: 100, alignment: .trailing)
                                     .fontWeight(.bold)
                             }
-                            .font(.custom(fontName, size: 18))
+                            .font(.custom(fontName, size: 18 * dynamicScale))
                             .foregroundColor(alarm.isActive ? .red : .gray)
                             .padding()
                             .background(

@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct TrainSignalingView: View {
+    @Environment(\.dynamicScale) var dynamicScale
+
     let train: Train
     @Binding var selectedSystem: String?
     let onBack: () -> Void
@@ -28,7 +30,7 @@ struct TrainSignalingView: View {
                         Image(systemName: "arrow.left")
                         Text("RETOUR")
                     }
-                    .font(.custom(fontName, size: 18))
+                    .font(.custom(fontName, size: 18 * dynamicScale))
                     .foregroundColor(.black)
                     .padding(4)
                     .background(Color.green)
@@ -37,12 +39,12 @@ struct TrainSignalingView: View {
                 
                 Spacer()
                 Text("POSITION / LOCALISATION")
-                    .font(.custom(fontName, size: 32))
+                    .font(.custom(fontName, size: 32 * dynamicScale))
                     .fontWeight(.bold)
                     .foregroundColor(.green)
                 Spacer()
                 Text(parseTrainID(train.name))
-                    .font(.custom(fontName, size: 32))
+                    .font(.custom(fontName, size: 32 * dynamicScale))
                     .fontWeight(.bold)
                     .foregroundColor(.green)
             }
@@ -114,7 +116,7 @@ struct TrainSignalingView: View {
         VStack(alignment: .leading, spacing: 8) {
             HStack {
                 Text("DETAIL: \(system)")
-                    .font(.custom(fontName, size: 24))
+                    .font(.custom(fontName, size: 24 * dynamicScale))
                     .fontWeight(.bold)
                     .foregroundColor(.black)
                 Spacer()
@@ -130,7 +132,7 @@ struct TrainSignalingView: View {
             
             ScrollView {
                 Text(descriptions[system] ?? "Pas de description disponible.")
-                    .font(.custom(fontName, size: 18))
+                    .font(.custom(fontName, size: 18 * dynamicScale))
                     .foregroundColor(.black)
                     .fixedSize(horizontal: false, vertical: true)
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -160,6 +162,8 @@ struct TrainSignalingView: View {
     }
     
     struct ParameterBox: View {
+    @Environment(\.dynamicScale) var dynamicScale
+
         let label: String
         let value: String
         let status: StatusType
@@ -168,11 +172,11 @@ struct TrainSignalingView: View {
         var body: some View {
             HStack {
                 Text(label)
-                    .font(.custom("VT323-Regular", size: 20))
+                    .font(.custom("VT323-Regular", size: 20 * dynamicScale))
                     .foregroundColor(.green)
                 Spacer()
                 Text(value)
-                    .font(.custom("VT323-Regular", size: 20))
+                    .font(.custom("VT323-Regular", size: 20 * dynamicScale))
                     .foregroundColor(.black)
                     .padding(.horizontal, 8)
                     .padding(.vertical, 2)

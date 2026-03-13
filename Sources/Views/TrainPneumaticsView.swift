@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct TrainPneumaticsView: View {
+    @Environment(\.dynamicScale) var dynamicScale
+
     let train: Train
     let onBack: () -> Void
     @EnvironmentObject var simulationController: SimulationController
@@ -17,7 +19,7 @@ struct TrainPneumaticsView: View {
                         Image(systemName: "arrow.left")
                         Text("RETOUR")
                     }
-                    .font(.custom(fontName, size: 18))
+                    .font(.custom(fontName, size: 18 * dynamicScale))
                     .foregroundColor(.black)
                     .padding(4)
                     .background(Color.green)
@@ -26,12 +28,12 @@ struct TrainPneumaticsView: View {
                 
                 Spacer()
                 Text("PNEUMATIQUES")
-                    .font(.custom(fontName, size: 32))
+                    .font(.custom(fontName, size: 32 * dynamicScale))
                     .fontWeight(.bold)
                     .foregroundColor(.green)
                 Spacer()
                 Text(parseTrainID(train.name))
-                    .font(.custom(fontName, size: 32))
+                    .font(.custom(fontName, size: 32 * dynamicScale))
                     .fontWeight(.bold)
                     .foregroundColor(.green)
             }
@@ -45,7 +47,7 @@ struct TrainPneumaticsView: View {
                     // Left Bogie (Tires 1-4)
                     VStack {
                         Text("BOGIE 1")
-                            .font(.custom(fontName, size: 24))
+                            .font(.custom(fontName, size: 24 * dynamicScale))
                             .foregroundColor(.green)
                             .padding(.bottom, 20)
                         
@@ -67,7 +69,7 @@ struct TrainPneumaticsView: View {
                     // Right Bogie (Tires 5-8)
                     VStack {
                         Text("BOGIE 2")
-                            .font(.custom(fontName, size: 24))
+                            .font(.custom(fontName, size: 24 * dynamicScale))
                             .foregroundColor(.green)
                             .padding(.bottom, 20)
                         
@@ -98,6 +100,8 @@ struct TrainPneumaticsView: View {
     }
     
     struct TireView: View {
+    @Environment(\.dynamicScale) var dynamicScale
+
         let tire: Train.Tire
         private let fontName = "VT323-Regular"
         
@@ -113,7 +117,7 @@ struct TrainPneumaticsView: View {
         var body: some View {
             VStack {
                 Text("PNEU \(tire.id)")
-                    .font(.custom(fontName, size: 18))
+                    .font(.custom(fontName, size: 18 * dynamicScale))
                     .foregroundColor(statusColor)
                 
                 ZStack {
@@ -123,17 +127,17 @@ struct TrainPneumaticsView: View {
                     
                     VStack {
                         Text(String(format: "%.1f", tire.pressure))
-                            .font(.custom(fontName, size: 24))
+                            .font(.custom(fontName, size: 24 * dynamicScale))
                             .fontWeight(.bold)
                             .foregroundColor(statusColor)
                         Text("bar")
-                            .font(.custom(fontName, size: 14))
+                            .font(.custom(fontName, size: 14 * dynamicScale))
                             .foregroundColor(statusColor)
                     }
                 }
                 
                 Text(tire.status.rawValue.uppercased())
-                    .font(.custom(fontName, size: 14))
+                    .font(.custom(fontName, size: 14 * dynamicScale))
                     .foregroundColor(statusColor)
             }
             .padding()
