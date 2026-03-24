@@ -8,7 +8,7 @@ struct TrainBootScreenView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
-            Text("ALSTOM - SYSTEME DE CONTROLE TRAIN - V3.42")
+            Text("SYSTEME DE CONTROLE TRAIN - V3.42")
                 .font(.custom(fontName, size: baseFontSize * 1.5))
                 .foregroundColor(.green)
                 .padding(.bottom, 20)

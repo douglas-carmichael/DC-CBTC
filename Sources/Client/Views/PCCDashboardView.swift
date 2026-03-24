@@ -1,9 +1,13 @@
 import SwiftUI
 
 struct PCCDashboardView: View {
-    @EnvironmentObject var simulationController: SimulationController
+    @EnvironmentObject var simulationController: ClientNetworkService
     @EnvironmentObject var demoManager: DemoModeManager
     @Environment(\.openWindow) var openWindow
+    
+    @State private var showingConnectDialog = false
+    @State private var host = "localhost"
+    @State private var port = "9090"
     
     var body: some View {
         VStack(spacing: 0) {
@@ -172,9 +176,44 @@ struct PCCDashboardView: View {
                     }
                     .buttonStyle(PlainButtonStyle())
                 }
+                
+                // Row 6: Server Connection
+                HStack {
+                    Button(action: {
+                        if simulationController.isConnected {
+                            simulationController.disconnect()
+                        } else {
+                            showingConnectDialog = true
+                        }
+                    }) {
+                        HStack {
+                            Image(systemName: simulationController.isConnected ? "antenna.radiowaves.left.and.right" : "antenna.radiowaves.left.and.right.slash")
+                            Text(simulationController.isConnected ? "CONNECTED TO SERVER" : "CONNECT TO SERVER (9090)")
+                                .font(.custom("VT323-Regular", size: 18))
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(simulationController.isConnected ? Color.purple : Color.gray)
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                }
             }
             .padding()
             .background(Color(NSColor.controlBackgroundColor))
+            .alert("Connect to Server", isPresented: $showingConnectDialog) {
+                TextField("Server Address", text: $host)
+                TextField("Port Number (e.g. 9090)", text: $port)
+                Button("Connect") {
+                    if let portNum = UInt16(port) {
+                        simulationController.connect(host: host, port: portNum)
+                    }
+                }
+                Button("Cancel", role: .cancel) { }
+            } message: {
+                Text("Enter the remote server address and network port to stream CBTC telemetry.")
+            }
             
             // Status List
             List {
@@ -209,7 +248,7 @@ struct PCCDashboardView: View {
 
 struct TrainRow: View {
     let train: Train
-    let controller: SimulationController
+    let controller: ClientNetworkService
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {

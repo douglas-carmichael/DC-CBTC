@@ -3,7 +3,7 @@ import SceneKit
 
 struct DemoModeView: View {
     @EnvironmentObject var demoManager: DemoModeManager
-    @EnvironmentObject var simulationController: SimulationController
+    @EnvironmentObject var simulationController: ClientNetworkService
     
     // Timer for auto-hiding overlay controls?
     @State private var showControls: Bool = true
@@ -90,7 +90,7 @@ struct DemoModeView: View {
             }
         }
         .onAppear {
-            demoManager.setSimulationController(simulationController)
+            demoManager.setClientNetworkService(simulationController)
         }
     }
     

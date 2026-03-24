@@ -2,7 +2,7 @@ import SwiftUI
 
 struct TrainDetailViewWrapper: View {
     let trainID: UUID
-    @EnvironmentObject var simulationController: SimulationController
+    @EnvironmentObject var simulationController: ClientNetworkService
     
     var body: some View {
         if let train = simulationController.trains.first(where: { $0.id == trainID }) {
@@ -25,7 +25,7 @@ struct TrainDetailView: View {
     let train: Train
     let onClose: () -> Void
     var isDemoMode: Bool = false // Add optional parameter
-    @EnvironmentObject var simulationController: SimulationController // Injected
+    @EnvironmentObject var simulationController: ClientNetworkService // Injected
     
     // Retro font simulation
     private let fontName = "VT323-Regular" // Or another monospaced font
@@ -52,7 +52,7 @@ struct TrainDetailView: View {
     @State private var selectedAuxiliary: String? // Search/Drill-down state
     
     // Type alias for status items to ensure consistency
-    typealias StatusItem = (label: String, color: Color, active: Bool, value: String?, faultKey: WritableKeyPath<Train, Bool>?)
+    typealias StatusItem = (label: String, color: Color, active: Bool, value: String?, faultKey: FaultType?)
     
     var body: some View {
         GeometryReader { geometry in

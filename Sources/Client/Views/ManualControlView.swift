@@ -3,7 +3,7 @@ import AppKit
 
 struct ManualControlView: View {
     let trainID: UUID
-    @EnvironmentObject var simulationController: SimulationController
+    @EnvironmentObject var simulationController: ClientNetworkService
     @State private var localSpeedRequest: Float = 0.0
     
     // Binding for manual control

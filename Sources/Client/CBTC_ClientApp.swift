@@ -2,7 +2,7 @@
 
 @main
 struct CBTC_Metro_SimulatorApp: App {
-    @StateObject private var simulationController = SimulationController()
+    @StateObject private var simulationController = ClientNetworkService.shared
     @StateObject private var demoManager = DemoModeManager()
 
     init() {

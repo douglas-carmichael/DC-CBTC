@@ -23,12 +23,12 @@ class DemoModeManager: ObservableObject {
     
     private var timer: Timer?
     private var cycleIndex: Int = 0
-    private var simulationController: SimulationController?
+    private var simulationController: ClientNetworkService?
     
     // Configuration
     private let viewDuration: TimeInterval = 10.0 // Seconds per view
     
-    func setSimulationController(_ controller: SimulationController) {
+    func setClientNetworkService(_ controller: ClientNetworkService) {
         self.simulationController = controller
     }
     

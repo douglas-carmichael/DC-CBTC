@@ -5,7 +5,7 @@ struct TrainPneumaticsView: View {
 
     let train: Train
     let onBack: () -> Void
-    @EnvironmentObject var simulationController: SimulationController
+    @EnvironmentObject var simulationController: ClientNetworkService
     
     // Retro font simulation
     private let fontName = "VT323-Regular"

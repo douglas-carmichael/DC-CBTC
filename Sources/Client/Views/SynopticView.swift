@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct SynopticView: View {
-    @EnvironmentObject var simulationController: SimulationController
+    @EnvironmentObject var simulationController: ClientNetworkService
     
     var body: some View {
         VStack(spacing: 0) {

@@ -6,7 +6,7 @@ struct TrainAuxiliaryView: View {
     let train: Train
     @Binding var selectedSystem: String?
     let onBack: () -> Void
-    @EnvironmentObject var simulationController: SimulationController
+    @EnvironmentObject var simulationController: ClientNetworkService
     
     // Retro font simulation
     

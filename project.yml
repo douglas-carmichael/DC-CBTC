@@ -2,14 +2,30 @@ name: CBTC_Metro_Simulator
 options:
   bundleIdPrefix: com.dcarmich
 targets:
-  CBTC_Metro_Simulator:
+  CBTC_Server:
     type: application
     platform: macOS
     deploymentTarget: "14.0"
-    sources: [Sources]
+    sources:
+      - Sources/Server
+      - Sources/Shared
     settings:
       base:
         GENERATE_INFOPLIST_FILE: YES
-        PRODUCT_NAME: CBTC_Metro_Simulator
+        PRODUCT_NAME: CBTC_Server
+        SUPPORTED_PLATFORMS: macosx
+        SDKROOT: macosx
+
+  CBTC_Client:
+    type: application
+    platform: macOS
+    deploymentTarget: "14.0"
+    sources:
+      - Sources/Client
+      - Sources/Shared
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        PRODUCT_NAME: CBTC_Client
         SUPPORTED_PLATFORMS: macosx
         SDKROOT: macosx

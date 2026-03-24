@@ -2,7 +2,7 @@ import SwiftUI
 import SceneKit
 
 struct ContentView: View {
-    @EnvironmentObject var simulationController: SimulationController
+    @EnvironmentObject var simulationController: ClientNetworkService
     @EnvironmentObject var demoManager: DemoModeManager // Inject Demo Manager
 
     var body: some View {

@@ -3,14 +3,15 @@ import SceneKit
 import Combine
 
 class SimulationController: ObservableObject {
-    // published state for UI
     @Published var trains: [Train] = []
     @Published var trackSegments: [TrackSegment] = []
     @Published var stations: [Station] = []
     @Published var isRunning: Bool = false
     @Published var systemAlerts: [String] = []
     @Published var isRandomFaultModeEnabled: Bool = false
-    @Published var commandStatus: [String: String] = [:] // Global command status? Or per train?
+    @Published var commandStatus: [String: String] = [:]
+    
+    private var cancellables = Set<AnyCancellable>()
     // Actually commandStatus in View is local state. We might need a way to reflect archiving status in the UI if we revisit.
     // user feedback logic in executeCommand will rely on View's state mirroring or we need to publish it.
     // For now, let's just update the model and let the view query it or handle the command action locally.
@@ -34,6 +35,68 @@ class SimulationController: ObservableObject {
         setupTrack()
         setupTrains()
         setupScene()
+        setupNetworkListener()
+    }
+    
+    private func setupNetworkListener() {
+        ServerNetworkService.shared.commandPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] command in
+                self?.handleAppCommand(command)
+            }
+            .store(in: &cancellables)
+            
+        ServerNetworkService.shared.$connectedClientCount
+            .dropFirst()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] count in
+                if count == 0 && self?.trains.isEmpty == false {
+                    self?.removeAllTrains()
+                }
+            }
+            .store(in: &cancellables)
+    }
+    
+    private func handleAppCommand(_ command: AppCommand) {
+        switch command {
+        case .startSimulation:
+            startSimulation()
+        case .stopSimulation:
+            stopSimulation()
+        case .emergencyStop:
+            emergencyStop()
+        case .toggleEmergencyStop:
+            toggleEmergencyStop()
+        case .resetSimulation:
+            resetSimulation()
+        case .addTrain:
+            addTrain()
+        case .removeTrain(let id):
+            removeTrain(id: id)
+        case .executeTrainCommand(let trainId, let cmd):
+            executeCommand(cmd, for: trainId)
+        case .setRandomFaultMode(let en):
+            isRandomFaultModeEnabled = en
+        case .resetCamera:
+            resetCamera()
+        case .toggleTrainPhysics(let trainId, let patinage, let enrayage):
+            toggleTrainPhysics(for: trainId, patinage: patinage, enrayage: enrayage)
+        case .cycleTireStatus(let trainId, let idx):
+            cycleTireStatus(for: trainId, at: idx)
+        case .toggleFault(let trainId, let type):
+            toggleFault(for: trainId, type: type)
+        }
+    }
+    
+    private func toggleFault(for trainId: UUID, type: FaultType) {
+        if let index = trains.firstIndex(where: { $0.id == trainId }) {
+            switch type {
+            case .door: trains[index].isDoorFault.toggle()
+            case .engine: trains[index].isEngineFault.toggle()
+            case .brake: trains[index].isBrakeFault.toggle()
+            case .signal: trains[index].isSignalFault.toggle()
+            }
+        }
     }
     
     func getSegmentName(for id: UUID?) -> String {
@@ -219,6 +282,21 @@ class SimulationController: ObservableObject {
         updateScene()
     }
     
+    func removeAllTrains() {
+        stopSimulation()
+        
+        // Remove existing nodes
+        for (_, node) in trainNodes {
+            node.removeFromParentNode()
+        }
+        trainNodes.removeAll()
+        passengerNodes.removeAll()
+        
+        // Reset data
+        trains.removeAll()
+        updateScene()
+    }
+    
     func toggleTrainPhysics(for trainId: UUID, patinage: Bool, enrayage: Bool) {
         if let index = trains.firstIndex(where: { $0.id == trainId }) {
             trains[index].isPatinage = patinage
@@ -384,6 +462,18 @@ class SimulationController: ObservableObject {
                 TrainDataService.shared.logData(train: train)
             }
         }
+        
+        // Broadcast Telemetry
+        if ServerNetworkService.shared.isEnabled {
+            let systemTelemetry = SystemTelemetry(
+                timestamp: Date(),
+                isRunning: self.isRunning,
+                isEmergencyState: self.isEmergencyState,
+                trains: self.trains
+            )
+            ServerNetworkService.shared.broadcast(telemetry: systemTelemetry)
+        }
+        
         
         // Ensure scene updates happen on main thread
         DispatchQueue.main.async { [weak self] in
@@ -884,7 +974,8 @@ class SimulationController: ObservableObject {
             let x2 = radius * cos(angleEnd)
             let z2 = radius * sin(angleEnd)
             
-            let id = UUID()
+            let idStr = String(format: "00000000-0000-0000-0000-%012X", i + 1)
+            let id = UUID(uuidString: idStr)!
             let segment = TrackSegment(
                 id: id,
                 name: "Canton \(i + 1)",

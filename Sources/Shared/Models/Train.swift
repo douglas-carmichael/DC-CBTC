@@ -1,7 +1,7 @@
 import Foundation
 import CoreGraphics
 
-struct Train: Identifiable, Equatable {
+struct Train: Identifiable, Equatable, Codable {
     let id: UUID
     var name: String // "Rame 101"
     var length: CGFloat = 52.0 // Length in meters
@@ -23,7 +23,7 @@ struct Train: Identifiable, Equatable {
     var isPatinage: Bool = false // Wheel Slip (Acceleration)
     var isEnrayage: Bool = false // Wheel Slide (Braking)
     
-    enum TrainStatus: String, CaseIterable {
+    enum TrainStatus: String, CaseIterable, Codable {
         case stopped = "Arrêt"
         case moving = "En mouvement"
         case emergency = "Urgence"
@@ -31,7 +31,7 @@ struct Train: Identifiable, Equatable {
     }
 
     // Manual Control
-    enum TrainMode: String, CaseIterable {
+    enum TrainMode: String, CaseIterable, Codable {
         case auto = "Automatique"
         case manual = "Manuel"
     }
@@ -42,7 +42,7 @@ struct Train: Identifiable, Equatable {
     var isEmergencyBrakeApplied: Bool = false
     
     // Startup Sequence
-    enum StartupState: Int, CaseIterable, Equatable {
+    enum StartupState: Int, CaseIterable, Equatable, Codable {
         case booting
         case memoryCheck     // Checking RAM
         case systemsCheck    // Checking Pneumatics, Electrics
@@ -65,12 +65,12 @@ struct Train: Identifiable, Equatable {
     var nextStationName: String = "..."
     
     // Tire Status (VAL)
-    struct Tire: Identifiable, Equatable {
+    struct Tire: Identifiable, Equatable, Codable {
         let id: Int
         var pressure: Double // Bars
         var status: TireStatus
         
-        enum TireStatus: String, CaseIterable {
+        enum TireStatus: String, CaseIterable, Codable {
             case ok = "OK"
             case lowPressure = "PRESSION BASSE"
             case puncture = "CREVAISON"
@@ -99,7 +99,7 @@ struct Train: Identifiable, Equatable {
     }
     
     // Alarm Log
-    struct Alarm: Identifiable, Equatable {
+    struct Alarm: Identifiable, Equatable, Codable {
         let id: UUID
         let label: String        // e.g. "DEFAUT PORTES"
         let timestamp: Date      // When alarm was triggered

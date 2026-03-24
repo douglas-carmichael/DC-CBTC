@@ -74,7 +74,7 @@ struct TrainTelecommandsView: View {
         .overlay(Rectangle().stroke(Color.green, lineWidth: 2))
     }
     
-    @EnvironmentObject var simulationController: SimulationController
+    @EnvironmentObject var simulationController: ClientNetworkService
     
     private func executeCommand(_ command: String) {
         // Send command to controller

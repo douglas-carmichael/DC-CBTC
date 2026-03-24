@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct FailureControlView: View {
-    @EnvironmentObject var simulationController: SimulationController
+    @EnvironmentObject var simulationController: ClientNetworkService
     @State private var selectedTrainIndex: Int = 0
     
     var body: some View {

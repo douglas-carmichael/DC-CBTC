@@ -5,7 +5,7 @@ struct TrainMainDashboardView: View {
     @Binding var currentView: TrainDetailView.DrillDownView
     @Binding var selectedAuxiliary: String?
     let baseFontSize: CGFloat
-    @EnvironmentObject var simulationController: SimulationController
+    @EnvironmentObject var simulationController: ClientNetworkService
     
     // Retro font simulation
     private let fontName = "VT323-Regular"
@@ -47,15 +47,15 @@ struct TrainMainDashboardView: View {
                     // Column 1
                     VStack(spacing: 0) {
                         detailSection(title: "ALARMES", items: [
-                            ("TMS", .blue, train.isSignalFault, nil, \.isSignalFault), // Signal Fault
+                            ("TMS", .blue, train.isSignalFault, nil, .signal), // Signal Fault
                             ("EVACUATION", .red, train.status == .emergency, nil, nil),
                             ("ALARME TECH", .red, false, nil, nil),
-                            ("DEFAUT TECH", .red, train.isEngineFault, nil, \.isEngineFault), // Engine Fault
+                            ("DEFAUT TECH", .red, train.isEngineFault, nil, .engine), // Engine Fault
                             ("PARITE TMD", .blue, false, nil, nil)
                         ], targetView: .alarms)
                         Divider().background(Color.green)
                         detailSection(title: "POSITION", items: [
-                            ("CANTON", .white, true, "Canton \((train.currentSegmentId?.uuidString ?? "????").prefix(4))", nil),
+                            ("CANTON", .white, true, simulationController.getSegmentName(for: train.currentSegmentId), nil),
                             ("PA", .white, true, "4", nil),
                             ("TMD", .green, true, "OK", nil)
                         ], targetView: .signaling)
@@ -64,7 +64,7 @@ struct TrainMainDashboardView: View {
                             ("RAME FORME 52M", .blue, true, nil, nil),
                             ("VIT.MOD. PAR STAT", .blue, false, nil, nil),
                             ("COND MANUELLE-AUTO", .white, true, train.mode == .manual ? "M" : "A", nil),
-                            ("DEFAUT PREPA", .red, train.isDoorFault, "NON", \.isDoorFault), // Door Fault
+                            ("DEFAUT PREPA", .red, train.isDoorFault, "NON", .door), // Door Fault
                             ("ACCOSTAGE AUTO.", .blue, true, nil, nil),
                             ("SURCHARGE", .blue, false, nil, nil),
                             ("CHARGE PAX", .white, true, "\(train.passengerCount)", nil)
@@ -137,7 +137,7 @@ struct TrainMainDashboardView: View {
                             ("FU PASSAGERS", .blue, false, nil, nil),
                             ("FU OBSTACLES", .blue, false, nil, nil),
                             ("FU RUPT. ATTEL.", .blue, false, nil, nil),
-                            ("DEFAUT FU", .red, train.isBrakeFault, nil, \.isBrakeFault),
+                            ("DEFAUT FU", .red, train.isBrakeFault, nil, .brake),
                             ("DEFAUT FN", .red, false, nil, nil),
                             ("FREIN PERMANENT", .blue, train.speed == 0, nil, nil),
                             ("AUTOTEST FREIN", .blue, false, nil, nil)
@@ -354,10 +354,8 @@ struct TrainMainDashboardView: View {
         .frame(maxHeight: .infinity)
     }
     
-    private func toggleFault(_ keyPath: WritableKeyPath<Train, Bool>) {
-        if let index = simulationController.trains.firstIndex(where: { $0.id == train.id }) {
-            simulationController.trains[index][keyPath: keyPath].toggle()
-        }
+    private func toggleFault(_ faultType: FaultType) {
+        simulationController.toggleFault(for: train.id, faultType: faultType)
     }
     
     // Dynamic Diagnostics
