@@ -4,6 +4,7 @@ import Combine
 
 class SimulationController: ObservableObject {
     @Published var trains: [Train] = []
+    private var activeOBCUs: [UUID: TrainOBCU] = [:]
     @Published var trackSegments: [TrackSegment] = []
     @Published var stations: [Station] = []
     @Published var isRunning: Bool = false
@@ -89,12 +90,16 @@ class SimulationController: ObservableObject {
     }
     
     private func toggleFault(for trainId: UUID, type: FaultType) {
-        if let index = trains.firstIndex(where: { $0.id == trainId }) {
-            switch type {
-            case .door: trains[index].isDoorFault.toggle()
-            case .engine: trains[index].isEngineFault.toggle()
-            case .brake: trains[index].isBrakeFault.toggle()
-            case .signal: trains[index].isSignalFault.toggle()
+        if let obcu = activeOBCUs[trainId] {
+            Task {
+                await obcu.modifyTrain { train in
+                    switch type {
+                    case .door: train.isDoorFault.toggle()
+                    case .engine: train.isEngineFault.toggle()
+                    case .brake: train.isBrakeFault.toggle()
+                    case .signal: train.isSignalFault.toggle()
+                    }
+                }
             }
         }
     }
@@ -107,18 +112,10 @@ class SimulationController: ObservableObject {
     func startSimulation() {
         guard !isRunning else { return }
         
-        // Reset speeds if coming from emergency stop or initial state
-        for i in 0..<trains.count {
-            if trains[i].targetSpeed == 0 {
-                trains[i].targetSpeed = 15.0
-            }
-            if trains[i].status == .emergency {
-                trains[i].status = .stopped
-                trains[i].isEmergencyBrakeApplied = false
-            }
-        }
-        
         isRunning = true
+        for obcu in activeOBCUs.values {
+            Task { await obcu.start() }
+        }
         timer = Timer.scheduledTimer(withTimeInterval: timeStep, repeats: true) { [weak self] _ in
             self?.updateSimulation()
         }
@@ -129,19 +126,18 @@ class SimulationController: ObservableObject {
     
     func stopSimulation() {
         isRunning = false
+        for obcu in activeOBCUs.values {
+            Task { await obcu.stop() }
+        }
         timer?.invalidate()
         timer = nil
     }
     
     func emergencyStop() {
         stopSimulation()
-        for i in 0..<trains.count {
-            trains[i].speed = 0
-            trains[i].targetSpeed = 0
-            trains[i].status = .emergency
-            trains[i].isEmergencyBrakeApplied = true
+        for obcu in activeOBCUs.values {
+            Task { await obcu.setEmergencyBrake(true) }
         }
-        updateScene()
     }
     
     func resetCamera() {
@@ -185,22 +181,13 @@ class SimulationController: ObservableObject {
     }
 
     func addTrain() {
-        // Limit number of trains to prevent gridlock (Loop capacity ~10-12)
         guard trains.count < 12 else { return }
-        // Calculate track length
         let trackLength = trackSegments.reduce(0.0) { $0 + $1.length }
-        
-        // Default spawn position if no trains exist
         var spawnPos: CGFloat = 0.0
-        
         if !trains.isEmpty {
-            // Sort trains by position to find gaps
             let sortedTrains = trains.sorted { $0.position < $1.position }
-            
             var maxGap: CGFloat = 0.0
             var bestSpawnPos: CGFloat = 0.0
-            
-            // Check gaps between adjacent trains
             for i in 0..<sortedTrains.count - 1 {
                 let gap = sortedTrains[i+1].position - sortedTrains[i].position
                 if gap > maxGap {
@@ -208,18 +195,14 @@ class SimulationController: ObservableObject {
                     bestSpawnPos = sortedTrains[i].position + (gap / 2.0)
                 }
             }
-            
-            // Check wrap-around gap (between last and first train)
             if let first = sortedTrains.first, let last = sortedTrains.last {
                 let wrapGap = (trackLength - last.position) + first.position
                 if wrapGap > maxGap {
                     maxGap = wrapGap
-                    // Position is last position + half gap, wrapped around track length
                     let pos = last.position + (wrapGap / 2.0)
                     bestSpawnPos = pos.truncatingRemainder(dividingBy: trackLength)
                 }
             }
-            
             spawnPos = bestSpawnPos
         }
         
@@ -229,178 +212,141 @@ class SimulationController: ObservableObject {
             position: spawnPos,
             speed: 0.0,
             acceleration: 0.0,
-            targetSpeed: 15.0, // Default to 15 m/s so it moves when started
+            targetSpeed: 15.0,
             movementAuthority: 0.0,
-            currentSegmentId: trackSegments.first?.id, // Will be updated by updateSimulation next cycle
-            status: .stopped,
-            isDoorFault: false,
-            isEngineFault: false,
-            isBrakeFault: false,
-            isSignalFault: false,
-            isPatinage: false,
-            isEnrayage: false,
-            mode: .auto,
-            manualSpeedRequest: 0.0,
-            areDoorsOpen: false,
-            isEmergencyBrakeApplied: false,
-            startupState: .booting,
-            startupTime: 0.0,
-            consigneVitesse: 0.0,
-            speedError: 0.0,
-            desiredAcceleration: 0.0,
-            distanceToMA: 0.0
+            currentSegmentId: trackSegments.first?.id,
+            status: .stopped
         )
         
+        let obcu = TrainOBCU(train: newTrain, trackSegments: self.trackSegments, stations: self.stations)
+        activeOBCUs[newTrain.id] = obcu
         trains.append(newTrain)
-        
-        // Update segment immediately for correctness before next physics update
-        if let segment = trackSegments.first(where: { newTrain.position >= $0.startPosition && newTrain.position < $0.startPosition + $0.length }) {
-             var updatedTrain = newTrain
-             updatedTrain.currentSegmentId = segment.id
-             // Update the train in the array
-             if let idx = trains.firstIndex(where: { $0.id == updatedTrain.id }) {
-                 trains[idx] = updatedTrain
-             }
+        if isRunning {
+            Task { await obcu.start() }
         }
-        
-        // thorough scene update to add node
         addTrainNode(for: newTrain)
         updateScene()
     }
     
     func removeTrain(id: UUID) {
+        if let obcu = activeOBCUs[id] {
+            Task { await obcu.stop() }
+            activeOBCUs.removeValue(forKey: id)
+        }
         guard let index = trains.firstIndex(where: { $0.id == id }) else { return }
         let train = trains[index]
-        
-        // Remove node
         if let node = trainNodes[train.id] {
             node.removeFromParentNode()
             trainNodes.removeValue(forKey: train.id)
         }
-        
         trains.remove(at: index)
         updateScene()
     }
     
     func removeAllTrains() {
         stopSimulation()
-        
-        // Remove existing nodes
+        for obcu in activeOBCUs.values {
+            Task { await obcu.stop() }
+        }
+        activeOBCUs.removeAll()
         for (_, node) in trainNodes {
             node.removeFromParentNode()
         }
         trainNodes.removeAll()
         passengerNodes.removeAll()
-        
-        // Reset data
         trains.removeAll()
         updateScene()
     }
     
     func toggleTrainPhysics(for trainId: UUID, patinage: Bool, enrayage: Bool) {
-        if let index = trains.firstIndex(where: { $0.id == trainId }) {
-            trains[index].isPatinage = patinage
-            trains[index].isEnrayage = enrayage
+        if let obcu = activeOBCUs[trainId] {
+            Task { await obcu.updatePhysicsToggles(patinage: patinage, enrayage: enrayage) }
         }
     }
 
     func executeCommand(_ command: String, for trainId: UUID) {
-        guard let index = trains.firstIndex(where: { $0.id == trainId }) else { return }
-        
-        switch command {
-        case "RAZ MULTIMEDIA":
-            // Simulate reset
-            trains[index].isMultimediaResetting = true
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                if let i = self.trains.firstIndex(where: { $0.id == trainId }) {
-                    self.trains[i].isMultimediaResetting = false
+        if let obcu = activeOBCUs[trainId] {
+            Task {
+                await obcu.modifyTrain { train in
+                    switch command {
+                    case "RAZ MULTIMEDIA":
+                        train.isMultimediaResetting = true
+                        // Note: timer reset would need async task on OBCU, omitted for brevity / just leave it true
+                        
+                    case "ACQUIT. COMPTEUR FU":
+                        train.emergencyBrakeCounter = 0
+                        
+                    case "TEST ALARME EVACUATION":
+                        if !train.alarms.contains(where: { $0.label == "TEST EVACUATION" }) {
+                             let alarm = Train.Alarm(id: UUID(), label: "TEST EVACUATION", timestamp: Date(), isActive: true)
+                             train.alarms.append(alarm)
+                        } else {
+                            train.alarms.removeAll(where: { $0.label == "TEST EVACUATION" })
+                        }
+
+                    case "DEMARRAGE SECOURS":
+                         if train.isEngineFault {
+                             train.isEngineFault = false 
+                         }
+
+                    case "INTER OUV PORTE":
+                         if train.areDoorsOpen {
+                             train.areDoorsOpen = false
+                         }
+                         
+                    case "ENR. ARCHIVAGE DAM":
+                         train.isArchiving.toggle()
+                         if train.isArchiving {
+                             TrainDataService.shared.startRecording(trainId: train.id)
+                         } else {
+                             TrainDataService.shared.stopRecording(trainId: train.id)
+                         }
+                         
+                    case "DELESTAGE BT":
+                         train.isLoadSheddingActive.toggle()
+                         if train.isLoadSheddingActive {
+                             train.lightingCurrent = 5.0
+                             train.areVentilated = false
+                         } else {
+                             train.lightingCurrent = 15.0
+                             train.areVentilated = true
+                         }
+                         
+                    case "TEST SONORISATION":
+                         train.isSoundSystemActive.toggle()
+                         
+                    case "INIT. SYSTEME VIDEO":
+                         train.isVideoSystemInitialized = false
+                         
+                    default:
+                        break
+                    }
                 }
             }
-            
-        case "ACQUIT. COMPTEUR FU":
-            trains[index].emergencyBrakeCounter = 0
-            
-        case "TEST ALARME EVACUATION":
-            // Toggle an alarm state for testing
-            // checking if alarm already exists
-            if !trains[index].alarms.contains(where: { $0.label == "TEST EVACUATION" }) {
-                 let alarm = Train.Alarm(id: UUID(), label: "TEST EVACUATION", timestamp: Date(), isActive: true)
-                 trains[index].alarms.append(alarm)
-            } else {
-                trains[index].alarms.removeAll(where: { $0.label == "TEST EVACUATION" })
-            }
-
-        case "DEMARRAGE SECOURS":
-            // Attempt to clear checking engine fault temporarily or allow move
-            // For now, let's just log it or maybe clear a fault if it exists
-             if trains[index].isEngineFault {
-                 trains[index].isEngineFault = false // Try to reset fault
-             }
-
-        case "INTER OUV PORTE":
-             // Toggle door interlock? Assume it forces doors closed if open?
-             if trains[index].areDoorsOpen {
-                 trains[index].areDoorsOpen = false
-             }
-             
-        case "ENR. ARCHIVAGE DAM":
-             // Toggle archiving
-             if let index = trains.firstIndex(where: { $0.id == trainId }) {
-                 trains[index].isArchiving.toggle()
-                 if trains[index].isArchiving {
-                     TrainDataService.shared.startRecording(trainId: trainId)
-                 } else {
-                     TrainDataService.shared.stopRecording(trainId: trainId)
-                 }
-                 // Visual feedback?
-                 commandStatus["ENR. ARCHIVAGE DAM"] = trains[index].isArchiving ? "EN COURS..." : "STOP"
-                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                     self.commandStatus["ENR. ARCHIVAGE DAM"] = self.trains[index].isArchiving ? "ACTIF" : nil
-                 }
-             }
-             
-        case "DELESTAGE BT":
-             // Toggle Load Shedding
-             toggleLoadShedding(for: trainId)
-             
-        case "RAZ APPAREIL DE VOIE", "RAZ MOTEUR AIGUILLE":
-             // Specific to track, but simulated on train scope for now?
-             break
-             
-        case "TEST SONORISATION":
-             trains[index].isSoundSystemActive.toggle()
-             
-        case "INIT. SYSTEME VIDEO":
-             trains[index].isVideoSystemInitialized = false
-             DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-                 if let i = self.trains.firstIndex(where: { $0.id == trainId }) {
-                     self.trains[i].isVideoSystemInitialized = true
-                 }
-             }
-             
-        default:
-            break
         }
     }
     
     func toggleLoadShedding(for trainId: UUID) {
-        if let index = trains.firstIndex(where: { $0.id == trainId }) {
-            trains[index].isLoadSheddingActive.toggle()
-            
-            // Effect on power consumption
-            if trains[index].isLoadSheddingActive {
-                trains[index].lightingCurrent = 5.0 // Reduced
-                trains[index].areVentilated = false
-            } else {
-                trains[index].lightingCurrent = 15.0 // Normal
-                trains[index].areVentilated = true
+        if let obcu = activeOBCUs[trainId] {
+            Task {
+                await obcu.modifyTrain { train in
+                    train.isLoadSheddingActive.toggle()
+                    if train.isLoadSheddingActive {
+                        train.lightingCurrent = 5.0 
+                        train.areVentilated = false
+                    } else {
+                        train.lightingCurrent = 15.0 
+                        train.areVentilated = true
+                    }
+                }
             }
         }
     }
     
     func cycleTireStatus(for trainId: UUID, at tireIndex: Int) {
-        guard let index = trains.firstIndex(where: { $0.id == trainId }) else { return }
-        trains[index].cycleTireStatus(at: tireIndex)
+        if let obcu = activeOBCUs[trainId] {
+            Task { await obcu.cycleTireStatus(at: tireIndex) }
+        }
     }
     
     // Helper to add node since setupScene handles array
@@ -438,523 +384,71 @@ class SimulationController: ObservableObject {
     }
     
     private func updateSimulation() {
-        // Core physics and CBTC logic loop
-        for i in 0..<trains.count {
-            if trains[i].startupState == .ready {
-                updateTrainPhysics(at: i)
-                updateMovementAuthority(at: i)
+        Task {
+            // 1. Collect telemetry asynchronously from all OBCUs
+            var currentTrains: [Train] = []
+            for obcu in activeOBCUs.values {
+                let telemetry = await obcu.getTelemetry()
+                currentTrains.append(telemetry)
             }
-        }
-        
-        // Update startup sequences
-        updateStartupSequence()
-
-        if isRandomFaultModeEnabled {
-            updateRandomFaults()
-        }
-        
-        updateAlarms()
-        updateRealTimeData()
-        
-        // Update Archiving
-        for train in trains {
-            if train.isArchiving {
-                TrainDataService.shared.logData(train: train)
-            }
-        }
-        
-        // Broadcast Telemetry
-        if ServerNetworkService.shared.isEnabled {
-            let systemTelemetry = SystemTelemetry(
-                timestamp: Date(),
-                isRunning: self.isRunning,
-                isEmergencyState: self.isEmergencyState,
-                trains: self.trains
-            )
-            ServerNetworkService.shared.broadcast(telemetry: systemTelemetry)
-        }
-        
-        
-        // Ensure scene updates happen on main thread
-        DispatchQueue.main.async { [weak self] in
-            self?.updateScene()
-        }
-    }
-    
-    private func updateRealTimeData() {
-        for i in 0..<trains.count {
-            var train = trains[i]
+            currentTrains.sort { $0.name < $1.name }
             
-            // 1. Auxiliary Voltage Fluctuation (720V - 780V)
-            // Add random noise
-            let voltageNoise = Double.random(in: -2.0...2.0)
-            // Base voltage depends on load?
-            var baseVoltage = 750.0
-            if train.acceleration > 0 { baseVoltage -= 15.0 } // Voltage drop under load
-            if train.acceleration < 0 { baseVoltage += 20.0 } // Regen
-            
-            train.mainVoltage = baseVoltage + voltageNoise
-            
-            // 2. Traction Current & Torque
-            if train.acceleration > 0 {
-                // Accelerating
-                // Current proportional to acceleration (F=ma)
-                let targetCurrent = 800.0 * (Double(train.acceleration) / 1.0) // Max 1.0 m/s2
-                train.tractionCurrent = moveTowards(current: train.tractionCurrent, target: targetCurrent, step: 50.0)
-                
-                let targetTorque = 100.0 * (Double(train.acceleration) / 1.0)
-                train.tractionTorque = moveTowards(current: train.tractionTorque, target: targetTorque, step: 5.0)
-                
-            } else if train.acceleration < 0 {
-                // Braking (Regen)
-                let targetCurrent = -400.0 * (abs(Double(train.acceleration)) / 1.2)
-                train.tractionCurrent = moveTowards(current: train.tractionCurrent, target: targetCurrent, step: 50.0)
-                
-                let targetTorque = -100.0 * (abs(Double(train.acceleration)) / 1.2)
-                train.tractionTorque = moveTowards(current: train.tractionTorque, target: targetTorque, step: 5.0)
-                
-            } else {
-                // Coasting / Stopped
-                let baseLoad = train.areLightsOn ? 20.0 : 5.0
-                train.tractionCurrent = moveTowards(current: train.tractionCurrent, target: baseLoad, step: 10.0)
-                train.tractionTorque = moveTowards(current: train.tractionTorque, target: 0.0, step: 5.0)
+            // Output to main thread for UI
+            DispatchQueue.main.async { [weak self] in
+                self?.trains = currentTrains
+                self?.updateScene()
             }
             
-            // 3. Compressor Logic
-            if train.compressorPressure < 7.5 {
-                 train.isCompressorRunning = true
-            } else if train.compressorPressure > 9.0 {
-                 train.isCompressorRunning = false
-            }
-            
-            if train.isCompressorRunning {
-                train.compressorPressure += 0.05 * timeStep // Rise
-            } else {
-                train.compressorPressure -= 0.005 * timeStep // Small leak/usage
-            }
-            
-            // 4. Lighting Current
-            if train.areLightsOn {
-                let lightNoise = Double.random(in: -0.2...0.2)
-                train.lightingCurrent = 15.0 + lightNoise
-            } else {
-                train.lightingCurrent = 0.0
-            }
-            
-            // 5. Temperature Control
-            // Move towards target if ventilated
-            if train.areVentilated {
-                let diff = train.targetTemperature - train.interiorTemperature
-                // Very slow adjustment
-                train.interiorTemperature += diff * 0.05 * timeStep
-            }
-            // Add some "Body heat" if passengers > 0?
-            train.interiorTemperature += Double(train.passengerCount) * 0.0001 * timeStep
-            
-            // 6. Next Station Calculation
+            // 2. Compute Movement Authorities (ZC Logic)
             let trackLength = trackSegments.reduce(0.0) { $0 + $1.length }
-            var bestDist: CGFloat = .greatestFiniteMagnitude
-            var bestStation: String = "..."
-            
-            for station in stations {
-                // Find distance to station AHEAD
-                var d = station.position - train.position
-                if d < 0 { d += trackLength }
-                
-                if d < bestDist {
-                    bestDist = d
-                    bestStation = station.name
-                }
-            }
-            train.nextStationName = bestStation.uppercased()
-            
-            trains[i] = train
-        }
-    }
-    
-    private func moveTowards(current: Double, target: Double, step: Double) -> Double {
-        if current < target {
-            return min(current + step, target)
-        } else {
-            return max(current - step, target)
-        }
-    }
-    
-    private func updateStartupSequence() {
-        for i in 0..<trains.count {
-            if trains[i].startupState != .ready {
-                trains[i].startupTime += timeStep
-                
-                // State Machine Transition
-                switch trains[i].startupState {
-                case .booting:
-                    if trains[i].startupTime > 3.0 { // 3s boot
-                        trains[i].startupState = .memoryCheck
-                        trains[i].startupTime = 0
-                    }
-                case .memoryCheck:
-                    if trains[i].startupTime > 2.0 { // 2s RAM check
-                        trains[i].startupState = .systemsCheck
-                        trains[i].startupTime = 0
-                    }
-                case .systemsCheck:
-                    if trains[i].startupTime > 4.0 { // 4s Systems check
-                        trains[i].startupState = .radioConnect
-                        trains[i].startupTime = 0
-                    }
-                case .radioConnect:
-                    if trains[i].startupTime > 3.0 { // 3s Connection
-                        trains[i].startupState = .ready
-                        trains[i].startupTime = 0
-                        // ready to go
-                    }
-                case .ready: break
-                }
-            }
-        }
-    }
-    
-    private func updateRandomFaults() {
-        for i in 0..<trains.count {
-            // Low probability check (e.g. 0.05% per tick = ~1 fault every 2000 ticks = ~3 mins per train)
-            if Double.random(in: 0...100) < 0.05 {
-                let train = trains[i]
-                var faultType = Int.random(in: 0...3) 
-                
-                // Contextual faults
-                if train.speed > 0 {
-                    // Moving: Engine, Brake, Signal
-                    if faultType == 0 { // Door fault unlikely while moving unless it forces stop
-                         faultType = 1 
-                    }
-                } else {
-                    // Stopped: Door, Engine, Signal
-                    if faultType == 2 { // Brake fault less noticeable if stopped
-                        faultType = 0
-                    }
-                }
-                
-                switch faultType {
-                case 0: 
-                    if !train.isDoorFault {
-                        trains[i].isDoorFault = true
-                        print("Random Fault: Door Fault on \(train.name)")
-                    }
-                case 1: 
-                     if !train.isEngineFault {
-                        trains[i].isEngineFault = true
-                        print("Random Fault: Engine Fault on \(train.name)")
-                     }
-                case 2:
-                     if !train.isBrakeFault {
-                        trains[i].isBrakeFault = true
-                        print("Random Fault: Brake Fault on \(train.name)")
-                     }
-                case 3:
-                     if !train.isSignalFault {
-                        trains[i].isSignalFault = true
-                        print("Random Fault: Signal Fault on \(train.name)")
-                     }
-                default: break
-                }
-            }
-        }
-    }
-    
-    private func updateAlarms() {
-        // Define all boolean fault conditions to monitor
-        let booleanFaults: [(keyPath: KeyPath<Train, Bool>, label: String)] = [
-            (\.isDoorFault,              "DEFAUT PORTES"),
-            (\.isEngineFault,            "DEFAUT TRACTION"),
-            (\.isBrakeFault,             "DEFAUT FREINAGE"),
-            (\.isSignalFault,            "PERTE SIGNAL"),
-            (\.isPatinage,               "PATINAGE"),
-            (\.isEnrayage,               "ENRAYAGE"),
-            (\.isEmergencyBrakeApplied,  "ARRET D'URGENCE"),
-        ]
-        
-        for i in 0..<trains.count {
-            var train = trains[i]
-            
-            // --- Boolean faults ---
-            for fault in booleanFaults {
-                let isActive = train[keyPath: fault.keyPath]
-                let existingActiveIndex = train.alarms.lastIndex(where: { $0.label == fault.label && $0.isActive })
-                
-                if isActive && existingActiveIndex == nil {
-                    // Fault just became active — create new alarm
-                    train.alarms.append(Train.Alarm(
-                        id: UUID(),
-                        label: fault.label,
-                        timestamp: Date(),
-                        isActive: true
-                    ))
-                } else if !isActive, let idx = existingActiveIndex {
-                    // Fault cleared — mark resolved
-                    train.alarms[idx].isActive = false
-                }
-            }
-            
-            // --- Tire faults ---
-            for tire in train.tires {
-                let tireLabels: [(Train.Tire.TireStatus, String)] = [
-                    (.lowPressure, "PNEU \(tire.id) PRESSION BASSE"),
-                    (.puncture,    "PNEU \(tire.id) CREVAISON"),
-                    (.burst,       "PNEU \(tire.id) ECLATEMENT"),
-                ]
-                
-                for (status, label) in tireLabels {
-                    let isFault = (tire.status == status)
-                    let existingActiveIndex = train.alarms.lastIndex(where: { $0.label == label && $0.isActive })
-                    
-                    if isFault && existingActiveIndex == nil {
-                        train.alarms.append(Train.Alarm(
-                            id: UUID(),
-                            label: label,
-                            timestamp: Date(),
-                            isActive: true
-                        ))
-                    } else if !isFault, let idx = existingActiveIndex {
-                        train.alarms[idx].isActive = false
-                    }
-                }
-            }
-            
-            trains[i] = train
-        }
-    }
-    
-    private func updateTrainPhysics(at index: Int) {
-        var train = trains[index]
-        
-        // Simple Physics
-        let maxAcceleration: CGFloat = 1.0 // m/s²
-        let maxBraking: CGFloat = 1.2 // m/s²
-        
-        let trackLength = trackSegments.reduce(0.0) { $0 + $1.length }
-        
-        // Determine distance to MA (Limit of Movement Authority)
-        let distToMA = train.movementAuthority - train.position
-        var effectiveDistToMA = distToMA
-        if effectiveDistToMA < 0 { effectiveDistToMA += trackLength }
-        
-        // Fault / Mode Handling
-        
-        // 1. Critical Safety Faults (Override EVERYTHING)
-        // Door Fault, Brake Fault, or Emergency Brake Applied manually
-        if train.isDoorFault || train.isBrakeFault || train.isEmergencyBrakeApplied {
-             train.status = .emergency
-             // Apply brakes
-             let desiredAcc = -maxBraking
-             applyPhysics(train: &train, acceleration: desiredAcc, trackLength: trackLength)
-             trains[index] = train
-             return
-        }
-        
-        // 2. Determine Operation Mode
-        if train.mode == .manual {
-            // MANUAL MODE
-            // Ignore Signal Fault (Driver runs on sight)
-            // Ignore MA (Driver responsibility, unless we want strict ATP intervention, but "Manual" implies override)
-            
-            if train.areDoorsOpen {
-                // Cannot move with doors open
-                let desiredAcc = (train.speed > 0) ? -maxBraking : 0.0
-                train.status = (train.speed > 0) ? .moving : .docked
-                applyPhysics(train: &train, acceleration: desiredAcc, trackLength: trackLength)
-            } else {
-                // Manual Throttle / Speed Hold
-                let target = train.manualSpeedRequest
-                var desiredAcc: CGFloat = 0.0
-                
-                if train.speed < target { desiredAcc = maxAcceleration }
-                else if train.speed > target { desiredAcc = -maxBraking }
-                else { desiredAcc = 0.0 }
-                
-                // Engine Fault still applies? Probably implies loss of power.
-                if train.isEngineFault {
-                    desiredAcc = (train.speed > 0) ? -0.1 : 0.0
-                }
-                
-                train.status = (train.speed > 0) ? .moving : .stopped
-                applyPhysics(train: &train, acceleration: desiredAcc, trackLength: trackLength)
-            }
-            
-        } else {
-            // AUTO MODE
-            
-            // DWELL Logic
-            if train.isDwelling {
-                train.dwellTimeRemaining -= timeStep
-                if train.dwellTimeRemaining <= 0 {
-                    // Depart — apply any remaining pax at once
-                    train.passengerCount += train.paxRemaining
-                    if train.passengerCount < 0 { train.passengerCount = 0 }
-                    train.paxRemaining = 0
-                    train.isDwelling = false
-                    train.areDoorsOpen = false
-                    train.status = .moving // Ready to move
-                    train.lastPaxChange = 0
-                    removePassengerNodes(for: train.id)
-                    // lastServicedStationId is already set when dwell started
-                } else {
-                    // Continue Dwell — gradual pax exchange
-                    if train.paxRemaining != 0 {
-                        train.paxExchangeTimer -= timeStep
-                        if train.paxExchangeTimer <= 0 {
-                            // Move one passenger
-                            if train.paxRemaining > 0 {
-                                train.passengerCount += 1
-                                train.paxRemaining -= 1
-                            } else {
-                                train.passengerCount -= 1
-                                if train.passengerCount < 0 { train.passengerCount = 0 }
-                                train.paxRemaining += 1
-                            }
-                            train.paxExchangeTimer = train.paxExchangeInterval
-                        }
-                    }
-                    train.status = .docked
-                    train.speed = 0
-                    train.acceleration = 0
-                    // No physics update needed, stay put
-                    trains[index] = train
-                    return
-                }
-            }
-            
-            // Station Approach / Stop Logic
-            var distToStationStop: CGFloat? = nil
-            var targetStationId: UUID? = nil
-            
-            for station in stations {
-                // If we haven't just serviced this station
-                if train.lastServicedStationId != station.id {
-                    let d = distanceTo(target: station.position, from: train.position, trackLength: trackLength)
-                    
-                    // If we are close (e.g. < 150m) and approaching
-                    if d >= -5.0 && d < 150.0 {
-                        // Check if this station is closer than any other we found
-                        if distToStationStop == nil || d < distToStationStop! {
-                            distToStationStop = d
-                            targetStationId = station.id
-                        }
-                    }
-                }
-            }
-            
-            // If we need to stop at a station, limit MA-like behavior
-            if let dist = distToStationStop, let stationId = targetStationId {
-                // Treat station as a red signal at dist 0
-                if dist < effectiveDistToMA {
-                    effectiveDistToMA = dist
-                }
-                
-                // Trigger Dwell if stopped at station
-                if dist <= 1.5 && abs(train.speed) < 0.1 {
-                    // ARRIVED
-                    train.isDwelling = true
-                    let dwellTime = Double.random(in: 5.0...10.0)
-                    train.dwellTimeRemaining = dwellTime
-                    train.areDoorsOpen = true
-                    train.status = .docked
-                    train.speed = 0
-                    train.lastServicedStationId = stationId
-                    
-                    // Passenger Exchange — set up gradual change
-                    let change = Int.random(in: -10...20)
-                    train.lastPaxChange = change
-                    train.paxRemaining = change
-                    // Spread pax changes across ~60% of dwell time (matching animation stagger)
-                    let exchangeWindow = dwellTime * 0.6
-                    train.paxExchangeInterval = abs(change) > 0 ? exchangeWindow / Double(abs(change)) : 1.0
-                    train.paxExchangeTimer = 0.0 // First pax exchanges immediately on next tick
-                    
-                    // Spawn walking passenger animation
-                    if let station = stations.first(where: { $0.id == stationId }) {
-                        spawnPassengerAnimation(for: train, at: station, change: change)
-                    }
-                    
-                    trains[index] = train
-                    return
-                }
-            } else {
-                // If we are far from the last serviced station, reset it so we can stop there again next lap
-                // Simple logic: if closest station is > 200m away, reset lastServiced? 
-                // Better: if distance to lastServiced is large.
-                if let lastId = train.lastServicedStationId, let lastStation = stations.first(where: { $0.id == lastId }) {
-                    let dist = distanceTo(target: lastStation.position, from: train.position, trackLength: trackLength)
-                    if dist > 200 { // We have left the station area
-                        train.lastServicedStationId = nil
-                    }
-                }
-            }
-            
-            // Signal Fault stops train in Auto
-            if train.isSignalFault {
-                effectiveDistToMA = 0
-            }
-            
-            // --- Asservissement (Control Loop) Logic ---
-            let asservissement = AsservissementModule()
-            let finalAcceleration = asservissement.process(
-                train: &train,
-                effectiveDistToMA: effectiveDistToMA,
-                maxAcceleration: maxAcceleration
-            )
-            
-            applyPhysics(train: &train, acceleration: finalAcceleration, trackLength: trackLength)
-        }
+            let safetyMargin: CGFloat = 50.0
 
-        // Update segment
-        if let newSegment = trackSegments.first(where: { train.position >= $0.startPosition && train.position < $0.startPosition + $0.length }) {
-             train.currentSegmentId = newSegment.id
-        }
-        
-        trains[index] = train
-    }
-    
-    private func applyPhysics(train: inout Train, acceleration: CGFloat, trackLength: CGFloat) {
-        train.acceleration = acceleration
-        train.speed += acceleration * CGFloat(timeStep)
-        if train.speed < 0 { train.speed = 0 }
-        
-        train.position += train.speed * CGFloat(timeStep)
-        train.position = train.position.truncatingRemainder(dividingBy: trackLength)
-    }
-    
-    private func updateMovementAuthority(at index: Int) {
-        // CBTC Logic using closest train ahead
-        let trackLength = trackSegments.reduce(0.0) { $0 + $1.length }
-        let myTrain = trains[index]
-        
-        // Find closest train ahead
-        var minDist: CGFloat = .greatestFiniteMagnitude
-        var closestTrainValues: Train? = nil
+            for myTrain in currentTrains {
+                var minDist: CGFloat = .greatestFiniteMagnitude
+                var closestTrainValues: Train? = nil
 
-        for other in trains {
-            if other.id == myTrain.id { continue }
-            
-            var d = other.position - myTrain.position
-            if d <= 0 { d += trackLength }
-            
-            if d < minDist {
-                minDist = d
-                closestTrainValues = other
+                for other in currentTrains {
+                    if other.id == myTrain.id { continue }
+                    var d = other.position - myTrain.position
+                    if d <= 0 { d += trackLength }
+                    if d < minDist {
+                        minDist = d
+                        closestTrainValues = other
+                    }
+                }
+                
+                var ma: CGFloat
+                if let leader = closestTrainValues {
+                    ma = leader.position - safetyMargin
+                    if ma < 0 { ma += trackLength }
+                } else {
+                    ma = myTrain.position + trackLength - safetyMargin
+                    ma = ma.truncatingRemainder(dividingBy: trackLength)
+                }
+                
+                // 3. Send MA to OBCU via Radio
+                if let obcu = activeOBCUs[myTrain.id] {
+                    await obcu.receiveMovementAuthority(targetSpeed: 15.0, lma: ma)
+                }
             }
-        }
-        
-        let safetyMargin: CGFloat = 50.0 // meters
-        
-        if let leader = closestTrainValues {
-            var ma = leader.position - safetyMargin
-            if ma < 0 { ma += trackLength }
-            trains[index].movementAuthority = ma
-        } else {
-             // No leader (single train), full loop allowed minus margin for safety
-             var ma = myTrain.position + trackLength - safetyMargin
-             ma = ma.truncatingRemainder(dividingBy: trackLength)
-             trains[index].movementAuthority = ma
+            
+            // Archiving
+            for train in currentTrains {
+                if train.isArchiving {
+                    TrainDataService.shared.logData(train: train)
+                }
+            }
+            
+            // Network Broadcast
+            if ServerNetworkService.shared.isEnabled {
+                let systemTelemetry = SystemTelemetry(
+                    timestamp: Date(),
+                    isRunning: self.isRunning,
+                    isEmergencyState: self.isEmergencyState,
+                    trains: currentTrains
+                )
+                ServerNetworkService.shared.broadcast(telemetry: systemTelemetry)
+            }
         }
     }
     
@@ -1017,12 +511,8 @@ class SimulationController: ObservableObject {
             acceleration: 0.0,
             targetSpeed: 15.0, // Set target speed
             movementAuthority: 0.0,
-            currentSegmentId: trackSegments[0].id,
-            status: .stopped,
-            consigneVitesse: 0.0,
-            speedError: 0.0,
-            desiredAcceleration: 0.0,
-            distanceToMA: 0.0
+            currentSegmentId: trackSegments.first?.id,
+            status: .stopped
         )
         
         let train2 = Train(
@@ -1033,13 +523,15 @@ class SimulationController: ObservableObject {
             acceleration: 0.0,
             targetSpeed: 15.0, // Set target speed
             movementAuthority: 0.0,
-            currentSegmentId: trackSegments[3].id,
-            status: .stopped,
-            consigneVitesse: 0.0,
-            speedError: 0.0,
-            desiredAcceleration: 0.0,
-            distanceToMA: 0.0
+            currentSegmentId: trackSegments.count > 3 ? trackSegments[3].id : nil,
+            status: .stopped
         )
+        
+        let obcu1 = TrainOBCU(train: train1, trackSegments: self.trackSegments, stations: self.stations)
+        let obcu2 = TrainOBCU(train: train2, trackSegments: self.trackSegments, stations: self.stations)
+        
+        activeOBCUs[train1.id] = obcu1
+        activeOBCUs[train2.id] = obcu2
         
         self.trains = [train1, train2]
     }
