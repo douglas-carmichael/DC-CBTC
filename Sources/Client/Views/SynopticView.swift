@@ -72,9 +72,27 @@ struct SynopticView: View {
                                 p.addLine(to: segment.endPoint)
                             }
                             
-                            // Determine color based on occupancy
+                            // Determine color based on occupancy and SP restriction
+                            var isRestricted = false
+                            if let sp = simulationController.activeServiceProvisoire,
+                               let startStation = simulationController.stations.first(where: { $0.id == sp.startStationId }),
+                               let endStation = simulationController.stations.first(where: { $0.id == sp.endStationId }) {
+                                
+                                let startPos = startStation.position
+                                let endPos = endStation.position
+                                let segMid = segment.startPosition + (segment.length / 2.0)
+                                
+                                if startPos <= endPos {
+                                    isRestricted = (segMid < startPos || segMid > endPos)
+                                } else {
+                                    isRestricted = (segMid > endPos && segMid < startPos)
+                                }
+                            }
+                            
                             var strokeColor = Color.gray
-                            if segment.isOccupied {
+                            if isRestricted {
+                                strokeColor = .white.opacity(0.1)
+                            } else if segment.isOccupied {
                                 strokeColor = .red
                             } else {
                                 strokeColor = .white.opacity(0.3)

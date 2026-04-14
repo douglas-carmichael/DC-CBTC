@@ -11,6 +11,7 @@ class ClientNetworkService: ObservableObject {
     @Published var isEmergencyState: Bool = false
     @Published var isConnected: Bool = false
     @Published var lastUpdate: Date?
+    @Published var activeServiceProvisoire: ServiceProvisoire?
     
     // We can hold static/local track and stations here for View rendering, 
     // since we removed ClientNetworkService from the client.
@@ -78,6 +79,7 @@ class ClientNetworkService: ObservableObject {
                                     self?.isRunning = telemetry.isRunning
                                     self?.isEmergencyState = telemetry.isEmergencyState
                                     self?.lastUpdate = telemetry.timestamp
+                                    self?.activeServiceProvisoire = telemetry.activeServiceProvisoire
                                     self?.updateScene()
                                 }
                             } catch {
@@ -150,8 +152,10 @@ class ClientNetworkService: ObservableObject {
     func toggleTrainPhysics(for trainId: UUID, patinage: Bool, enrayage: Bool) { send(command: .toggleTrainPhysics(trainId: trainId, patinage: patinage, enrayage: enrayage)) }
     func cycleTireStatus(for trainId: UUID, at tireIndex: Int) { send(command: .cycleTireStatus(trainId: trainId, tireIndex: tireIndex)) }
     func toggleFault(for trainId: UUID, faultType: FaultType) { send(command: .toggleFault(trainId: trainId, faultType: faultType)) }
+    func setServiceProvisoire(_ sp: ServiceProvisoire?) { send(command: .setServiceProvisoire(sp: sp)) }
 
     private var trainNodes: [UUID: SCNNode] = [:]
+    private var segmentNodes: [UUID: SCNNode] = [:]
 
     func initializeScene() {
         setupTrack()
@@ -194,12 +198,12 @@ class ClientNetworkService: ObservableObject {
         self.trackSegments = segments
         
         self.stations = [
-            Station(id: UUID(), name: "CHU - Eurasanté", position: 50.0, platformSide: .right),
-            Station(id: UUID(), name: "Gambetta", position: 200.0, platformSide: .right),
-            Station(id: UUID(), name: "Gare Lille Flandres", position: 350.0, platformSide: .right),
-            Station(id: UUID(), name: "Fives", position: 550.0, platformSide: .right),
-            Station(id: UUID(), name: "Pont de Bois", position: 700.0, platformSide: .right),
-            Station(id: UUID(), name: "4 Cantons", position: 850.0, platformSide: .right)
+            Station(id: UUID(uuidString: "00000000-0000-0000-0000-0000000000A1")!, name: "CHU - Eurasanté", position: 50.0, platformSide: .right),
+            Station(id: UUID(uuidString: "00000000-0000-0000-0000-0000000000A2")!, name: "Gambetta", position: 200.0, platformSide: .right),
+            Station(id: UUID(uuidString: "00000000-0000-0000-0000-0000000000A3")!, name: "Gare Lille Flandres", position: 350.0, platformSide: .right),
+            Station(id: UUID(uuidString: "00000000-0000-0000-0000-0000000000A4")!, name: "Fives", position: 550.0, platformSide: .right),
+            Station(id: UUID(uuidString: "00000000-0000-0000-0000-0000000000A5")!, name: "Pont de Bois", position: 700.0, platformSide: .right),
+            Station(id: UUID(uuidString: "00000000-0000-0000-0000-0000000000A6")!, name: "4 Cantons", position: 850.0, platformSide: .right)
         ]
     }
     
@@ -270,6 +274,44 @@ class ClientNetworkService: ObservableObject {
         let segmentLength: CGFloat = 100.0
         let radius: CGFloat = (CGFloat(segmentCount) * segmentLength) / (2 * .pi)
         
+        // Update track segment coloring for SP
+        if let sp = self.activeServiceProvisoire,
+           let startStation = self.stations.first(where: { $0.id == sp.startStationId }),
+           let endStation = self.stations.first(where: { $0.id == sp.endStationId }) {
+            
+            let startPos = startStation.position
+            let endPos = endStation.position
+            
+            for segment in trackSegments {
+                guard let node = segmentNodes[segment.id] else { continue }
+                let segMid = segment.startPosition + (segment.length / 2.0)
+                
+                var isRestricted = false
+                if startPos <= endPos {
+                    isRestricted = (segMid < startPos || segMid > endPos)
+                } else {
+                    isRestricted = (segMid > endPos && segMid < startPos)
+                }
+                
+                SCNTransaction.begin()
+                SCNTransaction.animationDuration = 0.1
+                if isRestricted {
+                    node.geometry?.firstMaterial?.diffuse.contents = NSColor.darkGray.withAlphaComponent(0.2)
+                } else {
+                    node.geometry?.firstMaterial?.diffuse.contents = NSColor.gray
+                }
+                SCNTransaction.commit()
+            }
+        } else {
+            for segment in trackSegments {
+                guard let node = segmentNodes[segment.id] else { continue }
+                SCNTransaction.begin()
+                SCNTransaction.animationDuration = 0.1
+                node.geometry?.firstMaterial?.diffuse.contents = NSColor.gray
+                SCNTransaction.commit()
+            }
+        }
+        
         for train in trains {
             guard let node = trainNodes[train.id] else { continue }
             
@@ -305,7 +347,9 @@ class ClientNetworkService: ObservableObject {
         
         let p1 = SCNVector3(segment.startPoint.x, 0, segment.startPoint.y)
         let p2 = SCNVector3(segment.endPoint.x, 0, segment.endPoint.y)
-        scene.rootNode.addChildNode(buildLine(from: p1, to: p2))
+        let lineNode = buildLine(from: p1, to: p2)
+        scene.rootNode.addChildNode(lineNode)
+        segmentNodes[segment.id] = lineNode
     }
     
     private func buildLine(from: SCNVector3, to: SCNVector3) -> SCNNode {

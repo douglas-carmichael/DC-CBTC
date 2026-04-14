@@ -121,24 +121,40 @@ struct PCCDashboardView: View {
                     .buttonStyle(PlainButtonStyle())
                 }
                 
-                // Row 4: Camera Reset
-                HStack {
-                    Button(action: {
-                        simulationController.resetCamera()
-                    }) {
-                        HStack {
-                            Image(systemName: "camera.fill")
-                            Text("RESET VUE")
-                                .font(.custom("VT323-Regular", size: 18))
-                        }
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.gray)
-                        .foregroundColor(.white)
-                        .cornerRadius(8)
-                    }
-                    .buttonStyle(PlainButtonStyle())
-                }
+                 // Row 4: Camera Reset & Service Provisoire
+                 HStack(spacing: 20) {
+                     Button(action: {
+                         simulationController.resetCamera()
+                     }) {
+                         HStack {
+                             Image(systemName: "camera.fill")
+                             Text("RESET VUE")
+                                 .font(.custom("VT323-Regular", size: 18))
+                         }
+                         .frame(maxWidth: .infinity)
+                         .padding()
+                         .background(Color.gray)
+                         .foregroundColor(.white)
+                         .cornerRadius(8)
+                     }
+                     .buttonStyle(PlainButtonStyle())
+                     
+                     Button(action: {
+                         openWindow(id: "service-provisoire")
+                     }) {
+                         HStack {
+                             Image(systemName: "exclamationmark.triangle.fill")
+                             Text("SERVICES PROVISOIRES")
+                                 .font(.custom("VT323-Regular", size: 18))
+                         }
+                         .frame(maxWidth: .infinity)
+                         .padding()
+                         .background(Color.orange)
+                         .foregroundColor(.white)
+                         .cornerRadius(8)
+                     }
+                     .buttonStyle(PlainButtonStyle())
+                 }
                 
                 // Row 5: Synoptic View & Demo Mode
                 HStack(spacing: 20) {

@@ -5,4 +5,5 @@ struct SystemTelemetry: Codable {
     let isRunning: Bool
     let isEmergencyState: Bool
     let trains: [Train]
+    let activeServiceProvisoire: ServiceProvisoire?
 }

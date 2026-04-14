@@ -43,5 +43,10 @@ struct CBTC_Metro_SimulatorApp: App {
             SynopticView()
                 .environmentObject(simulationController)
         }
+        
+        WindowGroup("Services Provisoires", id: "service-provisoire") {
+            ServiceProvisoireView()
+                .environmentObject(simulationController)
+        }
     }
 }

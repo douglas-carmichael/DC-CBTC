@@ -11,6 +11,7 @@ class SimulationController: ObservableObject {
     @Published var systemAlerts: [String] = []
     @Published var isRandomFaultModeEnabled: Bool = false
     @Published var commandStatus: [String: String] = [:]
+    @Published var activeServiceProvisoire: ServiceProvisoire? = nil
     
     private var cancellables = Set<AnyCancellable>()
     // Actually commandStatus in View is local state. We might need a way to reflect archiving status in the UI if we revisit.
@@ -25,12 +26,16 @@ class SimulationController: ObservableObject {
     let scene = SCNScene()
     private var trainNodes: [UUID: SCNNode] = [:]
     private var passengerNodes: [UUID: [SCNNode]] = [:]
+    private var segmentNodes: [UUID: SCNNode] = [:]
     
     // Timer
     private var timer: Timer?
     private let timeStep: TimeInterval = 0.1
     @Published var cameraResetTrigger: Int = 0
     private var cameraNode: SCNNode?
+    
+    // SP Intervalle Tracking
+    private var lastTerminusDeparture: [UUID: Date] = [:]
     
     init() {
         setupTrack()
@@ -86,6 +91,76 @@ class SimulationController: ObservableObject {
             cycleTireStatus(for: trainId, at: idx)
         case .toggleFault(let trainId, let type):
             toggleFault(for: trainId, type: type)
+        case .setServiceProvisoire(let sp):
+            if sp == nil && activeServiceProvisoire != nil {
+                // Service is restored, force all trains back to regular forward operation
+                for obcu in activeOBCUs.values {
+                    Task {
+                        await obcu.modifyTrain { train in
+                            train.travelDirection = .forward
+                        }
+                    }
+                }
+            } else if let sp = sp {
+                // New SP set - teleport any stranded trains to the nearest active station
+                let st1 = self.stations.first(where: { $0.id == sp.startStationId })?.position ?? 0
+                let st2 = self.stations.first(where: { $0.id == sp.endStationId })?.position ?? 0
+                
+                let activeStations = self.stations.filter { s in
+                    if st1 <= st2 {
+                        return s.position >= st1 && s.position <= st2
+                    } else {
+                        return s.position >= st1 || s.position <= st2
+                    }
+                }
+                
+                for obcu in activeOBCUs.values {
+                    Task {
+                        let myTrain = await obcu.getTelemetry()
+                        var isStranded = false
+                        let tolerance: CGFloat = 5.0
+                        if st1 <= st2 {
+                            isStranded = (myTrain.position < st1 - tolerance || myTrain.position > st2 + tolerance)
+                        } else {
+                            isStranded = (myTrain.position > st2 + tolerance && myTrain.position < st1 - tolerance)
+                        }
+                        
+                        if isStranded {
+                            let trackLength = self.trackSegments.reduce(0.0) { $0 + $1.length }
+                            var closestStation: Station? = nil
+                            var minDist: CGFloat = .greatestFiniteMagnitude
+                            for s in activeStations {
+                                var d1 = s.position - myTrain.position
+                                if d1 < 0 { d1 += trackLength }
+                                var d2 = myTrain.position - s.position
+                                if d2 < 0 { d2 += trackLength }
+                                let d = min(d1, d2)
+                                if d < minDist {
+                                    minDist = d
+                                    closestStation = s
+                                }
+                            }
+                            
+                            if let newS = closestStation {
+                                await obcu.modifyTrain { train in
+                                    train.position = newS.position
+                                    train.movementAuthority = newS.position
+                                    train.speed = 0
+                                    train.status = .docked
+                                    train.travelDirection = .forward
+                                    train.lastServicedStationId = newS.id
+                                    train.dwellTimeRemaining = 5.0
+                                    train.isDwelling = true
+                                    if let newSegment = self.trackSegments.first(where: { newS.position >= $0.startPosition && newS.position < $0.startPosition + $0.length }) {
+                                         train.currentSegmentId = newSegment.id
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            activeServiceProvisoire = sp
         }
     }
     
@@ -170,6 +245,10 @@ class SimulationController: ObservableObject {
         
         // Reset data
         trains.removeAll()
+        activeOBCUs.removeAll()
+        lastTerminusDeparture.removeAll()
+        activeServiceProvisoire = nil
+        
         setupTrains()
         
         // Re-create nodes for initial trains
@@ -178,11 +257,26 @@ class SimulationController: ObservableObject {
         }
         
         updateScene()
+        startSimulation() // Restart the physics loop
     }
 
     func addTrain() {
-        guard trains.count < 12 else { return }
         let trackLength = trackSegments.reduce(0.0) { $0 + $1.length }
+        var maxCapacity = 12
+        
+        if let sp = activeServiceProvisoire {
+            let st1 = self.stations.first(where: { $0.id == sp.startStationId })?.position ?? 0
+            let st2 = self.stations.first(where: { $0.id == sp.endStationId })?.position ?? 0
+            var trackDist: CGFloat = 0.0
+            if st1 <= st2 {
+               trackDist = st2 - st1
+            } else {
+               trackDist = (trackLength - st1) + st2
+            }
+            maxCapacity = max(2, Int(trackDist / 120.0))
+        }
+        
+        guard trains.count < maxCapacity else { return }
         var spawnPos: CGFloat = 0.0
         if !trains.isEmpty {
             let sortedTrains = trains.sorted { $0.position < $1.position }
@@ -399,6 +493,49 @@ class SimulationController: ObservableObject {
                 self?.updateScene()
             }
             
+            // Intervalle Enforcement
+            if let sp = self.activeServiceProvisoire {
+                for myTrain in currentTrains {
+                    if myTrain.status == .docked, (myTrain.lastServicedStationId == sp.startStationId || myTrain.lastServicedStationId == sp.endStationId) {
+                        let stationId = myTrain.lastServicedStationId!
+                        let lastDep = self.lastTerminusDeparture[stationId] ?? Date.distantPast
+                        
+                        // If interval hasn't elapsed, force hold. Exception: initial bootstrap (Date.distantPast)
+                        if Date().timeIntervalSince(lastDep) < sp.intervalle && lastDep != Date.distantPast {
+                            if !myTrain.isDepartureHold {
+                                if let obcu = self.activeOBCUs[myTrain.id] {
+                                    Task { await obcu.modifyTrain { $0.isDepartureHold = true } }
+                                }
+                            }
+                        } else {
+                            // Reached interval. If dwell is over, it departs now. Mark new departure time.
+                            if myTrain.dwellTimeRemaining <= 0 {
+                                self.lastTerminusDeparture[stationId] = Date()
+                            }
+                            if myTrain.isDepartureHold {
+                                if let obcu = self.activeOBCUs[myTrain.id] {
+                                    Task { await obcu.modifyTrain { $0.isDepartureHold = false } }
+                                }
+                            }
+                        }
+                    } else {
+                        // Release hold if not at terminus
+                        if myTrain.isDepartureHold {
+                            if let obcu = self.activeOBCUs[myTrain.id] {
+                                Task { await obcu.modifyTrain { $0.isDepartureHold = false } }
+                            }
+                        }
+                    }
+                }
+            } else {
+                // Clear all holds if SP is inactive
+                for myTrain in currentTrains where myTrain.isDepartureHold {
+                     if let obcu = self.activeOBCUs[myTrain.id] {
+                         Task { await obcu.modifyTrain { $0.isDepartureHold = false } }
+                     }
+                }
+            }
+            
             // 2. Compute Movement Authorities (ZC Logic)
             let trackLength = trackSegments.reduce(0.0) { $0 + $1.length }
             let safetyMargin: CGFloat = 50.0
@@ -409,7 +546,12 @@ class SimulationController: ObservableObject {
 
                 for other in currentTrains {
                     if other.id == myTrain.id { continue }
-                    var d = other.position - myTrain.position
+                    var d: CGFloat
+                    if myTrain.travelDirection == .forward {
+                        d = other.position - myTrain.position
+                    } else {
+                        d = myTrain.position - other.position
+                    }
                     if d <= 0 { d += trackLength }
                     if d < minDist {
                         minDist = d
@@ -417,17 +559,83 @@ class SimulationController: ObservableObject {
                     }
                 }
                 
+                // Check if train is stranded outside active service (with 5m physics tolerance)
+                var isStranded = false
+                if let sp = self.activeServiceProvisoire {
+                    let st1 = self.stations.first(where: { $0.id == sp.startStationId })?.position ?? 0
+                    let st2 = self.stations.first(where: { $0.id == sp.endStationId })?.position ?? 0
+                    let tolerance: CGFloat = 5.0
+                    if st1 <= st2 {
+                        isStranded = (myTrain.position < st1 - tolerance || myTrain.position > st2 + tolerance)
+                    } else {
+                        isStranded = (myTrain.position > st2 + tolerance && myTrain.position < st1 - tolerance)
+                    }
+                }
+                
+                // Service Provisoire Virtual Barriers
+                var obstaclePos: CGFloat? = closestTrainValues?.position
+                var isObstacleSPBarrier = false
+                
+                if let sp = self.activeServiceProvisoire, !isStranded {
+                    let st1 = self.stations.first(where: { $0.id == sp.startStationId })?.position
+                    let st2 = self.stations.first(where: { $0.id == sp.endStationId })?.position
+                    for spPos in [st1, st2].compactMap({ $0 }) {
+                        var d: CGFloat
+                        if myTrain.travelDirection == .forward {
+                            d = spPos - myTrain.position
+                        } else {
+                            d = myTrain.position - spPos
+                        }
+                        if d <= 0 { d += trackLength }
+                        if d <= minDist + 0.1 {
+                            minDist = d
+                            obstaclePos = spPos
+                            isObstacleSPBarrier = true
+                        }
+                    }
+                }
+                
+                if myTrain.name == "Rame 101" {
+                    print("Rame 101 - pos: \(myTrain.position), dir: \(myTrain.travelDirection), isStranded: \(isStranded), minDist: \(minDist), obstaclePos: \(String(describing: obstaclePos)), isSP: \(isObstacleSPBarrier)")
+                }
+
                 var ma: CGFloat
-                if let leader = closestTrainValues {
-                    ma = leader.position - safetyMargin
-                    if ma < 0 { ma += trackLength }
+                if isStranded {
+                    ma = myTrain.position // Force stop immediately
+                } else if let leaderPos = obstaclePos {
+                    let effectiveMargin = isObstacleSPBarrier ? 0.0 : safetyMargin
+                    if myTrain.travelDirection == .forward {
+                        ma = leaderPos - effectiveMargin
+                        if ma < 0 { ma += trackLength }
+                    } else {
+                        ma = leaderPos + effectiveMargin
+                        ma = ma.truncatingRemainder(dividingBy: trackLength)
+                    }
                 } else {
-                    ma = myTrain.position + trackLength - safetyMargin
-                    ma = ma.truncatingRemainder(dividingBy: trackLength)
+                    if myTrain.travelDirection == .forward {
+                        ma = myTrain.position + trackLength - safetyMargin
+                        ma = ma.truncatingRemainder(dividingBy: trackLength)
+                    } else {
+                        ma = myTrain.position - trackLength + safetyMargin
+                        if ma < 0 { ma += trackLength }
+                    }
                 }
                 
                 // 3. Send MA to OBCU via Radio
                 if let obcu = activeOBCUs[myTrain.id] {
+                    // Reversing Logic
+                    if let sp = self.activeServiceProvisoire, !isStranded {
+                        if myTrain.status == .docked && myTrain.speed == 0 && myTrain.paxRemaining == 0 {
+                            // Check if they are at a terminus and pointing towards the boundary
+                            if (myTrain.lastServicedStationId == sp.startStationId && myTrain.travelDirection == .reverse) ||
+                               (myTrain.lastServicedStationId == sp.endStationId && myTrain.travelDirection == .forward) {
+                                Task {
+                                    await obcu.reverseDirection()
+                                }
+                            }
+                        }
+                    }
+                    
                     await obcu.receiveMovementAuthority(targetSpeed: 15.0, lma: ma)
                 }
             }
@@ -445,7 +653,8 @@ class SimulationController: ObservableObject {
                     timestamp: Date(),
                     isRunning: self.isRunning,
                     isEmergencyState: self.isEmergencyState,
-                    trains: currentTrains
+                    trains: currentTrains,
+                    activeServiceProvisoire: self.activeServiceProvisoire
                 )
                 ServerNetworkService.shared.broadcast(telemetry: systemTelemetry)
             }
@@ -492,12 +701,12 @@ class SimulationController: ObservableObject {
         
         // Setup Stations (Lille Métro Ligne 1)
         self.stations = [
-            Station(id: UUID(), name: "CHU - Eurasanté", position: 50.0, platformSide: .right),
-            Station(id: UUID(), name: "Gambetta", position: 200.0, platformSide: .right),
-            Station(id: UUID(), name: "Gare Lille Flandres", position: 350.0, platformSide: .right),
-            Station(id: UUID(), name: "Fives", position: 550.0, platformSide: .right),
-            Station(id: UUID(), name: "Pont de Bois", position: 700.0, platformSide: .right),
-            Station(id: UUID(), name: "4 Cantons", position: 850.0, platformSide: .right)
+            Station(id: UUID(uuidString: "00000000-0000-0000-0000-0000000000A1")!, name: "CHU - Eurasanté", position: 50.0, platformSide: .right),
+            Station(id: UUID(uuidString: "00000000-0000-0000-0000-0000000000A2")!, name: "Gambetta", position: 200.0, platformSide: .right),
+            Station(id: UUID(uuidString: "00000000-0000-0000-0000-0000000000A3")!, name: "Gare Lille Flandres", position: 350.0, platformSide: .right),
+            Station(id: UUID(uuidString: "00000000-0000-0000-0000-0000000000A4")!, name: "Fives", position: 550.0, platformSide: .right),
+            Station(id: UUID(uuidString: "00000000-0000-0000-0000-0000000000A5")!, name: "Pont de Bois", position: 700.0, platformSide: .right),
+            Station(id: UUID(uuidString: "00000000-0000-0000-0000-0000000000A6")!, name: "4 Cantons", position: 850.0, platformSide: .right)
         ]
     }
     
@@ -605,6 +814,44 @@ class SimulationController: ObservableObject {
         let segmentLength: CGFloat = 100.0 // Hardcoded for now, should match setupTrack
         let radius: CGFloat = (CGFloat(segmentCount) * segmentLength) / (2 * .pi)
         
+        // Update track segment coloring for SP
+        if let sp = self.activeServiceProvisoire,
+           let startStation = self.stations.first(where: { $0.id == sp.startStationId }),
+           let endStation = self.stations.first(where: { $0.id == sp.endStationId }) {
+            
+            let startPos = startStation.position
+            let endPos = endStation.position
+            
+            for segment in trackSegments {
+                guard let node = segmentNodes[segment.id] else { continue }
+                let segMid = segment.startPosition + (segment.length / 2.0)
+                
+                var isRestricted = false
+                if startPos <= endPos {
+                    isRestricted = (segMid < startPos || segMid > endPos)
+                } else {
+                    isRestricted = (segMid > endPos && segMid < startPos)
+                }
+                
+                SCNTransaction.begin()
+                SCNTransaction.animationDuration = 0.5
+                if isRestricted {
+                    node.geometry?.firstMaterial?.diffuse.contents = NSColor.darkGray.withAlphaComponent(0.2)
+                } else {
+                    node.geometry?.firstMaterial?.diffuse.contents = NSColor.gray
+                }
+                SCNTransaction.commit()
+            }
+        } else {
+            for segment in trackSegments {
+                guard let node = segmentNodes[segment.id] else { continue }
+                SCNTransaction.begin()
+                SCNTransaction.animationDuration = 0.5
+                node.geometry?.firstMaterial?.diffuse.contents = NSColor.gray
+                SCNTransaction.commit()
+            }
+        }
+        
         for train in trains {
             guard let node = trainNodes[train.id] else { continue }
             
@@ -661,6 +908,7 @@ class SimulationController: ObservableObject {
         let p2 = SCNVector3(segment.endPoint.x, 0, segment.endPoint.y)
         let lineNode = buildLine(from: p1, to: p2)
         scene.rootNode.addChildNode(lineNode)
+        segmentNodes[segment.id] = lineNode
     }
     
     private func buildLine(from: SCNVector3, to: SCNVector3) -> SCNNode {
