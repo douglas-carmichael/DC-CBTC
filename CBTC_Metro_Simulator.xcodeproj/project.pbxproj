@@ -19,6 +19,7 @@
 		5465B7D26563B310C3CFBC53 /* TrainTelecommandsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE40296B0E352518F77C717 /* TrainTelecommandsView.swift */; };
 		56E0DBFB2FBE4511896F7216 /* AsservissementModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DCB3A4AEFD2900D62E3ABD8 /* AsservissementModule.swift */; };
 		5939E7172D8EE5F0B62303E1 /* SynopticView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4591D560A93C2B768EC26B6A /* SynopticView.swift */; };
+		627FBCE24492C698CA5B98E8 /* TrainOBCU.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8DE14ACAD1A34BDC1B5D010 /* TrainOBCU.swift */; };
 		6320201D9931FF4DA1DD3F7E /* CBTC_ClientApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31477A6BA91DF361B5431C5 /* CBTC_ClientApp.swift */; };
 		752857C1BDA32F3F6FFE9907 /* TrainTractionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945D35F1AB1D69E2B5008C81 /* TrainTractionView.swift */; };
 		76923B9276E86CA916C3D666 /* ManualControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC6E9D70ED36E2FC44FBBFB /* ManualControlView.swift */; };
@@ -92,6 +93,7 @@
 		CA0CA55A6A68E5AB7653EC80 /* FontLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontLoader.swift; sourceTree = "<group>"; };
 		D285C64575D5F04E67695934 /* TrainSignalingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainSignalingView.swift; sourceTree = "<group>"; };
 		DB0FB08EAFB73A75CA178224 /* SystemTelemetry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemTelemetry.swift; sourceTree = "<group>"; };
+		E8DE14ACAD1A34BDC1B5D010 /* TrainOBCU.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainOBCU.swift; sourceTree = "<group>"; };
 		ED5E0328833EDCE0888C5C27 /* TrainDCAView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainDCAView.swift; sourceTree = "<group>"; };
 		F31477A6BA91DF361B5431C5 /* CBTC_ClientApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CBTC_ClientApp.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -118,6 +120,7 @@
 			isa = PBXGroup;
 			children = (
 				107D2353D4F148C0E8CEC9F2 /* CBTC_ServerApp.swift */,
+				BC9EA541A5DDD0F883787028 /* Actors */,
 				6E0223D840215291AAB1DF2B /* Services */,
 				D73765FE9083E8B551665BB4 /* ViewModels */,
 				55A056A15EBBDA69A4E1957A /* Views */,
@@ -210,6 +213,14 @@
 			);
 			name = Client;
 			path = Sources/Client;
+			sourceTree = "<group>";
+		};
+		BC9EA541A5DDD0F883787028 /* Actors */ = {
+			isa = PBXGroup;
+			children = (
+				E8DE14ACAD1A34BDC1B5D010 /* TrainOBCU.swift */,
+			);
+			path = Actors;
 			sourceTree = "<group>";
 		};
 		D00FF5048B218345B318C371 /* Views */ = {
@@ -399,6 +410,7 @@
 				892973789267AE13D9917790 /* TrackSegment.swift in Sources */,
 				E0E66392792638E24B07FEB2 /* Train.swift in Sources */,
 				D533F61994F2357850B08852 /* TrainDataService.swift in Sources */,
+				627FBCE24492C698CA5B98E8 /* TrainOBCU.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
