@@ -13,6 +13,12 @@ struct Train: Identifiable, Equatable, Codable {
     var currentSegmentId: UUID? // The ID of the track segment the train is currently on
     var status: TrainStatus
     
+    enum TravelDirection: CGFloat, Codable {
+        case forward = 1.0
+        case reverse = -1.0
+    }
+    var travelDirection: TravelDirection = .forward
+    
     // Fault Injection Flags
     var isDoorFault: Bool = false
     var isEngineFault: Bool = false
@@ -56,6 +62,7 @@ struct Train: Identifiable, Equatable, Codable {
     // Passenger & Station Logic
     var passengerCount: Int = 0
     var isDwelling: Bool = false
+    var isDepartureHold: Bool = false // Held for interval pacing
     var dwellTimeRemaining: TimeInterval = 0.0
     var lastServicedStationId: UUID? = nil
     var lastPaxChange: Int = 0 // +boarding / -alighting at current stop

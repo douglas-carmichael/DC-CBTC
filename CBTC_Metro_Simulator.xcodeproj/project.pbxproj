@@ -16,6 +16,7 @@
 		2675C6DA4F2FB2E121EB1A2A /* TrainSecurityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBC2A1907DCBD9054AA1465 /* TrainSecurityView.swift */; };
 		46577E4720D78E00E30B0FE1 /* Station.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8D77EC1C7745BC04188788 /* Station.swift */; };
 		50BF60056B8052C87E3C7277 /* TrainHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8D6877571566296C06884C /* TrainHistoryView.swift */; };
+		5217C26B0331E85E401F569A /* ServiceProvisoire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FDE73A7B132728E0B0D8274 /* ServiceProvisoire.swift */; };
 		5465B7D26563B310C3CFBC53 /* TrainTelecommandsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE40296B0E352518F77C717 /* TrainTelecommandsView.swift */; };
 		56E0DBFB2FBE4511896F7216 /* AsservissementModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DCB3A4AEFD2900D62E3ABD8 /* AsservissementModule.swift */; };
 		5939E7172D8EE5F0B62303E1 /* SynopticView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4591D560A93C2B768EC26B6A /* SynopticView.swift */; };
@@ -30,6 +31,7 @@
 		8C6E02418ACC20B2D92F95F4 /* TrainDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A579B2D7621D7BD71167472 /* TrainDetailView.swift */; };
 		9832F9692BD32182386119E3 /* TrainSignalingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D285C64575D5F04E67695934 /* TrainSignalingView.swift */; };
 		99B08B709D8B26DF3473F6F2 /* AppCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED87303DEF2D48777315EA5 /* AppCommand.swift */; };
+		9AF67CD958E0BFF6D480C04C /* ServiceProvisoireView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B595BC93600D3E7ADA4A907B /* ServiceProvisoireView.swift */; };
 		9F7D01CBBBA3932F68B5CE74 /* CBTC_ServerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107D2353D4F148C0E8CEC9F2 /* CBTC_ServerApp.swift */; };
 		A11289AA185DB2AFB7645FC2 /* TrainAuxiliaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75ABE173A87176A0F4669F4C /* TrainAuxiliaryView.swift */; };
 		A5916BA069E104B6B556636F /* DemoModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188C0E767E61E358D1250FE /* DemoModeView.swift */; };
@@ -45,6 +47,7 @@
 		D43B98601A4ECAFDEEA0BCBA /* TrainMainDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6617DD59BCC47E70253DC63 /* TrainMainDashboardView.swift */; };
 		D533F61994F2357850B08852 /* TrainDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1328F5A906AAB49F2A8679F3 /* TrainDataService.swift */; };
 		D56E63169476DEE7DB8CD22D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3920F90C94AF49E9EC8FC6D /* ContentView.swift */; };
+		D724BC15A86A9C08F5A53D8D /* ServiceProvisoire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FDE73A7B132728E0B0D8274 /* ServiceProvisoire.swift */; };
 		E02265F0EBFB8DF106447CDF /* Station.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8D77EC1C7745BC04188788 /* Station.swift */; };
 		E0E66392792638E24B07FEB2 /* Train.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BC277F1CD8F15F1486B1D6 /* Train.swift */; };
 		E0E8AC2FE5209B702D7C2E93 /* SystemTelemetry.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0FB08EAFB73A75CA178224 /* SystemTelemetry.swift */; };
@@ -59,6 +62,7 @@
 		0A579B2D7621D7BD71167472 /* TrainDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainDetailView.swift; sourceTree = "<group>"; };
 		0BC6E9D70ED36E2FC44FBBFB /* ManualControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualControlView.swift; sourceTree = "<group>"; };
 		0D8D77EC1C7745BC04188788 /* Station.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Station.swift; sourceTree = "<group>"; };
+		0FDE73A7B132728E0B0D8274 /* ServiceProvisoire.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceProvisoire.swift; sourceTree = "<group>"; };
 		107D2353D4F148C0E8CEC9F2 /* CBTC_ServerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CBTC_ServerApp.swift; sourceTree = "<group>"; };
 		1328F5A906AAB49F2A8679F3 /* TrainDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainDataService.swift; sourceTree = "<group>"; };
 		18267D9222BA64ABA2C6118F /* TrainOperationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainOperationsView.swift; sourceTree = "<group>"; };
@@ -86,6 +90,7 @@
 		A455B701F911BB95086B7342 /* ServerDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerDashboardView.swift; sourceTree = "<group>"; };
 		A6C9A3395C8CB25F62F8E3CA /* CBTC_Client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CBTC_Client.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACDB42E680E48B1804B79DB9 /* ClockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockView.swift; sourceTree = "<group>"; };
+		B595BC93600D3E7ADA4A907B /* ServiceProvisoireView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceProvisoireView.swift; sourceTree = "<group>"; };
 		B956705392DD64C55D9C4E73 /* SimulationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulationController.swift; sourceTree = "<group>"; };
 		BB017957BC18D29C5CBC2BF0 /* CBTC_Server.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CBTC_Server.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5E821B918A4F22E6C198055 /* TrainAlarmsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainAlarmsView.swift; sourceTree = "<group>"; };
@@ -168,6 +173,7 @@
 		8B5B58CDD5B8E78CAEF1194B /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0FDE73A7B132728E0B0D8274 /* ServiceProvisoire.swift */,
 				0D8D77EC1C7745BC04188788 /* Station.swift */,
 				764004ED186761BDACF4E435 /* TrackSegment.swift */,
 				43BC277F1CD8F15F1486B1D6 /* Train.swift */,
@@ -233,6 +239,7 @@
 				0BC6E9D70ED36E2FC44FBBFB /* ManualControlView.swift */,
 				35EE70CEADE1BE45778A93BA /* NetworkView.swift */,
 				5D4934588B8A852C073592F3 /* PCCDashboardView.swift */,
+				B595BC93600D3E7ADA4A907B /* ServiceProvisoireView.swift */,
 				4591D560A93C2B768EC26B6A /* SynopticView.swift */,
 				C5E821B918A4F22E6C198055 /* TrainAlarmsView.swift */,
 				31FE1A74A8E306A38D2E9882 /* TrainAsservissementView.swift */,
@@ -323,9 +330,10 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+				};
 			};
 			buildConfigurationList = DEBB0D8402EF4AC7F1AF29A4 /* Build configuration list for PBXProject "CBTC_Metro_Simulator" */;
-			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -335,6 +343,7 @@
 			mainGroup = 95F31DF37738922176485A7B;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
+			productRefGroup = 1C26B85AFE5AC70D0DD9D304 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -372,6 +381,8 @@
 				76923B9276E86CA916C3D666 /* ManualControlView.swift in Sources */,
 				BCF894245AF74B8CA903CCE7 /* NetworkView.swift in Sources */,
 				E4DED5114889B745E510D6A8 /* PCCDashboardView.swift in Sources */,
+				5217C26B0331E85E401F569A /* ServiceProvisoire.swift in Sources */,
+				9AF67CD958E0BFF6D480C04C /* ServiceProvisoireView.swift in Sources */,
 				E02265F0EBFB8DF106447CDF /* Station.swift in Sources */,
 				5939E7172D8EE5F0B62303E1 /* SynopticView.swift in Sources */,
 				E0E8AC2FE5209B702D7C2E93 /* SystemTelemetry.swift in Sources */,
@@ -404,6 +415,7 @@
 				9F7D01CBBBA3932F68B5CE74 /* CBTC_ServerApp.swift in Sources */,
 				EE041049D5092A6630A880E2 /* ServerDashboardView.swift in Sources */,
 				C7C250A2EC2CFB35B41A1196 /* ServerNetworkService.swift in Sources */,
+				D724BC15A86A9C08F5A53D8D /* ServiceProvisoire.swift in Sources */,
 				07A3A7C7ED854906D93EEA29 /* SimulationController.swift in Sources */,
 				46577E4720D78E00E30B0FE1 /* Station.swift in Sources */,
 				1FBFF86A8647A14031373C41 /* SystemTelemetry.swift in Sources */,

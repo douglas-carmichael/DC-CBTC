@@ -49,6 +49,12 @@ actor TrainOBCU {
         train.movementAuthority = lma
     }
     
+    func reverseDirection() {
+        train.travelDirection = (train.travelDirection == .forward) ? .reverse : .forward
+        train.speed = 0.0 // Ensure safety when reversing
+        train.movementAuthority = train.position
+    }
+    
     func setEmergencyBrake(_ applied: Bool) {
         train.isEmergencyBrakeApplied = applied
         if applied {
@@ -102,8 +108,9 @@ actor TrainOBCU {
         let maxBraking: CGFloat = 1.2    // m/s²
         let trackLength = trackSegments.reduce(0.0) { $0 + $1.length }
         
-        let distToMA = train.movementAuthority - train.position
-        var effectiveDistToMA = distToMA
+        // distToMA should use the unified distanceTo method because MA is an absolute point on the loop.
+        // Wait, if MA is absolute point, LMA distance:
+        var effectiveDistToMA = distanceTo(target: train.movementAuthority, from: train.position, trackLength: trackLength)
         if effectiveDistToMA < 0 { effectiveDistToMA += trackLength }
         
         // Critical Overrides
@@ -140,10 +147,15 @@ actor TrainOBCU {
                 train.passengerCount += train.paxRemaining
                 if train.passengerCount < 0 { train.passengerCount = 0 }
                 train.paxRemaining = 0
-                train.isDwelling = false
-                train.areDoorsOpen = false
-                train.status = .moving
-                train.lastPaxChange = 0
+                train.dwellTimeRemaining = 0 // Cap at zero
+                
+                // Only depart if not held by PCC interval logic
+                if !train.isDepartureHold {
+                    train.isDwelling = false
+                    train.areDoorsOpen = false
+                    train.status = .moving
+                    train.lastPaxChange = 0
+                }
             } else {
                 if train.paxRemaining != 0 {
                     train.paxExchangeTimer -= timeStep
@@ -231,12 +243,16 @@ actor TrainOBCU {
         train.speed += acceleration * CGFloat(timeStep)
         if train.speed < 0 { train.speed = 0 }
         
-        train.position += train.speed * CGFloat(timeStep)
+        train.position += train.speed * train.travelDirection.rawValue * CGFloat(timeStep)
         train.position = train.position.truncatingRemainder(dividingBy: trackLength)
+        if train.position < 0 { train.position += trackLength }
     }
     
     private func distanceTo(target: CGFloat, from position: CGFloat, trackLength: CGFloat) -> CGFloat {
         var d = target - position
+        if train.travelDirection == .reverse {
+            d = position - target
+        }
         if d < -trackLength / 2 { d += trackLength }
         else if d > trackLength / 2 { d -= trackLength }
         return d
