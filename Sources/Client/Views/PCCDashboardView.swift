@@ -13,7 +13,7 @@ struct PCCDashboardView: View {
         VStack(spacing: 0) {
             // Header
             HStack {
-                Text("PCC - LIGNE 1")
+                Text(.init(String.loc("pcc.title")))
                     .font(.custom("VT323-Regular", size: 24))
                     .foregroundColor(.green)
                 Spacer()
@@ -36,7 +36,7 @@ struct PCCDashboardView: View {
                             simulationController.startSimulation()
                         }
                     }) {
-                        Text(simulationController.isRunning ? "PAUSE" : "DÉPART AUTO")
+                        Text(.init(simulationController.isRunning ? String.loc("btn.pause") : String.loc("btn.depart_auto")))
                             .font(.custom("VT323-Regular", size: 18))
                             .frame(maxWidth: .infinity)
                             .padding()
@@ -49,7 +49,7 @@ struct PCCDashboardView: View {
                     Button(action: {
                         simulationController.toggleEmergencyStop()
                     }) {
-                        Text(simulationController.isEmergencyState ? "REPRENDRE" : "ARRÊT D'URGENCE")
+                        Text(.init(simulationController.isEmergencyState ? String.loc("btn.reprendre") : String.loc("btn.arret_urgence")))
                             .font(.custom("VT323-Regular", size: 18))
                             .frame(maxWidth: .infinity)
                             .padding()
@@ -65,7 +65,7 @@ struct PCCDashboardView: View {
                     Button(action: {
                         simulationController.addTrain()
                     }) {
-                        Text("+ RAME")
+                        Text(.init(String.loc("btn.add_rame")))
                             .font(.custom("VT323-Regular", size: 18))
                             .frame(maxWidth: .infinity)
                             .padding()
@@ -78,7 +78,7 @@ struct PCCDashboardView: View {
                     Button(action: {
                         openWindow(id: "failure-panel")
                     }) {
-                        Text("PANNES")
+                        Text(.init(String.loc("btn.pannes")))
                             .font(.custom("VT323-Regular", size: 18))
                             .frame(maxWidth: .infinity)
                             .padding()
@@ -91,7 +91,7 @@ struct PCCDashboardView: View {
                     Button(action: {
                         simulationController.resetSimulation()
                     }) {
-                        Text("RÉINIT.")
+                        Text(.init(String.loc("btn.reinit")))
                             .font(.custom("VT323-Regular", size: 18))
                             .frame(maxWidth: .infinity)
                             .padding()
@@ -109,7 +109,7 @@ struct PCCDashboardView: View {
                     }) {
                         HStack {
                             Image(systemName: simulationController.isRandomFaultModeEnabled ? "bolt.fill" : "bolt.slash")
-                            Text("MODE PANNES ALEATOIRES")
+                            Text(.init(String.loc("btn.mode_pannes_aleatoires")))
                                 .font(.custom("VT323-Regular", size: 18))
                         }
                         .frame(maxWidth: .infinity)
@@ -128,7 +128,7 @@ struct PCCDashboardView: View {
                      }) {
                          HStack {
                              Image(systemName: "camera.fill")
-                             Text("RESET VUE")
+                             Text(.init(String.loc("btn.reset_vue")))
                                  .font(.custom("VT323-Regular", size: 18))
                          }
                          .frame(maxWidth: .infinity)
@@ -144,7 +144,7 @@ struct PCCDashboardView: View {
                      }) {
                          HStack {
                              Image(systemName: "exclamationmark.triangle.fill")
-                             Text("SERVICES PROVISOIRES")
+                             Text(.init(String.loc("btn.services_provisoires")))
                                  .font(.custom("VT323-Regular", size: 18))
                          }
                          .frame(maxWidth: .infinity)
@@ -163,7 +163,7 @@ struct PCCDashboardView: View {
                     }) {
                         HStack {
                             Image(systemName: "map.fill")
-                            Text("SYNOPTIQUE (TCO)")
+                            Text(.init(String.loc("btn.synoptique")))
                                 .font(.custom("VT323-Regular", size: 18))
                         }
                         .frame(maxWidth: .infinity)
@@ -181,7 +181,7 @@ struct PCCDashboardView: View {
                     }) {
                         HStack {
                             Image(systemName: "play.rectangle.fill")
-                            Text("MODE DEMO")
+                            Text(.init(String.loc("btn.mode_demo")))
                                 .font(.custom("VT323-Regular", size: 18))
                         }
                         .frame(maxWidth: .infinity)
@@ -204,7 +204,7 @@ struct PCCDashboardView: View {
                     }) {
                         HStack {
                             Image(systemName: simulationController.isConnected ? "antenna.radiowaves.left.and.right" : "antenna.radiowaves.left.and.right.slash")
-                            Text(simulationController.isConnected ? "CONNECTED TO SERVER" : "CONNECT TO SERVER (9090)")
+                            Text(.init(simulationController.isConnected ? String.loc("btn.connected") : String.loc("btn.connect")))
                                 .font(.custom("VT323-Regular", size: 18))
                         }
                         .frame(maxWidth: .infinity)
@@ -218,22 +218,22 @@ struct PCCDashboardView: View {
             }
             .padding()
             .background(Color(NSColor.controlBackgroundColor))
-            .alert("Connect to Server", isPresented: $showingConnectDialog) {
-                TextField("Server Address", text: $host)
-                TextField("Port Number (e.g. 9090)", text: $port)
-                Button("Connect") {
+            .alert(String.loc("alert.connect_title"), isPresented: $showingConnectDialog) {
+                TextField(String.loc("tf.server_address"), text: $host)
+                TextField(String.loc("tf.port_number"), text: $port)
+                Button(String.loc("btn.connect_action")) {
                     if let portNum = UInt16(port) {
                         simulationController.connect(host: host, port: portNum)
                     }
                 }
-                Button("Cancel", role: .cancel) { }
+                Button(String.loc("btn.cancel"), role: .cancel) { }
             } message: {
-                Text("Enter the remote server address and network port to stream CBTC telemetry.")
+                Text(.init(String.loc("alert.connect_message")))
             }
             
             // Status List
             List {
-                Section(header: Text("Trafic en Temps Réel").font(.headline)) {
+                Section(header: Text(.init(String.loc("label.trafic_temps_reel"))).font(.headline)) {
                     ForEach(simulationController.trains) { train in
                         TrainRow(train: train, controller: simulationController)
                             .contentShape(Rectangle())
@@ -244,13 +244,13 @@ struct PCCDashboardView: View {
                                 Button(action: {
                                     openWindow(id: "manual-control", value: train.id)
                                 }) {
-                                    Label("Mode Manuel", systemImage: "steeringwheel")
+                                    Label(String.loc("ctx.mode_manuel"), systemImage: "steeringwheel")
                                 }
                                 
                                 Button(role: .destructive, action: {
                                     simulationController.removeTrain(id: train.id)
                                 }) {
-                                    Label("Supprimer Rame", systemImage: "trash")
+                                    Label(String.loc("ctx.supprimer_rame"), systemImage: "trash")
                                 }
                             }
                     }
@@ -279,19 +279,19 @@ struct TrainRow: View {
             
             HStack {
                 VStack(alignment: .leading) {
-                    Text("Vitesse").font(.caption).foregroundColor(.secondary)
+                    Text(.init(String.loc("label.vitesse"))).font(.caption).foregroundColor(.secondary)
                     Text(String(format: "%.1f m/s", train.speed))
                         .font(.custom("VT323-Regular", size: 16))
                 }
                 Spacer()
                 VStack(alignment: .leading) {
-                    Text("Canton").font(.caption).foregroundColor(.secondary)
+                    Text(.init(String.loc("label.canton"))).font(.caption).foregroundColor(.secondary)
                     Text(controller.getSegmentName(for: train.currentSegmentId))
                         .font(.custom("VT323-Regular", size: 16))
                 }
                 Spacer()
                 VStack(alignment: .leading) {
-                    Text("LMA").font(.caption).foregroundColor(.secondary)
+                    Text(.init(String.loc("label.lma"))).font(.caption).foregroundColor(.secondary)
                     Text(String(format: "%.1f m", train.movementAuthority))
                         .font(.custom("VT323-Regular", size: 16))
                 }

@@ -28,7 +28,7 @@ struct TrainSignalingView: View {
                 Button(action: onBack) {
                     HStack {
                         Image(systemName: "arrow.left")
-                        Text("RETOUR")
+                        Text(.init(String.loc("btn.retour")))
                     }
                     .font(.custom(fontName, size: 18 * dynamicScale))
                     .foregroundColor(.black)
@@ -38,7 +38,7 @@ struct TrainSignalingView: View {
                 .buttonStyle(PlainButtonStyle())
                 
                 Spacer()
-                Text("POSITION / LOCALISATION")
+                Text(.init(String.loc("section.position_localisation")))
                     .font(.custom(fontName, size: 32 * dynamicScale))
                     .fontWeight(.bold)
                     .foregroundColor(.green)

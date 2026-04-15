@@ -6,7 +6,7 @@ struct FailureControlView: View {
     
     var body: some View {
         VStack(spacing: 20) {
-            Text("Injecteur de Pannes")
+            Text(.init(String.loc("section.injecteur_pannes")))
                 .font(.title)
                 .fontWeight(.bold)
                 .padding(.top)
@@ -61,7 +61,7 @@ struct FailureControlView: View {
                         
                         Divider()
                         
-                        Text("Pneumatiques")
+                        Text(.init(String.loc("section.pneumatiques_fc")))
                             .font(.headline)
                             .padding(.top, 5)
                         
@@ -99,7 +99,7 @@ struct FailureControlView: View {
                     .font(.caption)
                     .foregroundColor(.secondary)
             } else {
-                Text("Aucune rame disponible")
+                Text(.init(String.loc("label.aucune_rame")))
             }
             
             Spacer()

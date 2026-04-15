@@ -19,7 +19,7 @@ struct TrainMainDashboardView: View {
             HStack {
                 ClockView(fontName: fontName, size: baseFontSize * 1.5, color: .white)
                 Spacer()
-                Text("VEHICULE")
+                Text(.init(String.loc("tab.vehicule")))
                     .font(.custom(fontName, size: baseFontSize * 2.6))
                     .fontWeight(.bold)
                     .foregroundColor(.green)
@@ -29,7 +29,7 @@ struct TrainMainDashboardView: View {
                     .fontWeight(.bold)
                     .foregroundColor(.green)
                 Spacer()
-                Text("SYNTH_VEH")
+                Text(.init(String.loc("tab.synth_veh")))
                     .font(.custom(fontName, size: baseFontSize * 1.5))
                     .padding(4)
                     .background(Color.red)
@@ -84,7 +84,7 @@ struct TrainMainDashboardView: View {
                         VStack(alignment: .leading, spacing: 4) {
                              // Custom Header with Button
                              HStack {
-                                 Text("AUXILIAIRES")
+                                 Text(.init(String.loc("section.auxiliaires_detail")))
                                      .font(.custom(fontName, size: baseFontSize * 1.5))
                                      .fontWeight(.bold)
                                      .foregroundColor(.green)
@@ -196,7 +196,7 @@ struct TrainMainDashboardView: View {
                     Spacer()
                     
                     Button(action: { currentView = .telecommands }) {
-                        Text("TELECOMMANDES")
+                        Text(.init(String.loc("section.telecommandes")))
                             .font(.custom(fontName, size: baseFontSize + 2))
                             .fontWeight(.bold)
                             .padding(.horizontal, 8)
@@ -210,7 +210,7 @@ struct TrainMainDashboardView: View {
                     Spacer()
                     
                     Button(action: { currentView = .history }) {
-                        Text("HISTORIQUE")
+                        Text(.init(String.loc("tab.historique")))
                             .font(.custom(fontName, size: baseFontSize + 2))
                             .fontWeight(.bold)
                             .padding(.horizontal, 8)

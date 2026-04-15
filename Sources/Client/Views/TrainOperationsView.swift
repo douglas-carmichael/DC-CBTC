@@ -17,7 +17,7 @@ struct TrainOperationsView: View {
                 Button(action: onBack) {
                     HStack {
                         Image(systemName: "arrow.left")
-                        Text("RETOUR")
+                        Text(.init(String.loc("btn.retour")))
                     }
                     .font(.custom(fontName, size: 18 * dynamicScale))
                     .foregroundColor(.black)
@@ -27,7 +27,7 @@ struct TrainOperationsView: View {
                 .buttonStyle(PlainButtonStyle())
                 
                 Spacer()
-                Text("EXPLOITATION / PORTES")
+                Text(.init(String.loc("section.exploitation_portes")))
                     .font(.custom(fontName, size: 32 * dynamicScale))
                     .fontWeight(.bold)
                     .foregroundColor(.green)
@@ -162,7 +162,7 @@ struct TrainOperationsView: View {
                              detailRow(label: "MISSION", value: "1234")
                              detailRow(label: "PROCHAIN ARRET", value: train.nextStationName)
                          } else {
-                             Text("Pas de donnees.")
+                             Text(.init(String.loc("label.no_data")))
                                 .font(.custom(fontName, size: 14 * dynamicScale))
                                 .foregroundColor(.black)
                         }
@@ -236,7 +236,7 @@ struct TrainOperationsView: View {
                 
                 if isOpen {
                     // Draw "Open" brackets
-                    Text("[    ]")
+                    Text(.init(String.loc("label.empty_slot")))
                         .font(.custom("VT323-Regular", size: 12 * dynamicScale))
                         .foregroundColor(.green)
                 }

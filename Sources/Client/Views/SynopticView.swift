@@ -8,7 +8,7 @@ struct SynopticView: View {
             // Header
             HStack {
                 Spacer()
-                Text("TCO - TABLEAU DE CONTROLE OPTIQUE")
+                Text(.init(String.loc("tco.title")))
                     .font(.custom("VT323-Regular", size: 24))
                     .foregroundColor(.green)
                 Spacer()

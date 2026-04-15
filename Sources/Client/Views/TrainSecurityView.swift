@@ -31,7 +31,7 @@ struct TrainSecurityView: View {
                 Button(action: onBack) {
                     HStack {
                         Image(systemName: "arrow.left")
-                        Text("RETOUR")
+                        Text(.init(String.loc("btn.retour")))
                     }
                     .font(.custom(fontName, size: 18 * dynamicScale))
                     .foregroundColor(.black)
@@ -41,7 +41,7 @@ struct TrainSecurityView: View {
                 .buttonStyle(PlainButtonStyle())
                 
                 Spacer()
-                Text("ETAT / ALARME SECURITE")
+                Text(.init(String.loc("section.etat_securite")))
                     .font(.custom(fontName, size: 32 * dynamicScale))
                     .fontWeight(.bold)
                     .foregroundColor(.green)

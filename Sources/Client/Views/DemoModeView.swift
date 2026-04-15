@@ -32,7 +32,7 @@ struct DemoModeView: View {
                         .transition(.opacity)
                     } else {
                         // Fallback if train removed during demo
-                        Text("Recherche du signal...")
+                        Text(.init(String.loc("demo.recherche_signal")))
                             .foregroundColor(.green)
                             .font(.custom("VT323-Regular", size: 24))
                     }
@@ -74,7 +74,7 @@ struct DemoModeView: View {
                     }) {
                         HStack {
                             Image(systemName: "xmark.circle.fill")
-                            Text("QUITTER")
+                            Text(.init(String.loc("btn.quitter")))
                                 .font(.custom("VT323-Regular", size: 18))
                         }
                         .foregroundColor(.white)

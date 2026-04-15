@@ -17,7 +17,7 @@ struct TrainDCAView: View {
                 Button(action: onBack) {
                     HStack {
                         Image(systemName: "arrow.left")
-                        Text("RETOUR")
+                        Text(.init(String.loc("btn.retour")))
                     }
                     .font(.custom(fontName, size: 18 * dynamicScale))
                     .foregroundColor(.black)
@@ -27,7 +27,7 @@ struct TrainDCAView: View {
                 .buttonStyle(PlainButtonStyle())
                 
                 Spacer()
-                Text("ETAT DCA / AUTOMATISMES")
+                Text(.init(String.loc("section.etat_dca")))
                     .font(.custom(fontName, size: 32 * dynamicScale))
                     .fontWeight(.bold)
                     .foregroundColor(.green)
@@ -147,7 +147,7 @@ struct TrainDCAView: View {
                              detailRow(label: "URGENCE PCC", value: "NON")
                              detailRow(label: "VACMA", value: "INACTIF")
                         } else {
-                             Text("Pas de donnees.")
+                             Text(.init(String.loc("label.no_data")))
                                 .font(.custom(fontName, size: 14 * dynamicScale))
                                 .foregroundColor(.black)
                         }

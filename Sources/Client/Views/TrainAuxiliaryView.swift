@@ -20,7 +20,7 @@ struct TrainAuxiliaryView: View {
                 Button(action: onBack) {
                     HStack {
                         Image(systemName: "arrow.left")
-                        Text("RETOUR")
+                        Text(.init(String.loc("btn.retour")))
                     }
                     .font(.custom(fontName, size: 18 * dynamicScale))
                     .foregroundColor(.black)
@@ -30,7 +30,7 @@ struct TrainAuxiliaryView: View {
                 .buttonStyle(PlainButtonStyle())
                 
                 Spacer()
-                Text("AUXILIAIRES")
+                Text(.init(String.loc("tab.auxiliaires")))
                     .font(.custom(fontName, size: 32 * dynamicScale))
                     .fontWeight(.bold)
                     .foregroundColor(.green)
@@ -231,7 +231,7 @@ struct TrainAuxiliaryView: View {
                              }
                              .buttonStyle(PlainButtonStyle())
                         } else {
-                             Text("Pas de donnees.")
+                             Text(.init(String.loc("label.no_data")))
                                 .font(.custom(fontName, size: 14 * dynamicScale))
                                 .foregroundColor(.black)
                         }
@@ -325,7 +325,7 @@ struct TrainAuxiliaryView: View {
                     .background(active ? Color.green.opacity(0.3) : Color.black)
                     .frame(width: 20, height: 20)
                     .overlay(
-                        Text("X")
+                        Text(.init(String.loc("btn.close_x")))
                             .font(.system(size: 12 * dynamicScale, weight: .bold))
                             .foregroundColor(active ? .green : .gray)
                     )

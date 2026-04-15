@@ -33,7 +33,7 @@ struct TrainAlarmsView: View {
                 Button(action: onBack) {
                     HStack {
                         Image(systemName: "arrow.left")
-                        Text("RETOUR")
+                        Text(.init(String.loc("btn.retour")))
                     }
                     .font(.custom(fontName, size: 18 * dynamicScale))
                     .foregroundColor(.black)
@@ -43,14 +43,14 @@ struct TrainAlarmsView: View {
                 .buttonStyle(PlainButtonStyle())
                 
                 Spacer()
-                Text("LISTE DES ALARMES")
+                Text(.init(String.loc("section.liste_alarmes")))
                     .font(.custom(fontName, size: 32 * dynamicScale))
                     .fontWeight(.bold)
                     .foregroundColor(.red) // Red for Alarms
                 Spacer()
                 
                 // Active alarm count badge
-                Text("\(activeCount) ACTIVE\(activeCount != 1 ? "S" : "")")
+                Text(String(format: activeCount != 1 ? String.loc("label.active_count_plural") : String.loc("label.active_count_singular"), activeCount))
                     .font(.custom(fontName, size: 18 * dynamicScale))
                     .foregroundColor(.black)
                     .padding(.horizontal, 8)
@@ -69,9 +69,9 @@ struct TrainAlarmsView: View {
             
             // List Header
             HStack {
-                Text("HEURE").frame(width: 120, alignment: .leading)
-                Text("DESIGNATION").frame(maxWidth: .infinity, alignment: .leading)
-                Text("ETAT").frame(width: 100, alignment: .trailing)
+                Text(.init(String.loc("col.heure"))).frame(width: 120, alignment: .leading)
+                Text(.init(String.loc("col.designation"))).frame(maxWidth: .infinity, alignment: .leading)
+                Text(.init(String.loc("col.etat"))).frame(width: 100, alignment: .trailing)
             }
             .font(.custom(fontName, size: 20 * dynamicScale))
             .foregroundColor(.green)
@@ -83,7 +83,7 @@ struct TrainAlarmsView: View {
             ScrollView {
                 VStack(spacing: 0) {
                     if sortedAlarms.isEmpty {
-                        Text("AUCUNE ALARME")
+                        Text(.init(String.loc("label.aucune_alarme")))
                             .font(.custom(fontName, size: 24 * dynamicScale))
                             .foregroundColor(.gray)
                             .padding(.top, 50)

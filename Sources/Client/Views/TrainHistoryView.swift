@@ -22,7 +22,7 @@ struct TrainHistoryView: View {
                     TrainDataService.shared.clearHistory(for: train.id)
                     loadData()
                 }) {
-                    Text("EFFACER")
+                    Text(.init(String.loc("btn.effacer")))
                         .font(.custom("VT323-Regular", size: 14 * dynamicScale))
                         .fontWeight(.bold)
                         .padding(.horizontal, 8)
@@ -49,7 +49,7 @@ struct TrainHistoryView: View {
             ScrollView {
                 VStack(spacing: 20) {
                     if history.isEmpty {
-                        Text("AUCUNE DONNEE ENREGISTREE")
+                        Text(.init(String.loc("label.no_history")))
                             .font(.custom("VT323-Regular", size: 20 * dynamicScale))
                             .foregroundColor(.gray)
                             .padding(.top, 50)

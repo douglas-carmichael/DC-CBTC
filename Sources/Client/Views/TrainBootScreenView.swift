@@ -8,23 +8,23 @@ struct TrainBootScreenView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
-            Text("SYSTEME DE CONTROLE TRAIN - V3.42")
+            Text(.init(String.loc("boot.system_title")))
                 .font(.custom(fontName, size: baseFontSize * 1.5))
                 .foregroundColor(.green)
                 .padding(.bottom, 20)
             
             Group {
-                Text("INITIALISATION BOOTLOADER... OK")
+                Text(.init(String.loc("boot.init_bootloader")))
                 if train.startupState.rawValue >= Train.StartupState.memoryCheck.rawValue {
-                   Text("VERIFICATION MEMOIRE... 64MB OK")
+                   Text(.init(String.loc("boot.check_memory")))
                 }
                 if train.startupState.rawValue >= Train.StartupState.systemsCheck.rawValue {
-                   Text("INITIALISATION PNEUMATIQUE... OK")
-                   Text("INITIALISATION ELECTRIQUE... OK")
+                   Text(.init(String.loc("boot.init_pneumatique")))
+                   Text(.init(String.loc("boot.init_electrique")))
                 }
                 if train.startupState.rawValue >= Train.StartupState.radioConnect.rawValue {
-                   Text("RECHERCHE RESEAU PCC...")
-                   Text("CONNEXION ETABLIE.")
+                   Text(.init(String.loc("boot.recherche_reseau")))
+                   Text(.init(String.loc("boot.connexion_etablie")))
                 }
             }
             .font(.custom(fontName, size: baseFontSize + 2))
@@ -33,7 +33,7 @@ struct TrainBootScreenView: View {
             Spacer()
             
             HStack {
-                Text("SEQUENCE DE DEMARRAGE EN COURS...")
+                Text(.init(String.loc("boot.sequence_demarrage")))
                 Spacer()
                 if train.startupState == .radioConnect {
                      ProgressView()

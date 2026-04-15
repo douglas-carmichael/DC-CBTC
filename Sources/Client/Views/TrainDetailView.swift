@@ -13,7 +13,7 @@ struct TrainDetailViewWrapper: View {
             })
             .frame(minWidth: 600, minHeight: 450)
         } else {
-            Text("Signal Perdu : Rame \(trainID.uuidString)")
+            Text(String.loc("train.signal_lost", trainID.uuidString))
                 .foregroundColor(.red)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(Color.black)

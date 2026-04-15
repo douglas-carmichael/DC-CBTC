@@ -17,7 +17,7 @@ struct TrainPneumaticsView: View {
                 Button(action: onBack) {
                     HStack {
                         Image(systemName: "arrow.left")
-                        Text("RETOUR")
+                        Text(.init(String.loc("btn.retour")))
                     }
                     .font(.custom(fontName, size: 18 * dynamicScale))
                     .foregroundColor(.black)
@@ -27,7 +27,7 @@ struct TrainPneumaticsView: View {
                 .buttonStyle(PlainButtonStyle())
                 
                 Spacer()
-                Text("PNEUMATIQUES")
+                Text(.init(String.loc("section.pneumatiques")))
                     .font(.custom(fontName, size: 32 * dynamicScale))
                     .fontWeight(.bold)
                     .foregroundColor(.green)
@@ -46,7 +46,7 @@ struct TrainPneumaticsView: View {
                 HStack(spacing: 20) {
                     // Left Bogie (Tires 1-4)
                     VStack {
-                        Text("BOGIE 1")
+                        Text(.init(String.loc("label.bogie1")))
                             .font(.custom(fontName, size: 24 * dynamicScale))
                             .foregroundColor(.green)
                             .padding(.bottom, 20)
@@ -68,7 +68,7 @@ struct TrainPneumaticsView: View {
                     
                     // Right Bogie (Tires 5-8)
                     VStack {
-                        Text("BOGIE 2")
+                        Text(.init(String.loc("label.bogie2")))
                             .font(.custom(fontName, size: 24 * dynamicScale))
                             .foregroundColor(.green)
                             .padding(.bottom, 20)
@@ -130,7 +130,7 @@ struct TrainPneumaticsView: View {
                             .font(.custom(fontName, size: 24 * dynamicScale))
                             .fontWeight(.bold)
                             .foregroundColor(statusColor)
-                        Text("bar")
+                        Text(.init(String.loc("label.bar")))
                             .font(.custom(fontName, size: 14 * dynamicScale))
                             .foregroundColor(statusColor)
                     }

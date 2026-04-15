@@ -13,20 +13,20 @@ struct ServiceProvisoireView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-            Text(">>> CONFIGURATION SERVICE PROVISOIRE <<<")
+            Text(.init(String.loc("sp.title")))
                 .font(.custom(fontName, size: 24))
                 .foregroundColor(.green)
                 .frame(maxWidth: .infinity, alignment: .center)
                 .padding(.bottom, 10)
             
-            Text("SELECTION INTERSTATION:")
+            Text(.init(String.loc("sp.selection_label")))
                 .font(.custom(fontName, size: 18))
                 .foregroundColor(.green)
             
             HStack(spacing: 20) {
                 // Start Station
                 VStack(alignment: .leading, spacing: 10) {
-                    Text("TERMINUS A:")
+                    Text(.init(String.loc("sp.terminus_a")))
                         .font(.custom(fontName, size: 16))
                         .foregroundColor(.green)
                     
@@ -49,7 +49,7 @@ struct ServiceProvisoireView: View {
                 
                 // End Station
                 VStack(alignment: .leading, spacing: 10) {
-                    Text("TERMINUS B:")
+                    Text(.init(String.loc("sp.terminus_b")))
                         .font(.custom(fontName, size: 16))
                         .foregroundColor(.green)
                     
@@ -75,14 +75,14 @@ struct ServiceProvisoireView: View {
             
             // Interval Selection
             HStack(spacing: 20) {
-                Text("INTERVALLE:")
+                Text(.init(String.loc("sp.intervalle_label")))
                     .font(.custom(fontName, size: 18))
                     .foregroundColor(.green)
                 
                 Button("<") { cycleInterval(forward: false) }
                     .buttonStyle(RetroCyclerStyle())
                 
-                Text("\(Int(selectedIntervalle)) SEC.")
+                Text(String.loc("sp.intervalle_value", Int(selectedIntervalle)))
                     .font(.custom(fontName, size: 18))
                     .foregroundColor(.white)
                     .frame(width: 100, alignment: .center)
@@ -102,14 +102,14 @@ struct ServiceProvisoireView: View {
                 let startName = stationName(for: activeSP.startStationId)
                 let endName = stationName(for: activeSP.endStationId)
                 
-                Text("ACHEVEMENT: SERVICE PROVISOIRE ACTIF")
+                Text(.init(String.loc("sp.status_active")))
                     .font(.custom(fontName, size: 16))
                     .foregroundColor(.orange)
-                Text("[\(startName)] <---> [\(endName)]")
+                Text(String.loc("sp.route_format", startName, endName))
                     .font(.custom(fontName, size: 18))
                     .foregroundColor(.yellow)
             } else {
-                Text("ETAT: RESEAU COMPLET ACTIF")
+                Text(.init(String.loc("sp.status_normal")))
                     .font(.custom(fontName, size: 16))
                     .foregroundColor(.green)
             }
@@ -124,7 +124,7 @@ struct ServiceProvisoireView: View {
                         dismiss()
                     }
                 }) {
-                    Text("ACTIVER S.P.")
+                    Text(.init(String.loc("btn.activer_sp")))
                         .font(.custom(fontName, size: 18))
                         .padding()
                         .frame(maxWidth: .infinity)
@@ -140,7 +140,7 @@ struct ServiceProvisoireView: View {
                     endStationId = nil
                     dismiss()
                 }) {
-                    Text("RETABLIR LIGNE")
+                    Text(.init(String.loc("btn.retablir_ligne")))
                         .font(.custom(fontName, size: 18))
                         .padding()
                         .frame(maxWidth: .infinity)
@@ -151,7 +151,7 @@ struct ServiceProvisoireView: View {
                 Button(action: {
                     dismiss()
                 }) {
-                    Text("FERMER")
+                    Text(.init(String.loc("btn.fermer")))
                         .font(.custom(fontName, size: 18))
                         .padding()
                         .frame(maxWidth: .infinity)

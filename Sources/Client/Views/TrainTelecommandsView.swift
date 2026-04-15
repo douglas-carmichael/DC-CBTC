@@ -32,7 +32,7 @@ struct TrainTelecommandsView: View {
                 Button(action: onBack) {
                     HStack {
                         Image(systemName: "arrow.left")
-                        Text("RETOUR")
+                        Text(.init(String.loc("btn.retour")))
                     }
                     .font(.custom(fontName, size: 18 * dynamicScale))
                     .foregroundColor(.black)
@@ -42,7 +42,7 @@ struct TrainTelecommandsView: View {
                 .buttonStyle(PlainButtonStyle())
                 
                 Spacer()
-                Text("TELECOMMANDES")
+                Text(.init(String.loc("section.telecommandes")))
                     .font(.custom(fontName, size: 32 * dynamicScale))
                     .fontWeight(.bold)
                     .foregroundColor(.green)

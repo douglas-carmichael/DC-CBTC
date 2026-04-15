@@ -49,12 +49,12 @@ struct ManualControlView: View {
                     
                     if train.mode == .manual {
                         VStack(spacing: 15) {
-                            Text("Commandes Manuelles")
+                            Text(.init(String.loc("title.commandes_manuelles")))
                                 .font(.headline)
                             
                             // Speed Control
                             VStack(alignment: .leading) {
-                                Text("Vitesse Cible: \(Int(localSpeedRequest)) m/s")
+                                Text(String(format: String.loc("label.vitesse_cible"), Int(localSpeedRequest)))
                                 Slider(value: Binding(
                                     get: { localSpeedRequest },
                                     set: { val in
@@ -62,7 +62,7 @@ struct ManualControlView: View {
                                         simulationController.trains[index].manualSpeedRequest = CGFloat(val)
                                     }
                                 ), in: 0...25, step: 1) {
-                                    Text("Vitesse")
+                                    Text(.init(String.loc("label.vitesse")))
                                 }
                             }
                             .padding()
@@ -94,10 +94,10 @@ struct ManualControlView: View {
                     } else {
                         VStack {
                             Spacer()
-                            Text("Mode Automatique Actif")
+                            Text(.init(String.loc("label.mode_auto_actif")))
                                 .font(.headline)
                                 .foregroundColor(.secondary)
-                            Text("Le train est contrôlé par le système CBTC.")
+                            Text(.init(String.loc("label.cbtc_info")))
                                 .font(.caption)
                                 .foregroundColor(.secondary)
                             Spacer()
@@ -110,12 +110,12 @@ struct ManualControlView: View {
                     // Live Status
                     HStack {
                         VStack(alignment: .leading) {
-                            Text("Vitesse Actuelle: \(String(format: "%.1f", train.speed)) m/s")
-                            Text("Statut : \(train.status.rawValue)")
+                            Text(String(format: String.loc("label.vitesse_actuelle"), train.speed))
+                            Text(String(format: String.loc("label.statut"), train.status.rawValue))
                         }
                         Spacer()
                         if train.mode == .manual {
-                            Text("MANUEL")
+                            Text(.init(String.loc("btn.manuel")))
                                 .font(.caption)
                                 .fontWeight(.bold)
                                 .padding(4)
@@ -123,7 +123,7 @@ struct ManualControlView: View {
                                 .foregroundColor(.white)
                                 .cornerRadius(4)
                         } else {
-                            Text("AUTO")
+                            Text(.init(String.loc("btn.auto")))
                                 .font(.caption)
                                 .fontWeight(.bold)
                                 .padding(4)
@@ -143,7 +143,7 @@ struct ManualControlView: View {
                     }
                 }
             } else {
-                Text("Train introuvable")
+                Text(.init(String.loc("label.train_introuvable")))
                     .foregroundColor(.secondary)
                     .frame(width: 300, height: 200)
             }

@@ -27,7 +27,7 @@ struct TrainAsservissementView: View {
                 Button(action: onBack) {
                     HStack {
                         Image(systemName: "arrow.left")
-                        Text("RETOUR")
+                        Text(.init(String.loc("btn.retour")))
                     }
                     .font(.custom(fontName, size: 18 * dynamicScale))
                     .foregroundColor(.black)
@@ -37,7 +37,7 @@ struct TrainAsservissementView: View {
                 .buttonStyle(PlainButtonStyle())
                 
                 Spacer()
-                Text("ASSERVISSEMENT")
+                Text(.init(String.loc("section.asservissement")))
                     .font(.custom(fontName, size: 32 * dynamicScale))
                     .fontWeight(.bold)
                     .foregroundColor(.green)
@@ -200,7 +200,7 @@ struct AsservissementDetailPanel: View {
         VStack(alignment: .leading, spacing: 10) {
             // Header
             HStack {
-                Text("DETAIL: \(node.rawValue)")
+                Text(String(format: String.loc("label.detail_node"), node.rawValue))
                     .font(.custom(fontName, size: 18 * dynamicScale))
                     .fontWeight(.bold)
                     .foregroundColor(.black)
