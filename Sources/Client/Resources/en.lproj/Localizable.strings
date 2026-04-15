@@ -1,0 +1,150 @@
+/* ============================================================
+   Localizable.strings (fr)
+   DC CBTC — Contrôle-Commande par Balises pour Train
+   ============================================================ */
+
+// MARK: - PCC Dashboard
+"pcc.title"                     = "PCC - LIGNE 1";
+"btn.pause"                     = "PAUSE";
+"btn.depart_auto"               = "DÉPART AUTO";
+"btn.arret_urgence"             = "ARRÊT D'URGENCE";
+"btn.reprendre"                 = "REPRENDRE";
+"btn.add_rame"                  = "+ RAME";
+"btn.pannes"                    = "PANNES";
+"btn.reinit"                    = "RÉINIT.";
+"btn.mode_pannes_aleatoires"    = "MODE PANNES ALEATOIRES";
+"btn.reset_vue"                 = "RESET VUE";
+"btn.services_provisoires"      = "SERVICES PROVISOIRES";
+"btn.synoptique"                = "SYNOPTIQUE (TCO)";
+"btn.mode_demo"                 = "NODE DEMO";
+"btn.connected"                 = "CONNECTED TO SERVER";
+"btn.connect"                   = "CONNECT TO SERVER (9090)";
+"label.trafic_temps_reel"       = "Trafic en Temps Réel";
+"label.vitesse"                 = "Vitesse";
+"label.canton"                  = "Canton";
+"label.lma"                     = "LMA";
+"ctx.mode_manuel"               = "Mode Manuel";
+"ctx.supprimer_rame"            = "Supprimer Rame";
+
+// MARK: - Connect Dialog
+"alert.connect_title"           = "Connect to Server";
+"alert.connect_message"         = "Enter the remote server address and network port to stream CBTC telemetry.";
+"tf.server_address"             = "Server Address";
+"tf.port_number"                = "Port Number (e.g. 9090)";
+"btn.connect_action"            = "Connect";
+"btn.cancel"                    = "Cancel";
+
+// MARK: - TCO Synoptic
+"tco.title"                     = "TCO - TABLEAU DE CONTROLE OPTIQUE";
+
+// MARK: - Service Provisoire
+"sp.title"                      = ">>> CONFIGURATION SERVICE PROVISOIRE <<<";
+"sp.selection_label"            = "SELECTION INTERSTATION:";
+"sp.terminus_a"                 = "TERMINUS A:";
+"sp.terminus_b"                 = "TERMINUS B:";
+"sp.intervalle_label"           = "INTERVALLE:";
+"sp.intervalle_value"           = "%d SEC.";
+"sp.status_active"              = "ACHEVEMENT: SERVICE PROVISOIRE ACTIF";
+"sp.route_format"               = "[%@] <---> [%@]";
+"sp.status_normal"              = "ETAT: RESEAU COMPLET ACTIF";
+"btn.activer_sp"                = "ACTIVER S.P.";
+"btn.retablir_ligne"            = "RETABLIR LIGNE";
+"btn.fermer"                    = "FERMER";
+
+// MARK: - Train Detail View
+"train.signal_lost"             = "Signal Perdu : Rame %@";
+
+// MARK: - Train Main Dashboard (Tab Labels)
+"tab.vehicule"                  = "VEHICULE";
+"tab.synth_veh"                 = "SYNTH_VEH";
+"tab.auxiliaires"               = "AUXILIAIRES";
+"tab.telecommandes"             = "TELECOMMANDES";
+"tab.historique"                = "HISTORIQUE";
+"tab.traction_diag"             = "DIAGNOSTIC TRACTION: %@";
+"tab.automatismes_diag"         = "DIAGNOSTIC AUTOMATISMES: %@";
+
+// MARK: - Train Operations View
+"btn.retour"                    = "RETOUR";
+"section.exploitation_portes"   = "EXPLOITATION / PORTES";
+"label.detail_system"           = "DETAIL: %@";
+"label.no_data"                 = "Pas de donnees.";
+"label.empty_slot"              = "[    ]";
+
+// MARK: - Train Traction View
+"section.traction_freinage"     = "TRACTION / FREINAGE";
+"label.vitesse_kmh"             = "VITESSE: %.1f km/h";
+"label.accel_ms2"               = "ACCEL: %.2f m/s²";
+
+// MARK: - Train Alarms View
+"section.liste_alarmes"         = "LISTE DES ALARMES";
+"label.active_count_plural"     = "%d ACTIVES";
+"label.active_count_singular"   = "%d ACTIVE";
+"col.heure"                     = "HEURE";
+"col.designation"               = "DESIGNATION";
+"col.etat"                      = "ETAT";
+"label.aucune_alarme"           = "AUCUNE ALARME";
+
+// MARK: - Train Security View
+"section.etat_securite"         = "ETAT / ALARME SECURITE";
+
+// MARK: - Train Signaling View
+"section.position_localisation" = "POSITION / LOCALISATION";
+
+// MARK: - Train DCA View
+"section.etat_dca"              = "ETAT DCA / AUTOMATISMES";
+
+// MARK: - Train Asservissement View
+"section.asservissement"        = "ASSERVISSEMENT";
+"label.detail_node"             = "DETAIL: %@";
+
+// MARK: - Train Auxiliary View
+"section.auxiliaires_detail"    = "AUXILIAIRES";
+"btn.close_x"                   = "X";
+
+// MARK: - Train Pneumatics View
+"section.pneumatiques"          = "PNEUMATIQUES";
+"label.bogie1"                  = "BOGIE 1";
+"label.bogie2"                  = "BOGIE 2";
+"label.pneu"                    = "PNEU %d";
+"label.bar"                     = "bar";
+
+// MARK: - Train Telecommands View
+"section.telecommandes"         = "TELECOMMANDES";
+
+// MARK: - Failure Control View
+"section.injecteur_pannes"      = "Injecteur de Pannes";
+"section.pneumatiques_fc"       = "Pneumatiques";
+"label.pneu_fc"                 = "Pneu %d";
+"label.etat_actuel"             = "État Actuel : %@";
+"label.aucune_rame"             = "Aucune rame disponible";
+
+// MARK: - Manual Control View
+"title.commandes_manuelles"     = "Commandes Manuelles";
+"label.vitesse_cible"           = "Vitesse Cible: %d m/s";
+"label.vitesse_actuelle"        = "Vitesse Actuelle: %.1f m/s";
+"label.statut"                  = "Statut : %@";
+"label.mode_auto_actif"         = "Mode Automatique Actif";
+"label.cbtc_info"               = "Le train est contrôlé par le système CBTC.";
+"btn.manuel"                    = "MANUEL";
+"btn.auto"                      = "AUTO";
+"label.train_introuvable"       = "Train introuvable";
+
+// MARK: - Train History View
+"title.historique"              = "HISTORIQUE: %@";
+"btn.effacer"                   = "EFFACER";
+"label.no_history"              = "AUCUNE DONNEE ENREGISTREE";
+
+// MARK: - Train Boot Screen
+"boot.system_title"             = "SYSTEME DE CONTROLE TRAIN - V3.42";
+"boot.init_bootloader"          = "INITIALISATION BOOTLOADER... OK";
+"boot.check_memory"             = "VERIFICATION MEMOIRE... 64MB OK";
+"boot.init_pneumatique"         = "INITIALISATION PNEUMATIQUE... OK";
+"boot.init_electrique"          = "INITIALISATION ELECTRIQUE... OK";
+"boot.recherche_reseau"         = "RECHERCHE RESEAU PCC...";
+"boot.connexion_etablie"        = "CONNEXION ETABLIE.";
+"boot.sequence_demarrage"       = "SEQUENCE DE DEMARRAGE EN COURS...";
+
+// MARK: - Demo Mode View
+"demo.recherche_signal"         = "Recherche du signal...";
+"demo.status"                   = "MODE DEMO - %@";
+"btn.quitter"                   = "QUITTER";
