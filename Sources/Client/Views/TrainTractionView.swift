@@ -17,7 +17,7 @@ struct TrainTractionView: View {
                 Button(action: onBack) {
                     HStack {
                         Image(systemName: "arrow.left")
-                        Text("RETOUR")
+                        Text(.init(String.loc("btn.retour")))
                     }
                     .font(.custom(fontName, size: 18 * dynamicScale))
                     .foregroundColor(.black)
@@ -27,7 +27,7 @@ struct TrainTractionView: View {
                 .buttonStyle(PlainButtonStyle())
                 
                 Spacer()
-                Text("TRACTION / FREINAGE")
+                Text(.init(String.loc("section.traction_freinage")))
                     .font(.custom(fontName, size: 32 * dynamicScale))
                     .fontWeight(.bold)
                     .foregroundColor(.green)
@@ -107,8 +107,8 @@ struct TrainTractionView: View {
                     
                     // Status Text
                     VStack {
-                        Text("VITESSE: \(String(format: "%.1f", train.speed * 3.6)) km/h")
-                        Text("ACCEL: \(String(format: "%.2f", train.acceleration)) m/s²")
+                        Text(String(format: String.loc("label.vitesse_kmh"), train.speed * 3.6))
+                        Text(String(format: String.loc("label.accel_ms2"), train.acceleration))
                     }
                     .font(.custom(fontName, size: 24 * dynamicScale))
                     .foregroundColor(.green)
@@ -139,7 +139,7 @@ struct TrainTractionView: View {
                 Spacer()
                 VStack(alignment: .leading, spacing: 8) {
                     HStack {
-                        Text("DETAIL: \(system)")
+                        Text(String(format: String.loc("label.detail_system"), system))
                             .font(.custom(fontName, size: 24 * dynamicScale))
                             .fontWeight(.bold)
                             .foregroundColor(.black)
@@ -173,7 +173,7 @@ struct TrainTractionView: View {
                                  detailRow(label: "TEMP", value: "45°C")
                              }
                         } else {
-                             Text("Pas de donnees.")
+                             Text(.init(String.loc("label.no_data")))
                                 .font(.custom(fontName, size: 14 * dynamicScale))
                                 .foregroundColor(.black)
                         }

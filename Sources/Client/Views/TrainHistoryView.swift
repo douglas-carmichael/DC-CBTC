@@ -13,7 +13,7 @@ struct TrainHistoryView: View {
         VStack(spacing: 0) {
             // Header
             HStack {
-                Text("HISTORIQUE: \(train.name)")
+                Text(String(format: String.loc("title.historique"), train.name))
                     .font(.custom("VT323-Regular", size: 24 * dynamicScale))
                     .foregroundColor(.green)
                 Spacer()

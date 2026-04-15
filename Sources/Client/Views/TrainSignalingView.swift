@@ -115,7 +115,7 @@ struct TrainSignalingView: View {
     private func detailPanel(for system: String) -> some View {
         VStack(alignment: .leading, spacing: 8) {
             HStack {
-                Text("DETAIL: \(system)")
+                Text(String(format: String.loc("label.detail_system"), system))
                     .font(.custom(fontName, size: 24 * dynamicScale))
                     .fontWeight(.bold)
                     .foregroundColor(.black)

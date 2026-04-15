@@ -95,7 +95,7 @@ struct TrainOperationsView: View {
                         Image(systemName: "person.3.fill")
                             .font(.system(size: 40 * dynamicScale))
                             .foregroundColor(.white)
-                        Text("\(train.passengerCount)")
+                        Text(String(train.passengerCount))
                             .font(.custom(fontName, size: 24 * dynamicScale))
                             .foregroundColor(.white)
                     }
@@ -131,7 +131,7 @@ struct TrainOperationsView: View {
                 Spacer()
                 VStack(alignment: .leading, spacing: 8) {
                     HStack {
-                        Text("DETAIL: \(system)")
+                        Text(String(format: String.loc("label.detail_system"), system))
                             .font(.custom(fontName, size: 24 * dynamicScale))
                             .fontWeight(.bold)
                             .foregroundColor(.black)

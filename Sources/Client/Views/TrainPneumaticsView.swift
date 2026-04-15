@@ -116,7 +116,7 @@ struct TrainPneumaticsView: View {
         
         var body: some View {
             VStack {
-                Text("PNEU \(tire.id)")
+                Text(String(format: String.loc("label.pneu"), tire.id))
                     .font(.custom(fontName, size: 18 * dynamicScale))
                     .foregroundColor(statusColor)
                 

@@ -55,7 +55,7 @@ struct DemoModeView: View {
                                 }
                             }
                         
-                        Text("MODE DEMO - \(demoManager.demoStatusText)")
+                        Text(String(format: String.loc("demo.status"), demoManager.demoStatusText))
                             .font(.custom("VT323-Regular", size: 18))
                             .foregroundColor(.red)
                     }

@@ -72,7 +72,7 @@ struct FailureControlView: View {
                                     simulationController.cycleTireStatus(for: train.id, at: index)
                                 }) {
                                     VStack {
-                                        Text("Pneu \(tire.id)")
+                                        Text(String(format: String.loc("label.pneu"), tire.id))
                                             .font(.caption2)
                                         Circle()
                                             .fill(tireColor(for: tire.status))
@@ -95,7 +95,7 @@ struct FailureControlView: View {
                 .cornerRadius(10)
                 .padding()
                 
-                Text("État Actuel : \(train.status.rawValue)")
+                Text(String(format: String.loc("label.etat_actuel"), train.status.rawValue))
                     .font(.caption)
                     .foregroundColor(.secondary)
             } else {

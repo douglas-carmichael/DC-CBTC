@@ -192,7 +192,7 @@ struct TrainMainDashboardView: View {
                 
                 // Footer
                 HStack {
-                    Text("DIAGNOSTIC TRACTION: \(tractionDiagnostic)")
+                    Text(String(format: String.loc("tab.traction_diag"), tractionDiagnostic))
                     Spacer()
                     
                     Button(action: { currentView = .telecommands }) {
@@ -222,7 +222,7 @@ struct TrainMainDashboardView: View {
                     .buttonStyle(PlainButtonStyle())
                     
                     Spacer()
-                    Text("DIAGNOSTIC AUTOMATISMES: \(automatismesDiagnostic)")
+                    Text(String(format: String.loc("tab.automatismes_diag"), automatismesDiagnostic))
                 }
                 .font(.custom(fontName, size: baseFontSize + 2))
                 .foregroundColor(.green)
