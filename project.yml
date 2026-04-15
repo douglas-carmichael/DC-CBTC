@@ -1,6 +1,7 @@
 name: CBTC_Metro_Simulator
 options:
   bundleIdPrefix: com.dcarmich
+  developmentLanguage: fr
 targets:
   CBTC_Server:
     type: application
