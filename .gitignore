@@ -1,1 +1,12 @@
 CBTC_Metro_Simulator.xcodeproj/project.xcworkspace/xcuserdata/dcarmich.xcuserdatad/UserInterfaceState.xcuserstate
+
+# Xcode Build defaults
+build/
+DerivedData/
+
+# Xcode Logs
+*.txt
+*.log
+
+# Mac
+.DS_Store
