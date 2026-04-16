@@ -185,17 +185,19 @@ struct TrainDCAView: View {
         var isSelected: Bool = false
         
         var body: some View {
-            ZStack {
+            VStack(spacing: 2) {
+                Text(label).font(.custom("VT323-Regular", size: 14 * dynamicScale)).foregroundColor(.green)
+                    .fixedSize(horizontal: true, vertical: false)
+                Text(status).font(.custom("VT323-Regular", size: 14 * dynamicScale)).foregroundColor(color)
+                    .fixedSize(horizontal: true, vertical: false)
+            }
+            .padding(4)
+            .frame(minWidth: width, minHeight: height)
+            .background(Color.black)
+            .overlay(
                 Rectangle()
                     .stroke(isSelected ? Color.white : Color.green, lineWidth: isSelected ? 3 : 1)
-                    .background(Color.black)
-                    .frame(width: width, height: height)
-                
-                VStack(spacing: 2) {
-                    Text(label).font(.custom("VT323-Regular", size: 14 * dynamicScale)).foregroundColor(.green)
-                    Text(status).font(.custom("VT323-Regular", size: 14 * dynamicScale)).foregroundColor(color)
-                }
-            }
+            )
             .position(x: geometry.size.width * x, y: geometry.size.height * y)
         }
     }
