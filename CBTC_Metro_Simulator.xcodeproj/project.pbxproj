@@ -34,10 +34,12 @@
 		9AF67CD958E0BFF6D480C04C /* ServiceProvisoireView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B595BC93600D3E7ADA4A907B /* ServiceProvisoireView.swift */; };
 		9F7D01CBBBA3932F68B5CE74 /* CBTC_ServerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107D2353D4F148C0E8CEC9F2 /* CBTC_ServerApp.swift */; };
 		A11289AA185DB2AFB7645FC2 /* TrainAuxiliaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75ABE173A87176A0F4669F4C /* TrainAuxiliaryView.swift */; };
+		A535C624EF78CED7F1B4D278 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FB0C2A35AC4684DB80BA45C4 /* Localizable.strings */; };
 		A5916BA069E104B6B556636F /* DemoModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188C0E767E61E358D1250FE /* DemoModeView.swift */; };
 		A97D36EA834BA2052A619B3E /* DemoModeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBC8C2D9799237861D82A12 /* DemoModeManager.swift */; };
 		AA804643F19CB989F9008355 /* AppCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED87303DEF2D48777315EA5 /* AppCommand.swift */; };
 		ACA425EF5F0AFC648E18D083 /* TrainDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1328F5A906AAB49F2A8679F3 /* TrainDataService.swift */; };
+		B26F6DCD808F93703E580AA9 /* String+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B0016DC267A0647B6BF98F /* String+Localization.swift */; };
 		B3C183225208222D837A54B9 /* TrainAsservissementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FE1A74A8E306A38D2E9882 /* TrainAsservissementView.swift */; };
 		BBD33498175CD4EE122FDC02 /* ClockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDB42E680E48B1804B79DB9 /* ClockView.swift */; };
 		BCF894245AF74B8CA903CCE7 /* NetworkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EE70CEADE1BE45778A93BA /* NetworkView.swift */; };
@@ -59,6 +61,7 @@
 
 /* Begin PBXFileReference section */
 		0413E7FA71ABB47C60F2820F /* FailureControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailureControlView.swift; sourceTree = "<group>"; };
+		06B0016DC267A0647B6BF98F /* String+Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localization.swift"; sourceTree = "<group>"; };
 		0A579B2D7621D7BD71167472 /* TrainDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainDetailView.swift; sourceTree = "<group>"; };
 		0BC6E9D70ED36E2FC44FBBFB /* ManualControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualControlView.swift; sourceTree = "<group>"; };
 		0D8D77EC1C7745BC04188788 /* Station.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Station.swift; sourceTree = "<group>"; };
@@ -100,6 +103,7 @@
 		DB0FB08EAFB73A75CA178224 /* SystemTelemetry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemTelemetry.swift; sourceTree = "<group>"; };
 		E8DE14ACAD1A34BDC1B5D010 /* TrainOBCU.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainOBCU.swift; sourceTree = "<group>"; };
 		ED5E0328833EDCE0888C5C27 /* TrainDCAView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainDCAView.swift; sourceTree = "<group>"; };
+		EE7686FE0F53DDA6F4A71E0C /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F31477A6BA91DF361B5431C5 /* CBTC_ClientApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CBTC_ClientApp.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -185,6 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				AB079D8DA5FA16E15548A9F7 /* Fonts */,
+				FB0C2A35AC4684DB80BA45C4 /* Localizable.strings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -211,6 +216,7 @@
 			isa = PBXGroup;
 			children = (
 				F31477A6BA91DF361B5431C5 /* CBTC_ClientApp.swift */,
+				BF233E9B4C0E14363D0CC7BE /* Extensions */,
 				95D535D8FAB88EE9D7D9E4A4 /* Resources */,
 				14E6BFD34B61F800AB36B2D8 /* Services */,
 				F614D178F1A2AC4037AC3CF8 /* Utilities */,
@@ -227,6 +233,14 @@
 				E8DE14ACAD1A34BDC1B5D010 /* TrainOBCU.swift */,
 			);
 			path = Actors;
+			sourceTree = "<group>";
+		};
+		BF233E9B4C0E14363D0CC7BE /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				06B0016DC267A0647B6BF98F /* String+Localization.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		D00FF5048B218345B318C371 /* Views */ = {
@@ -334,11 +348,11 @@
 				};
 			};
 			buildConfigurationList = DEBB0D8402EF4AC7F1AF29A4 /* Build configuration list for PBXProject "CBTC_Metro_Simulator" */;
-			developmentRegion = en;
+			developmentRegion = fr;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				Base,
-				en,
+				fr,
 			);
 			mainGroup = 95F31DF37738922176485A7B;
 			minimizedProjectReferenceProxies = 1;
@@ -358,6 +372,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A535C624EF78CED7F1B4D278 /* Localizable.strings in Resources */,
 				F768BB955011DB987E0B42BE /* VT323-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -384,6 +399,7 @@
 				5217C26B0331E85E401F569A /* ServiceProvisoire.swift in Sources */,
 				9AF67CD958E0BFF6D480C04C /* ServiceProvisoireView.swift in Sources */,
 				E02265F0EBFB8DF106447CDF /* Station.swift in Sources */,
+				B26F6DCD808F93703E580AA9 /* String+Localization.swift in Sources */,
 				5939E7172D8EE5F0B62303E1 /* SynopticView.swift in Sources */,
 				E0E8AC2FE5209B702D7C2E93 /* SystemTelemetry.swift in Sources */,
 				12E135B1F50232A61800F732 /* TrackSegment.swift in Sources */,
@@ -427,6 +443,17 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		FB0C2A35AC4684DB80BA45C4 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EE7686FE0F53DDA6F4A71E0C /* fr */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		1C73AD72E74C94E4A8D62E88 /* Release */ = {

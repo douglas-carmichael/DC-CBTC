@@ -16,7 +16,7 @@
 "btn.reset_vue"                 = "RESET VUE";
 "btn.services_provisoires"      = "SERVICES PROVISOIRES";
 "btn.synoptique"                = "SYNOPTIQUE (TCO)";
-"btn.mode_demo"                 = "NODE DEMO";
+"btn.mode_demo"                 = "MODE DEMO";
 "btn.connected"                 = "CONNECTED TO SERVER";
 "btn.connect"                   = "CONNECT TO SERVER (9090)";
 "label.trafic_temps_reel"       = "Trafic en Temps Réel";
