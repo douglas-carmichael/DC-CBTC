@@ -10,6 +10,8 @@
 		07A3A7C7ED854906D93EEA29 /* SimulationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B956705392DD64C55D9C4E73 /* SimulationController.swift */; };
 		0A79BCBE0AB429D356DC3476 /* TrainAlarmsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E821B918A4F22E6C198055 /* TrainAlarmsView.swift */; };
 		12E135B1F50232A61800F732 /* TrackSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764004ED186761BDACF4E435 /* TrackSegment.swift */; };
+		142BB720E8F6BAE43C588BDF /* CBTC_VisionClientApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207A0029126EA3CF8B031C62 /* CBTC_VisionClientApp.swift */; };
+		1531957B50446AC562BE4432 /* SpatialDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C0359599243B8D23D1EC11 /* SpatialDashboardView.swift */; };
 		19C5E61582058EF1DF58A4A8 /* FontLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0CA55A6A68E5AB7653EC80 /* FontLoader.swift */; };
 		1FBFF86A8647A14031373C41 /* SystemTelemetry.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0FB08EAFB73A75CA178224 /* SystemTelemetry.swift */; };
 		25511EA1780AC0F1F2CF9DA6 /* Train.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BC277F1CD8F15F1486B1D6 /* Train.swift */; };
@@ -21,10 +23,13 @@
 		56E0DBFB2FBE4511896F7216 /* AsservissementModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DCB3A4AEFD2900D62E3ABD8 /* AsservissementModule.swift */; };
 		5939E7172D8EE5F0B62303E1 /* SynopticView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4591D560A93C2B768EC26B6A /* SynopticView.swift */; };
 		627FBCE24492C698CA5B98E8 /* TrainOBCU.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8DE14ACAD1A34BDC1B5D010 /* TrainOBCU.swift */; };
+		628450E8A2616958EFD5F14F /* ImmersiveTrackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E76128CD17DD76A0CB26007 /* ImmersiveTrackView.swift */; };
 		6320201D9931FF4DA1DD3F7E /* CBTC_ClientApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31477A6BA91DF361B5431C5 /* CBTC_ClientApp.swift */; };
 		752857C1BDA32F3F6FFE9907 /* TrainTractionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945D35F1AB1D69E2B5008C81 /* TrainTractionView.swift */; };
 		76923B9276E86CA916C3D666 /* ManualControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC6E9D70ED36E2FC44FBBFB /* ManualControlView.swift */; };
+		827771DC2DF175588CD10786 /* Train.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BC277F1CD8F15F1486B1D6 /* Train.swift */; };
 		82A36E49B903EE318539B28D /* TrainDCAView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5E0328833EDCE0888C5C27 /* TrainDCAView.swift */; };
+		85357267BAB102BC6F474D33 /* Station.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8D77EC1C7745BC04188788 /* Station.swift */; };
 		85B283ADF45E43940A2BA6B7 /* FailureControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0413E7FA71ABB47C60F2820F /* FailureControlView.swift */; };
 		892973789267AE13D9917790 /* TrackSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764004ED186761BDACF4E435 /* TrackSegment.swift */; };
 		8B25AEE31756F793DDFF722A /* TrainOperationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18267D9222BA64ABA2C6118F /* TrainOperationsView.swift */; };
@@ -36,9 +41,12 @@
 		A11289AA185DB2AFB7645FC2 /* TrainAuxiliaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75ABE173A87176A0F4669F4C /* TrainAuxiliaryView.swift */; };
 		A535C624EF78CED7F1B4D278 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FB0C2A35AC4684DB80BA45C4 /* Localizable.strings */; };
 		A5916BA069E104B6B556636F /* DemoModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188C0E767E61E358D1250FE /* DemoModeView.swift */; };
+		A7B6EE04F5D533054DC4501C /* ServiceProvisoire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FDE73A7B132728E0B0D8274 /* ServiceProvisoire.swift */; };
 		A97D36EA834BA2052A619B3E /* DemoModeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBC8C2D9799237861D82A12 /* DemoModeManager.swift */; };
 		AA804643F19CB989F9008355 /* AppCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED87303DEF2D48777315EA5 /* AppCommand.swift */; };
 		ACA425EF5F0AFC648E18D083 /* TrainDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1328F5A906AAB49F2A8679F3 /* TrainDataService.swift */; };
+		AF9E1CF8FB9EFD9924E0676C /* AppCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED87303DEF2D48777315EA5 /* AppCommand.swift */; };
+		B17C6686268063846B491E37 /* TrainDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1328F5A906AAB49F2A8679F3 /* TrainDataService.swift */; };
 		B26F6DCD808F93703E580AA9 /* String+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B0016DC267A0647B6BF98F /* String+Localization.swift */; };
 		B3C183225208222D837A54B9 /* TrainAsservissementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FE1A74A8E306A38D2E9882 /* TrainAsservissementView.swift */; };
 		BBD33498175CD4EE122FDC02 /* ClockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDB42E680E48B1804B79DB9 /* ClockView.swift */; };
@@ -49,17 +57,22 @@
 		D43B98601A4ECAFDEEA0BCBA /* TrainMainDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6617DD59BCC47E70253DC63 /* TrainMainDashboardView.swift */; };
 		D533F61994F2357850B08852 /* TrainDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1328F5A906AAB49F2A8679F3 /* TrainDataService.swift */; };
 		D56E63169476DEE7DB8CD22D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3920F90C94AF49E9EC8FC6D /* ContentView.swift */; };
+		D67C3DE5F9DA3848284D9EBC /* SimulationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D814CF77456C917F4EEC5E /* SimulationState.swift */; };
 		D724BC15A86A9C08F5A53D8D /* ServiceProvisoire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FDE73A7B132728E0B0D8274 /* ServiceProvisoire.swift */; };
 		E02265F0EBFB8DF106447CDF /* Station.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8D77EC1C7745BC04188788 /* Station.swift */; };
 		E0E66392792638E24B07FEB2 /* Train.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BC277F1CD8F15F1486B1D6 /* Train.swift */; };
 		E0E8AC2FE5209B702D7C2E93 /* SystemTelemetry.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0FB08EAFB73A75CA178224 /* SystemTelemetry.swift */; };
 		E4DED5114889B745E510D6A8 /* PCCDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4934588B8A852C073592F3 /* PCCDashboardView.swift */; };
 		EE041049D5092A6630A880E2 /* ServerDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A455B701F911BB95086B7342 /* ServerDashboardView.swift */; };
+		F52116BF079D72C6B02633B5 /* SystemTelemetry.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0FB08EAFB73A75CA178224 /* SystemTelemetry.swift */; };
+		F61F6435AE84212B881A7D98 /* SpatialControlPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F7E367AC2576703D2249CE /* SpatialControlPanelView.swift */; };
 		F768BB955011DB987E0B42BE /* VT323-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7BDCEF0ADE7705EB22F6EFFF /* VT323-Regular.ttf */; };
+		FB3F9795060EDF3F22D1B0A3 /* TrackSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764004ED186761BDACF4E435 /* TrackSegment.swift */; };
 		FDA14565367397F1BEC2337A /* TrainPneumaticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A140EEFD1830D5BBAC5B9932 /* TrainPneumaticsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		01C0359599243B8D23D1EC11 /* SpatialDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpatialDashboardView.swift; sourceTree = "<group>"; };
 		0413E7FA71ABB47C60F2820F /* FailureControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FailureControlView.swift; sourceTree = "<group>"; };
 		06B0016DC267A0647B6BF98F /* String+Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localization.swift"; sourceTree = "<group>"; };
 		0A579B2D7621D7BD71167472 /* TrainDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainDetailView.swift; sourceTree = "<group>"; };
@@ -70,6 +83,7 @@
 		1328F5A906AAB49F2A8679F3 /* TrainDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainDataService.swift; sourceTree = "<group>"; };
 		18267D9222BA64ABA2C6118F /* TrainOperationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainOperationsView.swift; sourceTree = "<group>"; };
 		1C8D6877571566296C06884C /* TrainHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainHistoryView.swift; sourceTree = "<group>"; };
+		207A0029126EA3CF8B031C62 /* CBTC_VisionClientApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CBTC_VisionClientApp.swift; sourceTree = "<group>"; };
 		2ED87303DEF2D48777315EA5 /* AppCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCommand.swift; sourceTree = "<group>"; };
 		31FE1A74A8E306A38D2E9882 /* TrainAsservissementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainAsservissementView.swift; sourceTree = "<group>"; };
 		35EE70CEADE1BE45778A93BA /* NetworkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkView.swift; sourceTree = "<group>"; };
@@ -80,9 +94,12 @@
 		5CBC2A1907DCBD9054AA1465 /* TrainSecurityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainSecurityView.swift; sourceTree = "<group>"; };
 		5D4934588B8A852C073592F3 /* PCCDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCCDashboardView.swift; sourceTree = "<group>"; };
 		6DCB3A4AEFD2900D62E3ABD8 /* AsservissementModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsservissementModule.swift; sourceTree = "<group>"; };
+		6E76128CD17DD76A0CB26007 /* ImmersiveTrackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImmersiveTrackView.swift; sourceTree = "<group>"; };
 		6FE40296B0E352518F77C717 /* TrainTelecommandsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainTelecommandsView.swift; sourceTree = "<group>"; };
 		75ABE173A87176A0F4669F4C /* TrainAuxiliaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainAuxiliaryView.swift; sourceTree = "<group>"; };
+		75F7E367AC2576703D2249CE /* SpatialControlPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpatialControlPanelView.swift; sourceTree = "<group>"; };
 		764004ED186761BDACF4E435 /* TrackSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackSegment.swift; sourceTree = "<group>"; };
+		76D814CF77456C917F4EEC5E /* SimulationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulationState.swift; sourceTree = "<group>"; };
 		7BDCEF0ADE7705EB22F6EFFF /* VT323-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "VT323-Regular.ttf"; sourceTree = "<group>"; };
 		89675D5A6BB62AE22A9BD7AC /* ServerNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerNetworkService.swift; sourceTree = "<group>"; };
 		8D649085AB80FA858B230E77 /* TrainBootScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainBootScreenView.swift; sourceTree = "<group>"; };
@@ -101,6 +118,7 @@
 		CA0CA55A6A68E5AB7653EC80 /* FontLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontLoader.swift; sourceTree = "<group>"; };
 		D285C64575D5F04E67695934 /* TrainSignalingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainSignalingView.swift; sourceTree = "<group>"; };
 		DB0FB08EAFB73A75CA178224 /* SystemTelemetry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemTelemetry.swift; sourceTree = "<group>"; };
+		DDDA717821CA98F84A93AE6B /* CBTC_VisionClient.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = CBTC_VisionClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8DE14ACAD1A34BDC1B5D010 /* TrainOBCU.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainOBCU.swift; sourceTree = "<group>"; };
 		ED5E0328833EDCE0888C5C27 /* TrainDCAView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainDCAView.swift; sourceTree = "<group>"; };
 		EE7686FE0F53DDA6F4A71E0C /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -121,6 +139,7 @@
 			children = (
 				A6C9A3395C8CB25F62F8E3CA /* CBTC_Client.app */,
 				BB017957BC18D29C5CBC2BF0 /* CBTC_Server.app */,
+				DDDA717821CA98F84A93AE6B /* CBTC_VisionClient.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -162,6 +181,17 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		73A5DFDF175828F8DA772277 /* VisionClient */ = {
+			isa = PBXGroup;
+			children = (
+				207A0029126EA3CF8B031C62 /* CBTC_VisionClientApp.swift */,
+				B425C4B73009CDFBEE8E4902 /* Models */,
+				FDD297E62F8D40E6CB3ED363 /* Views */,
+			);
+			name = VisionClient;
+			path = Sources/VisionClient;
+			sourceTree = "<group>";
+		};
 		756D56E60B31075EBBA9B63F /* Shared */ = {
 			isa = PBXGroup;
 			children = (
@@ -200,6 +230,7 @@
 				B9EAFCACBFF64533B0F2A3DB /* Client */,
 				320592DC83C37A5A879D0CE4 /* Server */,
 				756D56E60B31075EBBA9B63F /* Shared */,
+				73A5DFDF175828F8DA772277 /* VisionClient */,
 				1C26B85AFE5AC70D0DD9D304 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -210,6 +241,14 @@
 				7BDCEF0ADE7705EB22F6EFFF /* VT323-Regular.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		B425C4B73009CDFBEE8E4902 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				76D814CF77456C917F4EEC5E /* SimulationState.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		B9EAFCACBFF64533B0F2A3DB /* Client */ = {
@@ -290,6 +329,16 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
+		FDD297E62F8D40E6CB3ED363 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				6E76128CD17DD76A0CB26007 /* ImmersiveTrackView.swift */,
+				75F7E367AC2576703D2249CE /* SpatialControlPanelView.swift */,
+				01C0359599243B8D23D1EC11 /* SpatialDashboardView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		FF76441F6591653D993D87D4 /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -336,6 +385,23 @@
 			productReference = A6C9A3395C8CB25F62F8E3CA /* CBTC_Client.app */;
 			productType = "com.apple.product-type.application";
 		};
+		C963216790CFD2D720863C05 /* CBTC_VisionClient */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DA19E98FA42189D47F3C39F0 /* Build configuration list for PBXNativeTarget "CBTC_VisionClient" */;
+			buildPhases = (
+				EBD2FD0EAD6B672A77A35263 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CBTC_VisionClient;
+			packageProductDependencies = (
+			);
+			productName = CBTC_VisionClient;
+			productReference = DDDA717821CA98F84A93AE6B /* CBTC_VisionClient.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -363,6 +429,7 @@
 			targets = (
 				7E0BF68DF1F9F9322D6837B4 /* CBTC_Client */,
 				64BA2E9E53761EFD114B285C /* CBTC_Server */,
+				C963216790CFD2D720863C05 /* CBTC_VisionClient */,
 			);
 		};
 /* End PBXProject section */
@@ -422,6 +489,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EBD2FD0EAD6B672A77A35263 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AF9E1CF8FB9EFD9924E0676C /* AppCommand.swift in Sources */,
+				142BB720E8F6BAE43C588BDF /* CBTC_VisionClientApp.swift in Sources */,
+				628450E8A2616958EFD5F14F /* ImmersiveTrackView.swift in Sources */,
+				A7B6EE04F5D533054DC4501C /* ServiceProvisoire.swift in Sources */,
+				D67C3DE5F9DA3848284D9EBC /* SimulationState.swift in Sources */,
+				F61F6435AE84212B881A7D98 /* SpatialControlPanelView.swift in Sources */,
+				1531957B50446AC562BE4432 /* SpatialDashboardView.swift in Sources */,
+				85357267BAB102BC6F474D33 /* Station.swift in Sources */,
+				F52116BF079D72C6B02633B5 /* SystemTelemetry.swift in Sources */,
+				FB3F9795060EDF3F22D1B0A3 /* TrackSegment.swift in Sources */,
+				827771DC2DF175588CD10786 /* Train.swift in Sources */,
+				B17C6686268063846B491E37 /* TrainDataService.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F9607FAD41C1C1632C40F1AB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -456,6 +542,31 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		01F8B686161EA937A6221522 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Local network is required to connect to the Simulation Server.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsMultipleScenes = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.dcarmich.CBTC-VisionClient";
+				PRODUCT_NAME = CBTC_VisionClient;
+				SDKROOT = xros;
+				SUPPORTED_PLATFORMS = "xros xrsimulator";
+				TARGETED_DEVICE_FAMILY = 7;
+				XROS_DEPLOYMENT_TARGET = 1.0;
+			};
+			name = Debug;
+		};
 		1C73AD72E74C94E4A8D62E88 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -489,6 +600,31 @@
 				PRODUCT_NAME = CBTC_Client;
 				SDKROOT = macosx;
 				SUPPORTED_PLATFORMS = macosx;
+			};
+			name = Release;
+		};
+		52B74001013B4E4203CEE2F0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Local network is required to connect to the Simulation Server.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsMultipleScenes = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.dcarmich.CBTC-VisionClient";
+				PRODUCT_NAME = CBTC_VisionClient;
+				SDKROOT = xros;
+				SUPPORTED_PLATFORMS = "xros xrsimulator";
+				TARGETED_DEVICE_FAMILY = 7;
+				XROS_DEPLOYMENT_TARGET = 1.0;
 			};
 			name = Release;
 		};
@@ -547,7 +683,6 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -602,7 +737,6 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
@@ -653,6 +787,15 @@
 			buildConfigurations = (
 				F2258804F6A047F77CAB39A2 /* Debug */,
 				26BDDF833B4101C52392D10E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		DA19E98FA42189D47F3C39F0 /* Build configuration list for PBXNativeTarget "CBTC_VisionClient" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				01F8B686161EA937A6221522 /* Debug */,
+				52B74001013B4E4203CEE2F0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

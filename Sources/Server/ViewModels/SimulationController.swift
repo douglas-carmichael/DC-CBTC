@@ -91,6 +91,14 @@ class SimulationController: ObservableObject {
             cycleTireStatus(for: trainId, at: idx)
         case .toggleFault(let trainId, let type):
             toggleFault(for: trainId, type: type)
+        case .setTrainMode(let trainId, let mode):
+            if let obcu = activeOBCUs[trainId] {
+                Task { await obcu.modifyTrain { $0.mode = mode } }
+            }
+        case .setManualSpeed(let trainId, let speed):
+            if let obcu = activeOBCUs[trainId] {
+                Task { await obcu.modifyTrain { $0.manualSpeedRequest = CGFloat(speed) } }
+            }
         case .setServiceProvisoire(let sp):
             if sp == nil && activeServiceProvisoire != nil {
                 // Service is restored, force all trains back to regular forward operation

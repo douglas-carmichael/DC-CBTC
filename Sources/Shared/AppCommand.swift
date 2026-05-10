@@ -15,6 +15,8 @@ enum AppCommand: Codable {
     case cycleTireStatus(trainId: UUID, tireIndex: Int)
     case toggleFault(trainId: UUID, faultType: FaultType)
     case setServiceProvisoire(sp: ServiceProvisoire?)
+    case setTrainMode(trainId: UUID, mode: Train.TrainMode)
+    case setManualSpeed(trainId: UUID, speed: Double)
 }
 
 enum FaultType: String, Codable {

@@ -30,3 +30,25 @@ targets:
         PRODUCT_NAME: CBTC_Client
         SUPPORTED_PLATFORMS: macosx
         SDKROOT: macosx
+
+  CBTC_VisionClient:
+    type: application
+    platform: visionOS
+    deploymentTarget: "1.0"
+    sources:
+      - Sources/VisionClient
+      - Sources/Shared
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        PRODUCT_NAME: CBTC_VisionClient
+        SUPPORTED_PLATFORMS: xros xrsimulator
+        SDKROOT: xros
+        ENABLE_PREVIEWS: YES
+        TARGETED_DEVICE_FAMILY: "7"
+        CODE_SIGNING_REQUIRED: NO
+        CODE_SIGN_IDENTITY: ""
+        CODE_SIGNING_ALLOWED: NO
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+        INFOPLIST_KEY_UIApplicationSupportsMultipleScenes: YES
+        INFOPLIST_KEY_NSLocalNetworkUsageDescription: "Local network is required to connect to the Simulation Server."
