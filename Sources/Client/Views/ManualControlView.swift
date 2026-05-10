@@ -1,5 +1,4 @@
 import SwiftUI
-import AppKit
 
 struct ManualControlView: View {
     let trainID: UUID
@@ -55,6 +54,7 @@ struct ManualControlView: View {
                             // Speed Control
                             VStack(alignment: .leading) {
                                 Text(String(format: String.loc("label.vitesse_cible"), Int(localSpeedRequest)))
+                                #if os(macOS)
                                 Slider(value: Binding(
                                     get: { localSpeedRequest },
                                     set: { val in
@@ -64,9 +64,12 @@ struct ManualControlView: View {
                                 ), in: 0...25, step: 1) {
                                     Text(.init(String.loc("label.vitesse")))
                                 }
+                                #else
+                                Text("Vitesse: \(Int(localSpeedRequest))")
+                                #endif
                             }
                             .padding()
-                            .background(Color(NSColor.controlBackgroundColor))
+                            .background(Color.platformControlBackground)
                             .cornerRadius(8)
                             
                             // Doors
@@ -74,9 +77,11 @@ struct ManualControlView: View {
                                 Label("Portes", systemImage: train.areDoorsOpen ? "door.left.hand.open" : "door.left.hand.closed")
                                     .foregroundColor(train.areDoorsOpen ? .red : .primary)
                             }
-                            .toggleStyle(SwitchToggleStyle(tint: .blue))
+                            #if os(macOS)
+                    .toggleStyle(SwitchToggleStyle(tint: .blue))
+                    #endif
                             .padding()
-                            .background(Color(NSColor.controlBackgroundColor))
+                            .background(Color.platformControlBackground)
                             .cornerRadius(8)
                             
                             // Emergency Brake
@@ -84,9 +89,11 @@ struct ManualControlView: View {
                                 Label("Frein d'Urgence", systemImage: "exclamationmark.octagon.fill")
                                     .foregroundColor(.red)
                             }
-                            .toggleStyle(SwitchToggleStyle(tint: .red))
+                            #if os(macOS)
+                    .toggleStyle(SwitchToggleStyle(tint: .red))
+                    #endif
                             .padding()
-                            .background(Color(NSColor.controlBackgroundColor))
+                            .background(Color.platformControlBackground)
                             .cornerRadius(8)
                         }
                         .padding()

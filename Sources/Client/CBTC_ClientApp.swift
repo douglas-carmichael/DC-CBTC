@@ -16,6 +16,7 @@ struct CBTC_Metro_SimulatorApp: App {
                 .environmentObject(demoManager)
         }
         
+        #if os(macOS)
         WindowGroup("Train Detail", id: "train-detail", for: UUID.self) { $trainID in
             if let id = trainID {
                 TrainDetailViewWrapper(trainID: id)
@@ -25,11 +26,17 @@ struct CBTC_Metro_SimulatorApp: App {
             }
         }
         
+        #endif
+        
+        #if os(macOS)
         WindowGroup("Failure Injection", id: "failure-panel") {
             FailureControlView()
                 .environmentObject(simulationController)
         }
         
+        #endif
+        
+        #if os(macOS)
         WindowGroup("Manual Control", id: "manual-control", for: UUID.self) { $trainID in
              if let id = trainID {
                  ManualControlView(trainID: id)
@@ -39,14 +46,21 @@ struct CBTC_Metro_SimulatorApp: App {
              }
         }
 
+        #endif
+        
+        #if os(macOS)
         WindowGroup("TCO (Synoptique)", id: "synoptic-view") {
             SynopticView()
                 .environmentObject(simulationController)
         }
         
+        #endif
+        
+        #if os(macOS)
         WindowGroup("Services Provisoires", id: "service-provisoire") {
             ServiceProvisoireView()
                 .environmentObject(simulationController)
         }
+        #endif
     }
 }

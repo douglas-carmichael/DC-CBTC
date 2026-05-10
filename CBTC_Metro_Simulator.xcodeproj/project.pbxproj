@@ -7,37 +7,64 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00AF7FC7E1015172D206190B /* VT323-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7BDCEF0ADE7705EB22F6EFFF /* VT323-Regular.ttf */; };
+		02C8DF578BB4577640731F42 /* ClientNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48261B4FBBA96DADD5F549CC /* ClientNetworkService.swift */; };
+		02D0036166C4B819CADD0F3F /* TrainDCAView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5E0328833EDCE0888C5C27 /* TrainDCAView.swift */; };
 		07A3A7C7ED854906D93EEA29 /* SimulationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B956705392DD64C55D9C4E73 /* SimulationController.swift */; };
+		0943D62B2596DB310DFE8608 /* AppCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED87303DEF2D48777315EA5 /* AppCommand.swift */; };
 		0A79BCBE0AB429D356DC3476 /* TrainAlarmsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E821B918A4F22E6C198055 /* TrainAlarmsView.swift */; };
 		12E135B1F50232A61800F732 /* TrackSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764004ED186761BDACF4E435 /* TrackSegment.swift */; };
 		142BB720E8F6BAE43C588BDF /* CBTC_VisionClientApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207A0029126EA3CF8B031C62 /* CBTC_VisionClientApp.swift */; };
 		1531957B50446AC562BE4432 /* SpatialDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C0359599243B8D23D1EC11 /* SpatialDashboardView.swift */; };
 		19C5E61582058EF1DF58A4A8 /* FontLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0CA55A6A68E5AB7653EC80 /* FontLoader.swift */; };
 		1FBFF86A8647A14031373C41 /* SystemTelemetry.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0FB08EAFB73A75CA178224 /* SystemTelemetry.swift */; };
+		20990482C4ABD14641C10F95 /* ClockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDB42E680E48B1804B79DB9 /* ClockView.swift */; };
 		25511EA1780AC0F1F2CF9DA6 /* Train.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BC277F1CD8F15F1486B1D6 /* Train.swift */; };
 		2675C6DA4F2FB2E121EB1A2A /* TrainSecurityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBC2A1907DCBD9054AA1465 /* TrainSecurityView.swift */; };
+		2BF7BCCF6D4F0ABA63D36288 /* FontLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0CA55A6A68E5AB7653EC80 /* FontLoader.swift */; };
+		2FE92447F13B9F8A7BC251FC /* TrainBootScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D649085AB80FA858B230E77 /* TrainBootScreenView.swift */; };
+		38F0A927329D2BE4C4E3E12F /* DemoModeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBC8C2D9799237861D82A12 /* DemoModeManager.swift */; };
+		3BDA1AA219E824439C04F146 /* TrainSecurityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBC2A1907DCBD9054AA1465 /* TrainSecurityView.swift */; };
 		46577E4720D78E00E30B0FE1 /* Station.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8D77EC1C7745BC04188788 /* Station.swift */; };
+		4DF8B4AD6FDC992ABE0F785A /* ServiceProvisoireView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B595BC93600D3E7ADA4A907B /* ServiceProvisoireView.swift */; };
 		50BF60056B8052C87E3C7277 /* TrainHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8D6877571566296C06884C /* TrainHistoryView.swift */; };
 		5217C26B0331E85E401F569A /* ServiceProvisoire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FDE73A7B132728E0B0D8274 /* ServiceProvisoire.swift */; };
 		5465B7D26563B310C3CFBC53 /* TrainTelecommandsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE40296B0E352518F77C717 /* TrainTelecommandsView.swift */; };
 		56E0DBFB2FBE4511896F7216 /* AsservissementModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DCB3A4AEFD2900D62E3ABD8 /* AsservissementModule.swift */; };
 		5939E7172D8EE5F0B62303E1 /* SynopticView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4591D560A93C2B768EC26B6A /* SynopticView.swift */; };
+		5A4590CC5EB56A63731E7B2A /* PCCDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4934588B8A852C073592F3 /* PCCDashboardView.swift */; };
+		62551E6E0A9E9B9CC3E752F4 /* PlatformColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52DB0A266CB01670E020A8A /* PlatformColor.swift */; };
 		627FBCE24492C698CA5B98E8 /* TrainOBCU.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8DE14ACAD1A34BDC1B5D010 /* TrainOBCU.swift */; };
 		628450E8A2616958EFD5F14F /* ImmersiveTrackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E76128CD17DD76A0CB26007 /* ImmersiveTrackView.swift */; };
+		62E5ADF3AA5562F71DEF7C7A /* TrainTelecommandsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FE40296B0E352518F77C717 /* TrainTelecommandsView.swift */; };
 		6320201D9931FF4DA1DD3F7E /* CBTC_ClientApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31477A6BA91DF361B5431C5 /* CBTC_ClientApp.swift */; };
+		7161C64444E3FD2086DD9622 /* TrainMainDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6617DD59BCC47E70253DC63 /* TrainMainDashboardView.swift */; };
+		74309BEAA1AE5464FFAD4760 /* PlatformColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D48C37B17008D1871DF83DD /* PlatformColorExtension.swift */; };
+		749A1996951CD50DCBC0C2D4 /* TrainSignalingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D285C64575D5F04E67695934 /* TrainSignalingView.swift */; };
 		752857C1BDA32F3F6FFE9907 /* TrainTractionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945D35F1AB1D69E2B5008C81 /* TrainTractionView.swift */; };
+		75C44ABB58A714B840DC4D1C /* PlatformColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D48C37B17008D1871DF83DD /* PlatformColorExtension.swift */; };
 		76923B9276E86CA916C3D666 /* ManualControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC6E9D70ED36E2FC44FBBFB /* ManualControlView.swift */; };
+		78CABA82473E8D142A40787A /* TrackSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764004ED186761BDACF4E435 /* TrackSegment.swift */; };
+		7E73E852317C30A8CDD916DD /* PlatformViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88181A8BC07D104EC5C06BF /* PlatformViewRepresentable.swift */; };
+		813E187875ED1F4715CA87EB /* PlatformColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D48C37B17008D1871DF83DD /* PlatformColorExtension.swift */; };
 		827771DC2DF175588CD10786 /* Train.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BC277F1CD8F15F1486B1D6 /* Train.swift */; };
 		82A36E49B903EE318539B28D /* TrainDCAView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5E0328833EDCE0888C5C27 /* TrainDCAView.swift */; };
 		85357267BAB102BC6F474D33 /* Station.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8D77EC1C7745BC04188788 /* Station.swift */; };
 		85B283ADF45E43940A2BA6B7 /* FailureControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0413E7FA71ABB47C60F2820F /* FailureControlView.swift */; };
+		88A4545CDDE0BBF15E1EC0F4 /* TrainPneumaticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A140EEFD1830D5BBAC5B9932 /* TrainPneumaticsView.swift */; };
 		892973789267AE13D9917790 /* TrackSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764004ED186761BDACF4E435 /* TrackSegment.swift */; };
 		8B25AEE31756F793DDFF722A /* TrainOperationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18267D9222BA64ABA2C6118F /* TrainOperationsView.swift */; };
+		8C4CEDDB3650555BB24B3A59 /* TrainAsservissementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FE1A74A8E306A38D2E9882 /* TrainAsservissementView.swift */; };
 		8C6E02418ACC20B2D92F95F4 /* TrainDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A579B2D7621D7BD71167472 /* TrainDetailView.swift */; };
+		8ECC86C806AE52FE23AB9FBF /* TrainAlarmsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5E821B918A4F22E6C198055 /* TrainAlarmsView.swift */; };
+		9655C67659834B904063E9B6 /* PlatformViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88181A8BC07D104EC5C06BF /* PlatformViewRepresentable.swift */; };
 		9832F9692BD32182386119E3 /* TrainSignalingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D285C64575D5F04E67695934 /* TrainSignalingView.swift */; };
 		99B08B709D8B26DF3473F6F2 /* AppCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED87303DEF2D48777315EA5 /* AppCommand.swift */; };
 		9AF67CD958E0BFF6D480C04C /* ServiceProvisoireView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B595BC93600D3E7ADA4A907B /* ServiceProvisoireView.swift */; };
+		9B4B132323674787FBC93691 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FB0C2A35AC4684DB80BA45C4 /* Localizable.strings */; };
+		9BBEAD9F1D4C861D7BEFC783 /* PlatformColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52DB0A266CB01670E020A8A /* PlatformColor.swift */; };
 		9F7D01CBBBA3932F68B5CE74 /* CBTC_ServerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107D2353D4F148C0E8CEC9F2 /* CBTC_ServerApp.swift */; };
+		A0E8F1DF4E2C1B420C52F0CE /* ServiceProvisoire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FDE73A7B132728E0B0D8274 /* ServiceProvisoire.swift */; };
 		A11289AA185DB2AFB7645FC2 /* TrainAuxiliaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75ABE173A87176A0F4669F4C /* TrainAuxiliaryView.swift */; };
 		A535C624EF78CED7F1B4D278 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FB0C2A35AC4684DB80BA45C4 /* Localizable.strings */; };
 		A5916BA069E104B6B556636F /* DemoModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188C0E767E61E358D1250FE /* DemoModeView.swift */; };
@@ -49,26 +76,48 @@
 		B17C6686268063846B491E37 /* TrainDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1328F5A906AAB49F2A8679F3 /* TrainDataService.swift */; };
 		B26F6DCD808F93703E580AA9 /* String+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B0016DC267A0647B6BF98F /* String+Localization.swift */; };
 		B3C183225208222D837A54B9 /* TrainAsservissementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FE1A74A8E306A38D2E9882 /* TrainAsservissementView.swift */; };
+		B61E7688F771F39399D02E19 /* Station.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8D77EC1C7745BC04188788 /* Station.swift */; };
 		BBD33498175CD4EE122FDC02 /* ClockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDB42E680E48B1804B79DB9 /* ClockView.swift */; };
 		BCF894245AF74B8CA903CCE7 /* NetworkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EE70CEADE1BE45778A93BA /* NetworkView.swift */; };
+		C1FABA5CA8E3E3CD3C1358BA /* PlatformColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D48C37B17008D1871DF83DD /* PlatformColorExtension.swift */; };
+		C477A51FB1194B3A09989685 /* PlatformViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88181A8BC07D104EC5C06BF /* PlatformViewRepresentable.swift */; };
 		C7C250A2EC2CFB35B41A1196 /* ServerNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89675D5A6BB62AE22A9BD7AC /* ServerNetworkService.swift */; };
+		C9F063508FA25179276F2E51 /* PlatformViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88181A8BC07D104EC5C06BF /* PlatformViewRepresentable.swift */; };
+		CB3762EC202E1DEE01D82749 /* Train.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BC277F1CD8F15F1486B1D6 /* Train.swift */; };
 		CB6648845C633DD8D3EFFD1C /* ClientNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48261B4FBBA96DADD5F549CC /* ClientNetworkService.swift */; };
+		CBD74D4BFBBBEE9E6F9F53E6 /* TrainAuxiliaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75ABE173A87176A0F4669F4C /* TrainAuxiliaryView.swift */; };
 		CF21AC34F84E5A094F9F0BB8 /* TrainBootScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D649085AB80FA858B230E77 /* TrainBootScreenView.swift */; };
 		D43B98601A4ECAFDEEA0BCBA /* TrainMainDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6617DD59BCC47E70253DC63 /* TrainMainDashboardView.swift */; };
+		D44E689260FA8CA80681EC73 /* TrainOperationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18267D9222BA64ABA2C6118F /* TrainOperationsView.swift */; };
 		D533F61994F2357850B08852 /* TrainDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1328F5A906AAB49F2A8679F3 /* TrainDataService.swift */; };
+		D551FD37E6BCC15C14E5438E /* FailureControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0413E7FA71ABB47C60F2820F /* FailureControlView.swift */; };
+		D56438BC5B98751BD402E13F /* ManualControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC6E9D70ED36E2FC44FBBFB /* ManualControlView.swift */; };
 		D56E63169476DEE7DB8CD22D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3920F90C94AF49E9EC8FC6D /* ContentView.swift */; };
+		D61479A04D788A567498BDFC /* NetworkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EE70CEADE1BE45778A93BA /* NetworkView.swift */; };
 		D67C3DE5F9DA3848284D9EBC /* SimulationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D814CF77456C917F4EEC5E /* SimulationState.swift */; };
 		D724BC15A86A9C08F5A53D8D /* ServiceProvisoire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FDE73A7B132728E0B0D8274 /* ServiceProvisoire.swift */; };
+		D72E818BC6B9D6AC977B7AFE /* PlatformColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52DB0A266CB01670E020A8A /* PlatformColor.swift */; };
+		D97DB8C7463A548CA21DB5BF /* TrainDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A579B2D7621D7BD71167472 /* TrainDetailView.swift */; };
+		DB295D1BF1AF25544A807FC7 /* TrainTractionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945D35F1AB1D69E2B5008C81 /* TrainTractionView.swift */; };
+		DFD87DE5FED4B2CFD8EFE9F8 /* String+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B0016DC267A0647B6BF98F /* String+Localization.swift */; };
 		E02265F0EBFB8DF106447CDF /* Station.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8D77EC1C7745BC04188788 /* Station.swift */; };
 		E0E66392792638E24B07FEB2 /* Train.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43BC277F1CD8F15F1486B1D6 /* Train.swift */; };
 		E0E8AC2FE5209B702D7C2E93 /* SystemTelemetry.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0FB08EAFB73A75CA178224 /* SystemTelemetry.swift */; };
+		E2B67EA36CC21C59FA81E276 /* CBTC_ClientApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31477A6BA91DF361B5431C5 /* CBTC_ClientApp.swift */; };
 		E4DED5114889B745E510D6A8 /* PCCDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D4934588B8A852C073592F3 /* PCCDashboardView.swift */; };
+		E7296BF2A290F69A98D619F6 /* TrainDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1328F5A906AAB49F2A8679F3 /* TrainDataService.swift */; };
+		EDA7E87254A0B11F4DA3866C /* DemoModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188C0E767E61E358D1250FE /* DemoModeView.swift */; };
 		EE041049D5092A6630A880E2 /* ServerDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A455B701F911BB95086B7342 /* ServerDashboardView.swift */; };
+		F18862AF18D0062EB8557AAC /* SynopticView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4591D560A93C2B768EC26B6A /* SynopticView.swift */; };
 		F52116BF079D72C6B02633B5 /* SystemTelemetry.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0FB08EAFB73A75CA178224 /* SystemTelemetry.swift */; };
 		F61F6435AE84212B881A7D98 /* SpatialControlPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F7E367AC2576703D2249CE /* SpatialControlPanelView.swift */; };
 		F768BB955011DB987E0B42BE /* VT323-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7BDCEF0ADE7705EB22F6EFFF /* VT323-Regular.ttf */; };
+		F8201D5AE60018ED97605790 /* PlatformColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52DB0A266CB01670E020A8A /* PlatformColor.swift */; };
+		F8B6383EB71B9E5956E67B93 /* TrainHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8D6877571566296C06884C /* TrainHistoryView.swift */; };
 		FB3F9795060EDF3F22D1B0A3 /* TrackSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 764004ED186761BDACF4E435 /* TrackSegment.swift */; };
+		FD86F43EE558EB2425625FD4 /* SystemTelemetry.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0FB08EAFB73A75CA178224 /* SystemTelemetry.swift */; };
 		FDA14565367397F1BEC2337A /* TrainPneumaticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A140EEFD1830D5BBAC5B9932 /* TrainPneumaticsView.swift */; };
+		FDDB119F6916632ABF7CA5EA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3920F90C94AF49E9EC8FC6D /* ContentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -92,6 +141,7 @@
 		4591D560A93C2B768EC26B6A /* SynopticView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynopticView.swift; sourceTree = "<group>"; };
 		48261B4FBBA96DADD5F549CC /* ClientNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientNetworkService.swift; sourceTree = "<group>"; };
 		5CBC2A1907DCBD9054AA1465 /* TrainSecurityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainSecurityView.swift; sourceTree = "<group>"; };
+		5D48C37B17008D1871DF83DD /* PlatformColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformColorExtension.swift; sourceTree = "<group>"; };
 		5D4934588B8A852C073592F3 /* PCCDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCCDashboardView.swift; sourceTree = "<group>"; };
 		6DCB3A4AEFD2900D62E3ABD8 /* AsservissementModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsservissementModule.swift; sourceTree = "<group>"; };
 		6E76128CD17DD76A0CB26007 /* ImmersiveTrackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImmersiveTrackView.swift; sourceTree = "<group>"; };
@@ -100,6 +150,7 @@
 		75F7E367AC2576703D2249CE /* SpatialControlPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpatialControlPanelView.swift; sourceTree = "<group>"; };
 		764004ED186761BDACF4E435 /* TrackSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackSegment.swift; sourceTree = "<group>"; };
 		76D814CF77456C917F4EEC5E /* SimulationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulationState.swift; sourceTree = "<group>"; };
+		79B32525EFBB502ECD191EB7 /* CBTC_tvOSClient.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = CBTC_tvOSClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BDCEF0ADE7705EB22F6EFFF /* VT323-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "VT323-Regular.ttf"; sourceTree = "<group>"; };
 		89675D5A6BB62AE22A9BD7AC /* ServerNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerNetworkService.swift; sourceTree = "<group>"; };
 		8D649085AB80FA858B230E77 /* TrainBootScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainBootScreenView.swift; sourceTree = "<group>"; };
@@ -117,8 +168,10 @@
 		C6617DD59BCC47E70253DC63 /* TrainMainDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainMainDashboardView.swift; sourceTree = "<group>"; };
 		CA0CA55A6A68E5AB7653EC80 /* FontLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontLoader.swift; sourceTree = "<group>"; };
 		D285C64575D5F04E67695934 /* TrainSignalingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainSignalingView.swift; sourceTree = "<group>"; };
+		D88181A8BC07D104EC5C06BF /* PlatformViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformViewRepresentable.swift; sourceTree = "<group>"; };
 		DB0FB08EAFB73A75CA178224 /* SystemTelemetry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemTelemetry.swift; sourceTree = "<group>"; };
 		DDDA717821CA98F84A93AE6B /* CBTC_VisionClient.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = CBTC_VisionClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E52DB0A266CB01670E020A8A /* PlatformColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformColor.swift; sourceTree = "<group>"; };
 		E8DE14ACAD1A34BDC1B5D010 /* TrainOBCU.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainOBCU.swift; sourceTree = "<group>"; };
 		ED5E0328833EDCE0888C5C27 /* TrainDCAView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainDCAView.swift; sourceTree = "<group>"; };
 		EE7686FE0F53DDA6F4A71E0C /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -139,6 +192,7 @@
 			children = (
 				A6C9A3395C8CB25F62F8E3CA /* CBTC_Client.app */,
 				BB017957BC18D29C5CBC2BF0 /* CBTC_Server.app */,
+				79B32525EFBB502ECD191EB7 /* CBTC_tvOSClient.app */,
 				DDDA717821CA98F84A93AE6B /* CBTC_VisionClient.app */,
 			);
 			name = Products;
@@ -196,6 +250,9 @@
 			isa = PBXGroup;
 			children = (
 				2ED87303DEF2D48777315EA5 /* AppCommand.swift */,
+				E52DB0A266CB01670E020A8A /* PlatformColor.swift */,
+				5D48C37B17008D1871DF83DD /* PlatformColorExtension.swift */,
+				D88181A8BC07D104EC5C06BF /* PlatformViewRepresentable.swift */,
 				DB0FB08EAFB73A75CA178224 /* SystemTelemetry.swift */,
 				8B5B58CDD5B8E78CAEF1194B /* Models */,
 				FF76441F6591653D993D87D4 /* Services */,
@@ -385,6 +442,24 @@
 			productReference = A6C9A3395C8CB25F62F8E3CA /* CBTC_Client.app */;
 			productType = "com.apple.product-type.application";
 		};
+		85A3125CCF53BD3AB39C9B18 /* CBTC_tvOSClient */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D45014E9FA07AD86EC4EFAF1 /* Build configuration list for PBXNativeTarget "CBTC_tvOSClient" */;
+			buildPhases = (
+				B8D053CB0B986380B8C96F8E /* Sources */,
+				7776ECC96EB40F2986BBD128 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CBTC_tvOSClient;
+			packageProductDependencies = (
+			);
+			productName = CBTC_tvOSClient;
+			productReference = 79B32525EFBB502ECD191EB7 /* CBTC_tvOSClient.app */;
+			productType = "com.apple.product-type.application";
+		};
 		C963216790CFD2D720863C05 /* CBTC_VisionClient */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = DA19E98FA42189D47F3C39F0 /* Build configuration list for PBXNativeTarget "CBTC_VisionClient" */;
@@ -430,11 +505,21 @@
 				7E0BF68DF1F9F9322D6837B4 /* CBTC_Client */,
 				64BA2E9E53761EFD114B285C /* CBTC_Server */,
 				C963216790CFD2D720863C05 /* CBTC_VisionClient */,
+				85A3125CCF53BD3AB39C9B18 /* CBTC_tvOSClient */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		7776ECC96EB40F2986BBD128 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9B4B132323674787FBC93691 /* Localizable.strings in Resources */,
+				00AF7FC7E1015172D206190B /* VT323-Regular.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		78163410A715E6428B2C122F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -463,6 +548,9 @@
 				76923B9276E86CA916C3D666 /* ManualControlView.swift in Sources */,
 				BCF894245AF74B8CA903CCE7 /* NetworkView.swift in Sources */,
 				E4DED5114889B745E510D6A8 /* PCCDashboardView.swift in Sources */,
+				D72E818BC6B9D6AC977B7AFE /* PlatformColor.swift in Sources */,
+				75C44ABB58A714B840DC4D1C /* PlatformColorExtension.swift in Sources */,
+				7E73E852317C30A8CDD916DD /* PlatformViewRepresentable.swift in Sources */,
 				5217C26B0331E85E401F569A /* ServiceProvisoire.swift in Sources */,
 				9AF67CD958E0BFF6D480C04C /* ServiceProvisoireView.swift in Sources */,
 				E02265F0EBFB8DF106447CDF /* Station.swift in Sources */,
@@ -489,6 +577,51 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B8D053CB0B986380B8C96F8E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0943D62B2596DB310DFE8608 /* AppCommand.swift in Sources */,
+				E2B67EA36CC21C59FA81E276 /* CBTC_ClientApp.swift in Sources */,
+				02C8DF578BB4577640731F42 /* ClientNetworkService.swift in Sources */,
+				20990482C4ABD14641C10F95 /* ClockView.swift in Sources */,
+				FDDB119F6916632ABF7CA5EA /* ContentView.swift in Sources */,
+				38F0A927329D2BE4C4E3E12F /* DemoModeManager.swift in Sources */,
+				EDA7E87254A0B11F4DA3866C /* DemoModeView.swift in Sources */,
+				D551FD37E6BCC15C14E5438E /* FailureControlView.swift in Sources */,
+				2BF7BCCF6D4F0ABA63D36288 /* FontLoader.swift in Sources */,
+				D56438BC5B98751BD402E13F /* ManualControlView.swift in Sources */,
+				D61479A04D788A567498BDFC /* NetworkView.swift in Sources */,
+				5A4590CC5EB56A63731E7B2A /* PCCDashboardView.swift in Sources */,
+				62551E6E0A9E9B9CC3E752F4 /* PlatformColor.swift in Sources */,
+				74309BEAA1AE5464FFAD4760 /* PlatformColorExtension.swift in Sources */,
+				C9F063508FA25179276F2E51 /* PlatformViewRepresentable.swift in Sources */,
+				A0E8F1DF4E2C1B420C52F0CE /* ServiceProvisoire.swift in Sources */,
+				4DF8B4AD6FDC992ABE0F785A /* ServiceProvisoireView.swift in Sources */,
+				B61E7688F771F39399D02E19 /* Station.swift in Sources */,
+				DFD87DE5FED4B2CFD8EFE9F8 /* String+Localization.swift in Sources */,
+				F18862AF18D0062EB8557AAC /* SynopticView.swift in Sources */,
+				FD86F43EE558EB2425625FD4 /* SystemTelemetry.swift in Sources */,
+				78CABA82473E8D142A40787A /* TrackSegment.swift in Sources */,
+				CB3762EC202E1DEE01D82749 /* Train.swift in Sources */,
+				8ECC86C806AE52FE23AB9FBF /* TrainAlarmsView.swift in Sources */,
+				8C4CEDDB3650555BB24B3A59 /* TrainAsservissementView.swift in Sources */,
+				CBD74D4BFBBBEE9E6F9F53E6 /* TrainAuxiliaryView.swift in Sources */,
+				2FE92447F13B9F8A7BC251FC /* TrainBootScreenView.swift in Sources */,
+				02D0036166C4B819CADD0F3F /* TrainDCAView.swift in Sources */,
+				E7296BF2A290F69A98D619F6 /* TrainDataService.swift in Sources */,
+				D97DB8C7463A548CA21DB5BF /* TrainDetailView.swift in Sources */,
+				F8B6383EB71B9E5956E67B93 /* TrainHistoryView.swift in Sources */,
+				7161C64444E3FD2086DD9622 /* TrainMainDashboardView.swift in Sources */,
+				D44E689260FA8CA80681EC73 /* TrainOperationsView.swift in Sources */,
+				88A4545CDDE0BBF15E1EC0F4 /* TrainPneumaticsView.swift in Sources */,
+				3BDA1AA219E824439C04F146 /* TrainSecurityView.swift in Sources */,
+				749A1996951CD50DCBC0C2D4 /* TrainSignalingView.swift in Sources */,
+				62E5ADF3AA5562F71DEF7C7A /* TrainTelecommandsView.swift in Sources */,
+				DB295D1BF1AF25544A807FC7 /* TrainTractionView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EBD2FD0EAD6B672A77A35263 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -496,6 +629,9 @@
 				AF9E1CF8FB9EFD9924E0676C /* AppCommand.swift in Sources */,
 				142BB720E8F6BAE43C588BDF /* CBTC_VisionClientApp.swift in Sources */,
 				628450E8A2616958EFD5F14F /* ImmersiveTrackView.swift in Sources */,
+				9BBEAD9F1D4C861D7BEFC783 /* PlatformColor.swift in Sources */,
+				813E187875ED1F4715CA87EB /* PlatformColorExtension.swift in Sources */,
+				9655C67659834B904063E9B6 /* PlatformViewRepresentable.swift in Sources */,
 				A7B6EE04F5D533054DC4501C /* ServiceProvisoire.swift in Sources */,
 				D67C3DE5F9DA3848284D9EBC /* SimulationState.swift in Sources */,
 				F61F6435AE84212B881A7D98 /* SpatialControlPanelView.swift in Sources */,
@@ -515,6 +651,9 @@
 				AA804643F19CB989F9008355 /* AppCommand.swift in Sources */,
 				56E0DBFB2FBE4511896F7216 /* AsservissementModule.swift in Sources */,
 				9F7D01CBBBA3932F68B5CE74 /* CBTC_ServerApp.swift in Sources */,
+				F8201D5AE60018ED97605790 /* PlatformColor.swift in Sources */,
+				C1FABA5CA8E3E3CD3C1358BA /* PlatformColorExtension.swift in Sources */,
+				C477A51FB1194B3A09989685 /* PlatformViewRepresentable.swift in Sources */,
 				EE041049D5092A6630A880E2 /* ServerDashboardView.swift in Sources */,
 				C7C250A2EC2CFB35B41A1196 /* ServerNetworkService.swift in Sources */,
 				D724BC15A86A9C08F5A53D8D /* ServiceProvisoire.swift in Sources */,
@@ -689,6 +828,56 @@
 			};
 			name = Debug;
 		};
+		85770B3BAD63D4B9EE1EC06C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Local network is required to connect to the Simulation Server.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsMultipleScenes = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.dcarmich.CBTC-tvOSClient";
+				PRODUCT_NAME = CBTC_tvOSClient;
+				SDKROOT = appletvos;
+				SUPPORTED_PLATFORMS = "appletvos appletvsimulator";
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 17.0;
+			};
+			name = Debug;
+		};
+		9E6BD865F794EEA7AAB24746 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Local network is required to connect to the Simulation Server.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsMultipleScenes = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.dcarmich.CBTC-tvOSClient";
+				PRODUCT_NAME = CBTC_tvOSClient;
+				SDKROOT = appletvos;
+				SUPPORTED_PLATFORMS = "appletvos appletvsimulator";
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 17.0;
+			};
+			name = Release;
+		};
 		B93F975CF8A0361CDDF6E985 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -787,6 +976,15 @@
 			buildConfigurations = (
 				F2258804F6A047F77CAB39A2 /* Debug */,
 				26BDDF833B4101C52392D10E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		D45014E9FA07AD86EC4EFAF1 /* Build configuration list for PBXNativeTarget "CBTC_tvOSClient" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				85770B3BAD63D4B9EE1EC06C /* Debug */,
+				9E6BD865F794EEA7AAB24746 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

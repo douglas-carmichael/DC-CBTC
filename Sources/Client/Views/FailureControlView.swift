@@ -86,12 +86,14 @@ struct FailureControlView: View {
                             }
                         }
                     }
+                    #if os(macOS)
                     .toggleStyle(SwitchToggleStyle(tint: .red))
+                    #endif
                     .font(.headline)
                     .padding(.horizontal)
                 }
                 .padding()
-                .background(Color(NSColor.controlBackgroundColor))
+                .background(Color.platformControlBackground)
                 .cornerRadius(10)
                 .padding()
                 

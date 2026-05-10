@@ -225,12 +225,12 @@ class ClientNetworkService: ObservableObject {
         
         let floor = SCNFloor()
         floor.reflectivity = 0.1
-        floor.firstMaterial?.diffuse.contents = NSColor.black
+        floor.firstMaterial?.diffuse.contents = PlatformColor.black
         let floorNode = SCNNode(geometry: floor)
         scene.rootNode.addChildNode(floorNode)
         
         let centerBox = SCNBox(width: 10, height: 10, length: 10, chamferRadius: 0)
-        centerBox.firstMaterial?.diffuse.contents = NSColor.yellow
+        centerBox.firstMaterial?.diffuse.contents = PlatformColor.yellow
         let centerNode = SCNNode(geometry: centerBox)
         centerNode.position = SCNVector3(0, 5, 0)
         scene.rootNode.addChildNode(centerNode)
@@ -245,7 +245,7 @@ class ClientNetworkService: ObservableObject {
         let ambientLightNode = SCNNode()
         ambientLightNode.light = SCNLight()
         ambientLightNode.light?.type = .ambient
-        ambientLightNode.light?.color = NSColor.white
+        ambientLightNode.light?.color = PlatformColor.white
         ambientLightNode.light?.intensity = 1200
         scene.rootNode.addChildNode(ambientLightNode)
         
@@ -296,9 +296,9 @@ class ClientNetworkService: ObservableObject {
                 SCNTransaction.begin()
                 SCNTransaction.animationDuration = 0.1
                 if isRestricted {
-                    node.geometry?.firstMaterial?.diffuse.contents = NSColor.darkGray.withAlphaComponent(0.2)
+                    node.geometry?.firstMaterial?.diffuse.contents = PlatformColor.darkGray.withAlphaComponent(0.2)
                 } else {
-                    node.geometry?.firstMaterial?.diffuse.contents = NSColor.gray
+                    node.geometry?.firstMaterial?.diffuse.contents = PlatformColor.gray
                 }
                 SCNTransaction.commit()
             }
@@ -307,7 +307,7 @@ class ClientNetworkService: ObservableObject {
                 guard let node = segmentNodes[segment.id] else { continue }
                 SCNTransaction.begin()
                 SCNTransaction.animationDuration = 0.1
-                node.geometry?.firstMaterial?.diffuse.contents = NSColor.gray
+                node.geometry?.firstMaterial?.diffuse.contents = PlatformColor.gray
                 SCNTransaction.commit()
             }
         }
@@ -329,11 +329,11 @@ class ClientNetworkService: ObservableObject {
             node.eulerAngles = SCNVector3(0, rotationAngle, 0)
             
             if train.isLoadSheddingActive {
-                node.geometry?.firstMaterial?.diffuse.contents = NSColor.orange
+                node.geometry?.firstMaterial?.diffuse.contents = PlatformColor.orange
             } else if train.status == .stopped {
-                node.geometry?.firstMaterial?.diffuse.contents = NSColor.red
+                node.geometry?.firstMaterial?.diffuse.contents = PlatformColor.red
             } else if train.status == .moving {
-                node.geometry?.firstMaterial?.diffuse.contents = NSColor.green
+                node.geometry?.firstMaterial?.diffuse.contents = PlatformColor.green
             }
             SCNTransaction.commit()
         }
@@ -341,7 +341,7 @@ class ClientNetworkService: ObservableObject {
     
     private func drawSegment(_ segment: TrackSegment) {
         let marker = SCNNode(geometry: SCNSphere(radius: 2))
-        marker.geometry?.firstMaterial?.diffuse.contents = NSColor.white
+        marker.geometry?.firstMaterial?.diffuse.contents = PlatformColor.white
         marker.position = SCNVector3(segment.startPoint.x, 0, segment.startPoint.y)
         scene.rootNode.addChildNode(marker)
         
@@ -358,7 +358,7 @@ class ClientNetworkService: ObservableObject {
         let mid = SCNVector3(x:(from.x + to.x) / 2, y:(from.y + to.y) / 2, z:(from.z + to.z) / 2)
         
         let lineGeometry = SCNCylinder(radius: 0.5, height: CGFloat(distance))
-        lineGeometry.firstMaterial?.diffuse.contents = NSColor.gray
+        lineGeometry.firstMaterial?.diffuse.contents = PlatformColor.gray
         
         let lineNode = SCNNode(geometry: lineGeometry)
         lineNode.position = mid
@@ -383,7 +383,7 @@ class ClientNetworkService: ObservableObject {
         let platformZ = z * sideMultiplier
         
         let platformGeometry = SCNBox(width: 8, height: 1, length: 20, chamferRadius: 0)
-        platformGeometry.firstMaterial?.diffuse.contents = NSColor.darkGray
+        platformGeometry.firstMaterial?.diffuse.contents = PlatformColor.darkGray
         
         let node = SCNNode(geometry: platformGeometry)
         node.position = SCNVector3(platformX, 0.5, platformZ)
@@ -392,8 +392,8 @@ class ClientNetworkService: ObservableObject {
         scene.rootNode.addChildNode(node)
         
         let textGeom = SCNText(string: station.name, extrusionDepth: 0.5)
-        textGeom.font = NSFont(name: "Helvetica-Bold", size: 3)
-        textGeom.firstMaterial?.diffuse.contents = NSColor.white
+        textGeom.font = PlatformFont(name: "Helvetica-Bold", size: 3)
+        textGeom.firstMaterial?.diffuse.contents = PlatformColor.white
         
         let textNode = SCNNode(geometry: textGeom)
         textNode.position = SCNVector3(platformX, 5, platformZ)
@@ -403,7 +403,7 @@ class ClientNetworkService: ObservableObject {
     
     private func addTrainNode(for train: Train) {
         let trainGeometry = SCNBox(width: 4, height: 4, length: 15, chamferRadius: 0.5)
-        trainGeometry.firstMaterial?.diffuse.contents = NSColor.blue
+        trainGeometry.firstMaterial?.diffuse.contents = PlatformColor.blue
         let node = SCNNode(geometry: trainGeometry)
         node.position = SCNVector3(0, 2, 0)
         
@@ -415,8 +415,8 @@ class ClientNetworkService: ObservableObject {
     private func makeTrainLabel(for train: Train) -> SCNNode {
         let idString = train.name.replacingOccurrences(of: "Rame ", with: "")
         let textGeom = SCNText(string: idString, extrusionDepth: 0.3)
-        textGeom.font = NSFont(name: "Helvetica-Bold", size: 4)
-        textGeom.firstMaterial?.diffuse.contents = NSColor.white
+        textGeom.font = PlatformFont(name: "Helvetica-Bold", size: 4)
+        textGeom.firstMaterial?.diffuse.contents = PlatformColor.white
         textGeom.flatness = 0.1
         
         let textNode = SCNNode(geometry: textGeom)
