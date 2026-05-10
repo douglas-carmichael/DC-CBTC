@@ -26,6 +26,24 @@ struct ContentView: View {
                     
                     HStack(spacing: 20) {
                         Button(action: {
+                            simulationController.rotateCamera(left: true)
+                        }) {
+                            Image(systemName: "rotate.left")
+                                .font(.system(size: 40))
+                                .padding()
+                        }
+                        .buttonStyle(.card)
+                        
+                        Button(action: {
+                            simulationController.rotateCamera(left: false)
+                        }) {
+                            Image(systemName: "rotate.right")
+                                .font(.system(size: 40))
+                                .padding()
+                        }
+                        .buttonStyle(.card)
+                        
+                        Button(action: {
                             simulationController.zoomCamera(in: false)
                         }) {
                             Image(systemName: "minus.magnifyingglass")

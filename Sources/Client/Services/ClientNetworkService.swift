@@ -157,6 +157,22 @@ class ClientNetworkService: ObservableObject {
         cameraNode.position = SCNVector3(x: currentPos.x, y: currentPos.y * zoomFactor, z: currentPos.z * zoomFactor)
         cameraResetTrigger += 1
     }
+    
+    func rotateCamera(left: Bool) {
+        guard let cameraNode = cameraNode else { return }
+        let currentPos = cameraNode.position
+        let angle: Float = left ? .pi / 8 : -.pi / 8
+        
+        let newX = currentPos.x * cos(angle) - currentPos.z * sin(angle)
+        let newZ = currentPos.x * sin(angle) + currentPos.z * cos(angle)
+        
+        SCNTransaction.begin()
+        SCNTransaction.animationDuration = 0.3
+        cameraNode.position = SCNVector3(x: newX, y: currentPos.y, z: newZ)
+        SCNTransaction.commit()
+        
+        cameraResetTrigger += 1
+    }
     func toggleTrainPhysics(for trainId: UUID, patinage: Bool, enrayage: Bool) { send(command: .toggleTrainPhysics(trainId: trainId, patinage: patinage, enrayage: enrayage)) }
     func cycleTireStatus(for trainId: UUID, at tireIndex: Int) { send(command: .cycleTireStatus(trainId: trainId, tireIndex: tireIndex)) }
     func toggleFault(for trainId: UUID, faultType: FaultType) { send(command: .toggleFault(trainId: trainId, faultType: faultType)) }
