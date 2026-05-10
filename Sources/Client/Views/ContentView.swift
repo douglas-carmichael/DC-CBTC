@@ -20,11 +20,34 @@ struct ContentView: View {
             .frame(minWidth: 1200, minHeight: 800)
             #else
             TabView {
-                NetworkView(scene: simulationController.scene, cameraResetTrigger: simulationController.cameraResetTrigger)
-                    .edgesIgnoringSafeArea(.all)
-                    .tabItem {
-                        Label("Map 3D", systemImage: "map.fill")
+                ZStack(alignment: .bottomTrailing) {
+                    NetworkView(scene: simulationController.scene, cameraResetTrigger: simulationController.cameraResetTrigger)
+                        .edgesIgnoringSafeArea(.all)
+                    
+                    HStack(spacing: 20) {
+                        Button(action: {
+                            simulationController.zoomCamera(in: false)
+                        }) {
+                            Image(systemName: "minus.magnifyingglass")
+                                .font(.system(size: 40))
+                                .padding()
+                        }
+                        .buttonStyle(.card)
+                        
+                        Button(action: {
+                            simulationController.zoomCamera(in: true)
+                        }) {
+                            Image(systemName: "plus.magnifyingglass")
+                                .font(.system(size: 40))
+                                .padding()
+                        }
+                        .buttonStyle(.card)
                     }
+                    .padding(50)
+                }
+                .tabItem {
+                    Label("Map 3D", systemImage: "map.fill")
+                }
                 
                 TVOSDashboardView()
                     .tabItem {

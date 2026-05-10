@@ -149,6 +149,14 @@ class ClientNetworkService: ObservableObject {
         cameraResetTrigger += 1
         send(command: .resetCamera) 
     }
+    
+    func zoomCamera(in zoomIn: Bool) {
+        guard let cameraNode = cameraNode else { return }
+        let currentPos = cameraNode.position
+        let zoomFactor: Float = zoomIn ? 0.8 : 1.25
+        cameraNode.position = SCNVector3(x: currentPos.x, y: currentPos.y * zoomFactor, z: currentPos.z * zoomFactor)
+        cameraResetTrigger += 1
+    }
     func toggleTrainPhysics(for trainId: UUID, patinage: Bool, enrayage: Bool) { send(command: .toggleTrainPhysics(trainId: trainId, patinage: patinage, enrayage: enrayage)) }
     func cycleTireStatus(for trainId: UUID, at tireIndex: Int) { send(command: .cycleTireStatus(trainId: trainId, tireIndex: tireIndex)) }
     func toggleFault(for trainId: UUID, faultType: FaultType) { send(command: .toggleFault(trainId: trainId, faultType: faultType)) }

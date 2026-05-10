@@ -1,11 +1,11 @@
 import SwiftUI
 
-#if os(macOS)
 struct PCCDashboardView: View {
     @EnvironmentObject var simulationController: ClientNetworkService
     @EnvironmentObject var demoManager: DemoModeManager
-    
+    #if os(macOS)
     @Environment(\.openWindow) var openWindow
+    #endif
     
     @State private var showingConnectDialog = false
     @State private var host = "localhost"
@@ -78,7 +78,9 @@ struct PCCDashboardView: View {
                     .buttonStyle(PlainButtonStyle())
                     
                     Button(action: {
-                        openWindow(id: "failure-panel")
+                        #if os(macOS)
+                                openWindow(id: "failure-panel")
+                                #endif
                     }) {
                         Text(.init(String.loc("btn.pannes")))
                             .font(.custom("VT323-Regular", size: 18))
@@ -142,7 +144,9 @@ struct PCCDashboardView: View {
                      .buttonStyle(PlainButtonStyle())
                      
                      Button(action: {
-                         openWindow(id: "service-provisoire")
+                         #if os(macOS)
+                                openWindow(id: "service-provisoire")
+                                #endif
                      }) {
                          HStack {
                              Image(systemName: "exclamationmark.triangle.fill")
@@ -161,7 +165,9 @@ struct PCCDashboardView: View {
                 // Row 5: Synoptic View & Demo Mode
                 HStack(spacing: 20) {
                     Button(action: {
-                        openWindow(id: "synoptic-view")
+                        #if os(macOS)
+                                openWindow(id: "synoptic-view")
+                                #endif
                     }) {
                         HStack {
                             Image(systemName: "map.fill")
@@ -240,11 +246,15 @@ struct PCCDashboardView: View {
                         TrainRow(train: train, controller: simulationController)
                             .contentShape(Rectangle())
                             .onTapGesture {
+                                #if os(macOS)
                                 openWindow(id: "train-detail", value: train.id)
+                                #endif
                             }
                             .contextMenu {
                                 Button(action: {
-                                    openWindow(id: "manual-control", value: train.id)
+                                    #if os(macOS)
+                                openWindow(id: "manual-control", value: train.id)
+                                #endif
                                 }) {
                                     Label(String.loc("ctx.mode_manuel"), systemImage: "steeringwheel")
                                 }
@@ -258,7 +268,11 @@ struct PCCDashboardView: View {
                     }
                 }
             }
+            #if os(macOS)
             .listStyle(.inset)
+            #else
+            .listStyle(.plain)
+            #endif
         }
         .background(Color.platformWindowBackground)
     }
@@ -323,6 +337,5 @@ struct TrainRow: View {
         }
     }
 }
-#endif
 
 
