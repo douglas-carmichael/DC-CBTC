@@ -19,15 +19,18 @@ struct ContentView: View {
             }
             .frame(minWidth: 1200, minHeight: 800)
             #else
-            HStack {
+            TabView {
                 NetworkView(scene: simulationController.scene, cameraResetTrigger: simulationController.cameraResetTrigger)
-                    .frame(minWidth: 400, minHeight: 400)
-                    .layoutPriority(1)
+                    .edgesIgnoringSafeArea(.all)
+                    .tabItem {
+                        Label("Map 3D", systemImage: "map.fill")
+                    }
                 
-                PCCDashboardView()
-                    .frame(minWidth: 400, maxWidth: 600)
+                TVOSDashboardView()
+                    .tabItem {
+                        Label("Control Center", systemImage: "slider.horizontal.3")
+                    }
             }
-            .frame(minWidth: 1200, minHeight: 800)
             #endif
             
             // Demo Mode Overlay

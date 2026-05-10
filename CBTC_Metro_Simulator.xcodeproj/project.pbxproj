@@ -25,6 +25,7 @@
 		2FE92447F13B9F8A7BC251FC /* TrainBootScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D649085AB80FA858B230E77 /* TrainBootScreenView.swift */; };
 		38F0A927329D2BE4C4E3E12F /* DemoModeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBC8C2D9799237861D82A12 /* DemoModeManager.swift */; };
 		3BDA1AA219E824439C04F146 /* TrainSecurityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBC2A1907DCBD9054AA1465 /* TrainSecurityView.swift */; };
+		45BE6ADE76846260E1117768 /* TVOSDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88958DEC04A6DE56E0AC893F /* TVOSDashboardView.swift */; };
 		46577E4720D78E00E30B0FE1 /* Station.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8D77EC1C7745BC04188788 /* Station.swift */; };
 		4DF8B4AD6FDC992ABE0F785A /* ServiceProvisoireView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B595BC93600D3E7ADA4A907B /* ServiceProvisoireView.swift */; };
 		50BF60056B8052C87E3C7277 /* TrainHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8D6877571566296C06884C /* TrainHistoryView.swift */; };
@@ -77,6 +78,7 @@
 		B26F6DCD808F93703E580AA9 /* String+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B0016DC267A0647B6BF98F /* String+Localization.swift */; };
 		B3C183225208222D837A54B9 /* TrainAsservissementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FE1A74A8E306A38D2E9882 /* TrainAsservissementView.swift */; };
 		B61E7688F771F39399D02E19 /* Station.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8D77EC1C7745BC04188788 /* Station.swift */; };
+		B9063A6212718835E9FFFD22 /* TVOSDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88958DEC04A6DE56E0AC893F /* TVOSDashboardView.swift */; };
 		BBD33498175CD4EE122FDC02 /* ClockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACDB42E680E48B1804B79DB9 /* ClockView.swift */; };
 		BCF894245AF74B8CA903CCE7 /* NetworkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EE70CEADE1BE45778A93BA /* NetworkView.swift */; };
 		C1FABA5CA8E3E3CD3C1358BA /* PlatformColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D48C37B17008D1871DF83DD /* PlatformColorExtension.swift */; };
@@ -152,6 +154,7 @@
 		76D814CF77456C917F4EEC5E /* SimulationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimulationState.swift; sourceTree = "<group>"; };
 		79B32525EFBB502ECD191EB7 /* CBTC_tvOSClient.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = CBTC_tvOSClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BDCEF0ADE7705EB22F6EFFF /* VT323-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "VT323-Regular.ttf"; sourceTree = "<group>"; };
+		88958DEC04A6DE56E0AC893F /* TVOSDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVOSDashboardView.swift; sourceTree = "<group>"; };
 		89675D5A6BB62AE22A9BD7AC /* ServerNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerNetworkService.swift; sourceTree = "<group>"; };
 		8D649085AB80FA858B230E77 /* TrainBootScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainBootScreenView.swift; sourceTree = "<group>"; };
 		945D35F1AB1D69E2B5008C81 /* TrainTractionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainTractionView.swift; sourceTree = "<group>"; };
@@ -365,6 +368,7 @@
 				D285C64575D5F04E67695934 /* TrainSignalingView.swift */,
 				6FE40296B0E352518F77C717 /* TrainTelecommandsView.swift */,
 				945D35F1AB1D69E2B5008C81 /* TrainTractionView.swift */,
+				88958DEC04A6DE56E0AC893F /* TVOSDashboardView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -557,6 +561,7 @@
 				B26F6DCD808F93703E580AA9 /* String+Localization.swift in Sources */,
 				5939E7172D8EE5F0B62303E1 /* SynopticView.swift in Sources */,
 				E0E8AC2FE5209B702D7C2E93 /* SystemTelemetry.swift in Sources */,
+				45BE6ADE76846260E1117768 /* TVOSDashboardView.swift in Sources */,
 				12E135B1F50232A61800F732 /* TrackSegment.swift in Sources */,
 				25511EA1780AC0F1F2CF9DA6 /* Train.swift in Sources */,
 				0A79BCBE0AB429D356DC3476 /* TrainAlarmsView.swift in Sources */,
@@ -602,6 +607,7 @@
 				DFD87DE5FED4B2CFD8EFE9F8 /* String+Localization.swift in Sources */,
 				F18862AF18D0062EB8557AAC /* SynopticView.swift in Sources */,
 				FD86F43EE558EB2425625FD4 /* SystemTelemetry.swift in Sources */,
+				B9063A6212718835E9FFFD22 /* TVOSDashboardView.swift in Sources */,
 				78CABA82473E8D142A40787A /* TrackSegment.swift in Sources */,
 				CB3762EC202E1DEE01D82749 /* Train.swift in Sources */,
 				8ECC86C806AE52FE23AB9FBF /* TrainAlarmsView.swift in Sources */,
